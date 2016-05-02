@@ -21,7 +21,7 @@ class MovieDetailsViewController: UIViewController {
         super.viewDidLoad()
         
         if testValue != nil {
-            testLabel.text = "\(testValue)"
+            testLabel.text = "The title of the movie goes here: \(testValue)"
         }
 
         // Do any additional setup after loading the view.
@@ -47,7 +47,7 @@ class MovieDetailsViewController: UIViewController {
 //        let url = NSURL.fileURLWithPath(path!)
         
         
-        var url : NSURL = NSURL(string: "http://jplayer.org/video/m4v/Big_Buck_Bunny_Trailer.m4v")!
+        let url : NSURL = NSURL(string: "http://jplayer.org/video/m4v/Big_Buck_Bunny_Trailer.m4v")!
 //        var url : NSURL = NSURL(string: "https://www.dropbox.com/s/suys73jwue5883v/Brown%20Noise.mp4")!
         moviePlayer = MPMoviePlayerController(contentURL: url)
         if let player = self.moviePlayer {

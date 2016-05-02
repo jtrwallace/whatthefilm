@@ -38,8 +38,8 @@ class MainMoviesViewController: UIViewController {
 
                 
                 let indexPath = self.tableView.indexPathForCell(cell)
-                println("clicked on categoryRow \(indexPath!.row)")
-                println("clicked on categoryRow \(indexPath!.section)")
+                print("clicked on categoryRow \(indexPath!.row)")
+                print("clicked on categoryRow \(indexPath!.section)")
 //                if let indexPath = self.tableView.indexPathForSelectedRow() {
 //                    println("clicked on categoryRow \(indexPath.row)")
 //                    println("clicked on categoryRow \(indexPath.section)")
