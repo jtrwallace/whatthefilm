@@ -1,11 +1,9 @@
-var router = require('koa-router')();
+var express = require('express');
+var router = express.Router();
 
-router.get('/', async function (ctx, next) {
-  ctx.state = {
-    title: 'What The Film'
-  };
+/* GET home page. */
+router.get('/', function(req, res, next) {
+  res.render('index', { title: 'Express' });
+});
 
-  await ctx.render('index', {
-  });
-})
 module.exports = router;
