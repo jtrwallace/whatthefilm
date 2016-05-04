@@ -1,3 +1,6 @@
+# AWS Elastic Beanstalk
+.elasticbeanstalk/
+
 ### Node.JS ###
 
 # Logs
@@ -263,3 +266,6 @@ bower.json
 
 # Ignore Byebug command history file.
 .byebug_history
+
+# Ignore Mac preference files
+.DS_Store
