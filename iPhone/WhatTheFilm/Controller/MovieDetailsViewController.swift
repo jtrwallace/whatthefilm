@@ -48,6 +48,9 @@ class MovieDetailsViewController: UIViewController {
         
         
         let url : NSURL = NSURL(string: "http://jplayer.org/video/m4v/Big_Buck_Bunny_Trailer.m4v")!
+//        let url : NSURL = NSURL(string: "https://www.dropbox.com/s/q2nsrel0v1u5d0l/Discretion.mp4")!
+        
+        
 //        var url : NSURL = NSURL(string: "https://www.dropbox.com/s/suys73jwue5883v/Brown%20Noise.mp4")!
         moviePlayer = MPMoviePlayerController(contentURL: url)
         if let player = self.moviePlayer {

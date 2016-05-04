@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C6BBD2F51CD7699E00689270 /* Logo2.png in Resources */ = {isa = PBXBuildFile; fileRef = C6BBD2F41CD7699E00689270 /* Logo2.png */; };
 		C6EF60EB1CC5565A007B0279 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EF60EA1CC5565A007B0279 /* AppDelegate.swift */; };
 		C6EF60ED1CC5565A007B0279 /* MainMoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EF60EC1CC5565A007B0279 /* MainMoviesViewController.swift */; };
 		C6EF60F01CC5565A007B0279 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6EF60EE1CC5565A007B0279 /* Main.storyboard */; };
@@ -29,6 +30,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C6BBD2F41CD7699E00689270 /* Logo2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo2.png; sourceTree = "<group>"; };
 		C6EF60E51CC5565A007B0279 /* WhatTheFilm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhatTheFilm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6EF60E91CC5565A007B0279 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C6EF60EA1CC5565A007B0279 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -62,6 +64,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C6BBD2F31CD7698A00689270 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				C6BBD2F41CD7699E00689270 /* Logo2.png */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
 		C6EF60DC1CC5565A007B0279 = {
 			isa = PBXGroup;
 			children = (
@@ -97,6 +107,7 @@
 		C6EF60E81CC5565A007B0279 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C6BBD2F31CD7698A00689270 /* Assets */,
 				C6EF60E91CC5565A007B0279 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -222,6 +233,7 @@
 				C6EF60F01CC5565A007B0279 /* Main.storyboard in Resources */,
 				C6EF60F51CC5565A007B0279 /* LaunchScreen.xib in Resources */,
 				C6EF60F21CC5565A007B0279 /* Images.xcassets in Resources */,
+				C6BBD2F51CD7699E00689270 /* Logo2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
