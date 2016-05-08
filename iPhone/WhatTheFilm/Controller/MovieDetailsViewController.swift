@@ -11,6 +11,8 @@ import MediaPlayer
 
 class MovieDetailsViewController: UIViewController {
     
+    var test: MPMoviePlayerViewController!
+    
     var testValue: Int!
     var moviePlayer : MPMoviePlayerController!
 
@@ -47,8 +49,8 @@ class MovieDetailsViewController: UIViewController {
 //        let url = NSURL.fileURLWithPath(path!)
         
         
-        let url : NSURL = NSURL(string: "http://jplayer.org/video/m4v/Big_Buck_Bunny_Trailer.m4v")!
-//        let url : NSURL = NSURL(string: "https://www.dropbox.com/s/q2nsrel0v1u5d0l/Discretion.mp4")!
+//        let url : NSURL = NSURL(string: "http://jplayer.org/video/m4v/Big_Buck_Bunny_Trailer.m4v")!
+        let url : NSURL = NSURL(string: "https://www.dropbox.com/s/q2nsrel0v1u5d0l/Discretion.mp4?dl=1")!
         
         
 //        var url : NSURL = NSURL(string: "https://www.dropbox.com/s/suys73jwue5883v/Brown%20Noise.mp4")!
