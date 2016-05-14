@@ -4,11 +4,43 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+//var mysql = require('mysql');
 
+var connection = require('./connection');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+
+/*
+var connection = mysql.createConnection({
+  host     : 'whatthefilm.conwyalntrrd.us-west-1.rds.amazonaws.com',
+  user     : 'whatthefilm',
+  password : 'sC6gx4Pis7mm',
+  port     : '3306',
+  database : 'whatthefilm'
+});
+
+connection.connect(function(err) {
+  if (err) throw err;
+  console.log('You are now connected...');
+  connection.query('SELECT * FROM films', function(err, results) {
+    if (err) throw err;
+    console.log(results[0].id);
+    console.log(results[0].title);
+    console.log(results[0].description);
+    console.log(results[0].genre);
+    console.log(results[0].duration);
+    console.log(results[0].category);
+    console.log(results[0].director);
+    console.log(results[0].actors);
+    console.log(results[0].year);
+    console.log(results[0].school);
+    console.log(results[0].summary);
+    console.log(results[0].video);
+  });
+});
+*/
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -55,6 +87,8 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
+
+connection.init();
 
 
 module.exports = app;
