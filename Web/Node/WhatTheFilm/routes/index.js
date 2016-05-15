@@ -4,24 +4,14 @@ module.exports = (function() {
   'use strict';
   var router = express.Router();
 
-  router.get('/', function(req, res, next) {
+  router.get('/', function(req, res) {
     res.render('index', { title: 'Express'});
+  });
+
+  router.get('/hello', function(req, res) {
+    res.render('hello', { title: 'Express'});
   });
 
   return router;
 })();
 
-
-
-
-
-/*
-var router = express.Router();
-
-/!* GET home page. *!/
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express'});
-});
-
-module.exports = router;
-*/
