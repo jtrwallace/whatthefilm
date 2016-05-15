@@ -2,7 +2,7 @@ $(document).ready( function() {
 
     $.ajax({
         type: "GET",
-        url: '/films/',
+        url: '/api/films/',
         dataType: 'JSON',
         success: function(data) {
             console.log(data);
