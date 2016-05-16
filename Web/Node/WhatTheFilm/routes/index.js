@@ -9,8 +9,6 @@ module.exports = (function() {
     connection.acquire(function(err, con) {
       con.query('select * from films', function(err, result) {
         con.release();
-        console.log(result);
-        console.log(JSON.stringify(result));
         res.render('index', { films: result});
       });
     });
