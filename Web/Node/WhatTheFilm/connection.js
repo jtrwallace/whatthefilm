@@ -1,4 +1,5 @@
 var mysql = require('mysql');
+var config = require ('./config');
 
 function Connection() {
     this.pool = null;
@@ -6,11 +7,11 @@ function Connection() {
     this.init = function() {
         this.pool = mysql.createPool({
             connectionLimit: 100,
-            host     : process.env.RDS_HOSTNAME,
-            user     : process.env.RDS_USERNAME,
-            password : process.env.RDS_PASSWORD,
-            port     : process.env.RDS_PORT,
-            database : process.env.RDS_DATABASE
+            host     : config.db.host,
+            user     : config.db.user,
+            password : config.db.password,
+            port     : config.db.port,
+            database : config.db.database
         });
     };
 
