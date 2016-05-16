@@ -5,16 +5,17 @@ function Connection() {
 
     this.init = function() {
         this.pool = mysql.createPool({
-            connectionLimit: 10,
-            host     : 'whatthefilm.conwyalntrrd.us-west-1.rds.amazonaws.com',
-            user     : 'whatthefilm',
-            password : 'sC6gx4Pis7mm',
-            port     : '3306',
-            database : 'whatthefilm'
+            connectionLimit: 100,
+            host     : 'process.env.RDS_HOSTNAME',
+            user     : 'process.env.RDS_USERNAME',
+            password : 'process.env.RDS_PASSWORD',
+            port     : 'process.env.RDS_PORT',
+            database : 'process.env.RDS_DATABASE'
         });
     };
 
     this.acquire = function(callback) {
+        console.log("In connection.acquire");
         this.pool.getConnection(function(err, connection) {
             callback(err, connection);
         });
