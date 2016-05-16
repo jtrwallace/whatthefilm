@@ -49,5 +49,51 @@ function Films() {
             });
         });
     };
+
+    this.categories = function(res) {
+        connection.acquire(function(err, con) {
+           con.query('select distinct(category) from films', function(err, result) {
+               con.release();
+               var categories = [];
+               result.forEach(function (item) {
+                   categories.push(item.category);
+               });
+               res.send(categories);
+           })
+        });
+    };
+
+    this.specificCategory = function(category, res) {
+        connection.acquire(function(err, con) {
+            con.query('select * from films where category = ?', [category], function(err, result) {
+                con.release();
+                res.send(result);
+            })
+        });
+    };
+
+
+    this.genres = function(res) {
+        connection.acquire(function(err, con) {
+            con.query('select distinct(genre) from films', function(err, result) {
+                con.release();
+                var genres = [];
+                result.forEach(function (item) {
+                    genres.push(item.category);
+                });
+                res.send(genres);
+            })
+        });
+    };
+
+    this.specificGenre = function(genre, res) {
+        connection.acquire(function(err, con) {
+            con.query('select * from films where genre = ?', [genre], function(err, result) {
+                con.release();
+                res.send(result);
+            })
+        });
+    };
+
 }
 module.exports = new Films();

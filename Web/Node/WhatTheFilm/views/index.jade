@@ -1,8 +1,8 @@
 extends layout
 
 block content
-  h1= title
+  h1= films[0].title
   p#movie_title Welcome to Your mom
   video(width="1920", height="1080", controls)
-    source(src="https://www.dropbox.com/s/q2nsrel0v1u5d0l/Discretion.mp4?dl=1", type="video/mp4")
+    source(src=films[0].video, type="video/mp4")
   script(src="/javascripts/index.js")

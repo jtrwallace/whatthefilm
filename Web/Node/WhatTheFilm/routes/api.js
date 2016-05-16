@@ -6,7 +6,6 @@ module.exports = (function() {
     var films = require('../models/films');
 
     api.get('/films/', function(req, res) {
-        console.log("In GET /api/films/");
         films.get(res);
     });
 
@@ -23,6 +22,22 @@ module.exports = (function() {
     /* DELETE a film based on id. */
     api.delete('/films/:id/', function(req, res) {
         films.delete(req.params.id, res);
+    });
+
+    api.get('/categories/', function(req, res) {
+        films.categories(res);
+    });
+
+    api.get('/categories/:category', function(req, res) {
+        films.specificCategory(req.params.category, res);
+    });
+
+    api.get('/genres/', function(req, res) {
+        films.genres(res);
+    });
+
+    api.get('/genres/:genre', function(req, res) {
+        films.specificGenre(req.params.genre, res);
     });
 
     return api;

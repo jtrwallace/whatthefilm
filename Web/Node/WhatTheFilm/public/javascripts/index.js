@@ -5,8 +5,7 @@ $(document).ready( function() {
         url: '/api/films/',
         dataType: 'JSON',
         success: function(data) {
-            console.log(data);
-            $('#movie_title').text(data[0].title);
+            $('#movie_title').text(data[0].description);
         }
     });
 
