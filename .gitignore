@@ -269,3 +269,6 @@ bower.json
 
 # Ignore Mac preference files
 .DS_Store
+
+# Ignore config file that contains database passwords.
+Web/Node/WhatTheFilm/config.js
