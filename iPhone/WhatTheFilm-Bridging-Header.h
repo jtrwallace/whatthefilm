@@ -9,7 +9,9 @@
 #ifndef WhatTheFilm_Bridging_Header_h
 #define WhatTheFilm_Bridging_Header_h
 
-#import "SDWebImage/UIImageView+WebCache.h"
+//#import "SDWebImage/UIImageView+WebCache.h"
+#import "UIImageView+WebCache.h"
+//#import <SDWebImage/UIImageView+WebCache.h>
 
 
 #endif /* WhatTheFilm_Bridging_Header_h */

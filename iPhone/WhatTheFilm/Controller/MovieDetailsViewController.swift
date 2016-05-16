@@ -21,6 +21,7 @@ class MovieDetailsViewController: UIViewController, WTF_AVPLayerVCDelegate {
     var testValue: Int!
     
     var testCmTime: CMTime!
+    @IBOutlet weak var movieImage: UIImageView!
 
     @IBOutlet weak var testLabel: UILabel!
     
@@ -46,6 +47,14 @@ class MovieDetailsViewController: UIViewController, WTF_AVPLayerVCDelegate {
     
     
     override func viewDidAppear(animated: Bool) {
+        
+        
+        let url = NSURL(string: "http://s.imgur.com/images/logo-1200-630.jpg")
+        
+        movieImage.sd_setImageWithURL(url) { (image, error, type, nsurl) in
+            print("might use complete block to stop activity indicator")
+        }
+        
         print("movie details: \(testCmTime)")
     }
 

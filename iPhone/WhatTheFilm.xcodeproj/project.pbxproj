@@ -90,7 +90,7 @@
 		C63762281CEA5DC500827E72 /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		C63762291CEA5DC500827E72 /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		C637622A1CEA5DC500827E72 /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
-		C637623B1CEA5DDE00827E72 /* WhatTheFilm-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WhatTheFilm-Bridging-Header.h"; sourceTree = "<group>"; };
+		C637623B1CEA5DDE00827E72 /* WhatTheFilm-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WhatTheFilm-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		C6BBD2F41CD7699E00689270 /* Logo2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo2.png; sourceTree = "<group>"; };
 		C6BBD2F61CDEF9B200689270 /* StyleConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyleConstants.swift; sourceTree = "<group>"; };
 		C6BBD2F81CDF0CA100689270 /* filmFeatured.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = filmFeatured.jpg; sourceTree = "<group>"; };
@@ -192,7 +192,6 @@
 		C6EF60DC1CC5565A007B0279 = {
 			isa = PBXGroup;
 			children = (
-				C637623B1CEA5DDE00827E72 /* WhatTheFilm-Bridging-Header.h */,
 				C6EF60E71CC5565A007B0279 /* WhatTheFilm */,
 				C6EF60FD1CC5565A007B0279 /* WhatTheFilmTests */,
 				C6EF60E61CC5565A007B0279 /* Products */,
@@ -220,6 +219,7 @@
 				C6EF60F11CC5565A007B0279 /* Images.xcassets */,
 				C6EF60F31CC5565A007B0279 /* LaunchScreen.xib */,
 				C63762091CEA5DC500827E72 /* SDWebImage */,
+				C637623B1CEA5DDE00827E72 /* WhatTheFilm-Bridging-Header.h */,
 				C6EF60E81CC5565A007B0279 /* Supporting Files */,
 			);
 			path = WhatTheFilm;
@@ -539,6 +539,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "self.jfiosdev.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "WhatTheFilm-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -550,6 +551,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "self.jfiosdev.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "WhatTheFilm-Bridging-Header.h";
 			};
 			name = Release;
 		};
