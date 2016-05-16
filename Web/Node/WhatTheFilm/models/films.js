@@ -79,7 +79,7 @@ function Films() {
                 con.release();
                 var genres = [];
                 result.forEach(function (item) {
-                    genres.push(item.category);
+                    genres.push(item.genre);
                 });
                 res.send(genres);
             })
