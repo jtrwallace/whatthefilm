@@ -50,7 +50,7 @@ extension CategoryRowTableViewCell: UICollectionViewDataSource {
 
 extension CategoryRowTableViewCell: UICollectionViewDelegateFlowLayout {
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let itemsPerRow:CGFloat = 2.6
+        let itemsPerRow:CGFloat = 2.75
         let hardCodedPadding:CGFloat = 5
         let itemWidth = (collectionView.bounds.width / itemsPerRow) - hardCodedPadding
         let itemHeight = collectionView.bounds.height - (2 * hardCodedPadding)

@@ -13,6 +13,12 @@
 		C6BBD2FB1CDF0D8300689270 /* filmFeatured2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C6BBD2FA1CDF0D8300689270 /* filmFeatured2.jpg */; };
 		C6BBD2FD1CDF13F500689270 /* horiz-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = C6BBD2FC1CDF13F500689270 /* horiz-logo.png */; };
 		C6BBD2FF1CDF18C000689270 /* horiz.png in Resources */ = {isa = PBXBuildFile; fileRef = C6BBD2FE1CDF18C000689270 /* horiz.png */; };
+		C6BBD3011CE0120400689270 /* TestVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BBD3001CE0120400689270 /* TestVideoViewController.swift */; };
+		C6CA4F5C1CE0681C00F644FC /* MoviePreviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6CA4F5B1CE0681C00F644FC /* MoviePreviewCell.xib */; };
+		C6CA4F5E1CE068D500F644FC /* MoviePreviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6CA4F5D1CE068D500F644FC /* MoviePreviewTableViewCell.swift */; };
+		C6CA4F601CE5905D00F644FC /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6CA4F5F1CE5905D00F644FC /* PlayerView.swift */; };
+		C6CA4F621CE5B16900F644FC /* test.png in Resources */ = {isa = PBXBuildFile; fileRef = C6CA4F611CE5B16900F644FC /* test.png */; };
+		C6CA4F641CE6892400F644FC /* WTF_AVPlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6CA4F631CE6892400F644FC /* WTF_AVPlayerVC.swift */; };
 		C6EF60EB1CC5565A007B0279 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EF60EA1CC5565A007B0279 /* AppDelegate.swift */; };
 		C6EF60ED1CC5565A007B0279 /* MainMoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EF60EC1CC5565A007B0279 /* MainMoviesViewController.swift */; };
 		C6EF60F01CC5565A007B0279 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6EF60EE1CC5565A007B0279 /* Main.storyboard */; };
@@ -41,6 +47,12 @@
 		C6BBD2FA1CDF0D8300689270 /* filmFeatured2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = filmFeatured2.jpg; sourceTree = "<group>"; };
 		C6BBD2FC1CDF13F500689270 /* horiz-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "horiz-logo.png"; sourceTree = "<group>"; };
 		C6BBD2FE1CDF18C000689270 /* horiz.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = horiz.png; sourceTree = "<group>"; };
+		C6BBD3001CE0120400689270 /* TestVideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestVideoViewController.swift; sourceTree = "<group>"; };
+		C6CA4F5B1CE0681C00F644FC /* MoviePreviewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoviePreviewCell.xib; sourceTree = "<group>"; };
+		C6CA4F5D1CE068D500F644FC /* MoviePreviewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoviePreviewTableViewCell.swift; sourceTree = "<group>"; };
+		C6CA4F5F1CE5905D00F644FC /* PlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
+		C6CA4F611CE5B16900F644FC /* test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test.png; sourceTree = "<group>"; };
+		C6CA4F631CE6892400F644FC /* WTF_AVPlayerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WTF_AVPlayerVC.swift; sourceTree = "<group>"; };
 		C6EF60E51CC5565A007B0279 /* WhatTheFilm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhatTheFilm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6EF60E91CC5565A007B0279 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C6EF60EA1CC5565A007B0279 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -77,6 +89,7 @@
 		C6BBD2F31CD7698A00689270 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				C6CA4F611CE5B16900F644FC /* test.png */,
 				C6BBD2F41CD7699E00689270 /* Logo2.png */,
 				C6BBD2FC1CDF13F500689270 /* horiz-logo.png */,
 				C6BBD2FE1CDF18C000689270 /* horiz.png */,
@@ -108,6 +121,8 @@
 			isa = PBXGroup;
 			children = (
 				C6EF60EA1CC5565A007B0279 /* AppDelegate.swift */,
+				C6CA4F631CE6892400F644FC /* WTF_AVPlayerVC.swift */,
+				C6CA4F5F1CE5905D00F644FC /* PlayerView.swift */,
 				C6EF610D1CC55E1F007B0279 /* Controller */,
 				C6EF610A1CC55DC6007B0279 /* Model */,
 				C6EF60EE1CC5565A007B0279 /* Main.storyboard */,
@@ -150,6 +165,8 @@
 				C6EF610B1CC55DF6007B0279 /* CategoryRowTableViewCell.swift */,
 				C6EF610E1CC578A3007B0279 /* MovieTitlesCollectionViewCell.swift */,
 				C6BBD2F61CDEF9B200689270 /* StyleConstants.swift */,
+				C6CA4F5B1CE0681C00F644FC /* MoviePreviewCell.xib */,
+				C6CA4F5D1CE068D500F644FC /* MoviePreviewTableViewCell.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -159,6 +176,7 @@
 			children = (
 				C6EF60EC1CC5565A007B0279 /* MainMoviesViewController.swift */,
 				C6EF61101CC57A8B007B0279 /* MovieDetailsViewController.swift */,
+				C6BBD3001CE0120400689270 /* TestVideoViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -246,6 +264,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C6BBD2FF1CDF18C000689270 /* horiz.png in Resources */,
+				C6CA4F621CE5B16900F644FC /* test.png in Resources */,
+				C6CA4F5C1CE0681C00F644FC /* MoviePreviewCell.xib in Resources */,
 				C6BBD2FB1CDF0D8300689270 /* filmFeatured2.jpg in Resources */,
 				C6BBD2F91CDF0CA100689270 /* filmFeatured.jpg in Resources */,
 				C6BBD2FD1CDF13F500689270 /* horiz-logo.png in Resources */,
@@ -270,12 +290,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6CA4F601CE5905D00F644FC /* PlayerView.swift in Sources */,
 				C6EF61111CC57A8B007B0279 /* MovieDetailsViewController.swift in Sources */,
+				C6CA4F641CE6892400F644FC /* WTF_AVPlayerVC.swift in Sources */,
+				C6BBD3011CE0120400689270 /* TestVideoViewController.swift in Sources */,
 				C6BBD2F71CDEF9B200689270 /* StyleConstants.swift in Sources */,
 				C6EF60ED1CC5565A007B0279 /* MainMoviesViewController.swift in Sources */,
 				C6EF610C1CC55DF6007B0279 /* CategoryRowTableViewCell.swift in Sources */,
 				C6EF610F1CC578A3007B0279 /* MovieTitlesCollectionViewCell.swift in Sources */,
 				C6EF60EB1CC5565A007B0279 /* AppDelegate.swift in Sources */,
+				C6CA4F5E1CE068D500F644FC /* MoviePreviewTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
