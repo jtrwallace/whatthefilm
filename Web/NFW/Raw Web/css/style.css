@@ -1,0 +1,143 @@
+body {
+    background-color: black;
+    font-family: courier;
+}
+
+/* front-page-category-grid */
+
+.cat-header {
+    height: 30px;
+    background-color: #1ba5ae;
+}
+
+.row.no-gutter {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.row.no-gutter [class*='col-']:not(:first-child),
+.row.no-gutter [class*='col-']:not(:last-child) {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.cat-featured-poster-1 {
+    height: 350px;
+    background-color: blue;
+}
+
+.cat-featured-poster-2 {
+    height: 350px;
+    background-color: red;
+}
+
+
+/* film-page */
+
+#film-cover {
+	position: fixed;
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    top: 0;
+    left: 0;
+    position: fixed;
+    height: 70%;
+    width: 100%;
+	 -webkit-transition: all 1s ease; /* Safari and Chrome */
+    -moz-transition: all 1s ease; /* Firefox */
+    -o-transition: all 1s ease; /* IE 9 */
+    -ms-transition: all 1s ease; /* Opera */
+    transition: all 1s ease;
+        max-width: 100%;
+    
+}
+
+
+#film-cover:hover {
+	-webkit-transform:scale(1.25); /* Safari and Chrome */
+    -moz-transform:scale(1.25); /* Firefox */
+    -ms-transform:scale(1.25); /* IE 9 */
+    -o-transform:scale(1.25); /* Opera */
+     transform:scale(1.25);
+}
+
+#video-player {
+	width: 1000px;
+	margin: 0 auto;
+	padding-top: 20px;
+}
+
+#back-btn{
+	position: absolute;
+	top: 50%;
+	left: 20px;
+    margin-top: -40px;
+    color: #e7b94b;
+    font-size: 55pt;
+    height: 100px;
+    width: 100px;
+}
+
+#back-btn:hover{
+	transition: all 0.5s ease-out;
+	color: #e5ab20;
+}
+
+.film-synopsis {
+    margin-left: 3%;
+    margin-top: 7%;
+    margin-bottom: 30%;
+    padding: 16px;
+    color: white;
+    text-align: left;
+    width: 38%;
+    z-index: 1000;
+}
+
+.film-synopsis h1 {
+    font-size: 42pt;
+}
+
+.film-synopsis h2 {
+    font-size: 14.5pt;
+}
+
+.film-synopsis p {
+	margin-top: 25px;
+    font-size: 12pt;
+}
+
+.film-reviews {
+	position: absolute;
+	color: white;
+	font-size: 12pt;
+	margin-top: 550px;
+	margin-left: 3%;
+}
+
+.film-reviews h1 {
+	font-size: 22pt;
+}
+
+
+#play-btn{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+    margin-left: -70px;
+    margin-top: -40px;
+    color: #e7b94b;
+    font-size: 55pt;
+    height: 100px;
+    width: 100px;
+}
+
+#play-btn:hover{
+	transition: all 0.5s ease-out;
+	color: #e5ab20;
+}
+
+

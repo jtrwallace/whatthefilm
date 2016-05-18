@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Film Preview</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div id="container">
+        <div id="film-cover" style="background-image: url('img/achoo-poster-large.jpg');">
+            <div class="film-synopsis">
+                <h1>Achoo (2016)</h1>
+                <h2>by Lauren Schecter ⋅ United States ⋅ 6 min</h2>
+                <p>How funny is it that everybody deals with the common cold in different ways?</p>
+            </div>
+            <div id="play-btn"><i class="fa fa-play" aria-hidden="true"></i></div>
+        </div>
+        <div id="video-player">
+            <!-- Start video player section -->
+            <style type="text/css">
+            .easyhtml5video .eh5v_script {
+                display: none
+            }
+            </style>
+            <div class="easyhtml5video" style="position:relative;max-width:1280px;">
+                <video id="easyhtml5video" controls="controls" poster="eh5v.files/html5video/Achoo%21.jpg" style="width:100%" title="Achoo!">
+                    <source autostart="false" src="eh5v.files/html5video/Achoo%21.m4v" type="video/mp4" />
+                    <source autostart="false" src="eh5v.files/html5video/Achoo%21.webm" type="video/webm" />
+                    <object type="application/x-shockwave-flash" data="eh5v.files/html5video/flashfox.swf" width="533" height="300" style="position:relative;">
+                        <param name="movie" value="eh5v.files/html5video/flashfox.swf" />
+                        <param name="allowFullScreen" value="true" />
+                        <param name="flashVars" value="autoplay=false&controls=true&fullScreenEnabled=true&posterOnEnd=true&loop=false&poster=eh5v.files/html5video/Achoo%21.jpg&src=Achoo%2521.m4v" />
+                        <embed src="eh5v.files/html5video/flashfox.swf" width="533" height="300" style="position:relative;" flashVars="autoplay=true&controls=true&fullScreenEnabled=true&posterOnEnd=true&loop=false&poster=eh5v.files/html5video/Achoo%21.jpg&src=Achoo%2521.m4v" allowFullScreen="true" wmode="transparent" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer_en" />
+                        <img alt="Achoo!" src="eh5v.files/html5video/Achoo%21.jpg" style="position:absolute;left:0;" width="100%" title="Video playback is not supported by your browser" />
+                    </object>
+                </video>
+            </div>
+            <script src="eh5v.files/html5video/html5ext.js" type="text/javascript"></script>
+            <!-- End EasyHtml5Video.com BODY section -->
+            <div id="back-btn"><i class="fa fa-chevron-left" aria-hidden="true"></i></div>
+        </div>
+
+        <div class="film-reviews">
+
+			<h1>Review section here</h1>
+    </div>
+    </div>
+
+    
+    <script>
+    $(document).ready(function() {
+
+        // Hide div 2 by default
+        $('#video-player').hide();
+
+
+        $('#play-btn').click(function() {
+            $('#film-cover').hide();
+            $('#video-player').show();
+        });
+
+        $('#back-btn').click(function() {
+        	$('#easyhtml5video').stop();
+            $('#video-player').hide();
+            $('#film-cover').show();
+        });
+
+    });
+    </script>
+</body>
+
+</html>

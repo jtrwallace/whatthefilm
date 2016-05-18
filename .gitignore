@@ -272,3 +272,8 @@ bower.json
 
 # Ignore config file that contains database passwords.
 Web/Node/WhatTheFilm/config.js
+
+
+# Ignore video files
+*.m4v
+*.webm
