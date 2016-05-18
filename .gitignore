@@ -277,3 +277,4 @@ Web/Node/WhatTheFilm/config.js
 # Ignore video files
 *.m4v
 *.webm
+*.mp4
