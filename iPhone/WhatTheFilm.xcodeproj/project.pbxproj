@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9D80201CB585D02D8A400394 /* Pods_WhatTheFilm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 417B78044279BFCE8260AED6 /* Pods_WhatTheFilm.framework */; };
 		C637622B1CEA5DC500827E72 /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = C637620B1CEA5DC500827E72 /* MKAnnotationView+WebCache.m */; };
 		C637622C1CEA5DC500827E72 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = C637620D1CEA5DC500827E72 /* NSData+ImageContentType.m */; };
 		C637622D1CEA5DC500827E72 /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = C637620F1CEA5DC500827E72 /* SDImageCache.m */; };
@@ -57,6 +58,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1EFD0B0CA8264DACAE47CF46 /* Pods-WhatTheFilm.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhatTheFilm.release.xcconfig"; path = "Pods/Target Support Files/Pods-WhatTheFilm/Pods-WhatTheFilm.release.xcconfig"; sourceTree = "<group>"; };
+		417B78044279BFCE8260AED6 /* Pods_WhatTheFilm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WhatTheFilm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A4AB35CB443DEBC117E247D3 /* Pods-WhatTheFilm.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhatTheFilm.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WhatTheFilm/Pods-WhatTheFilm.debug.xcconfig"; sourceTree = "<group>"; };
 		C637620A1CEA5DC500827E72 /* MKAnnotationView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKAnnotationView+WebCache.h"; sourceTree = "<group>"; };
 		C637620B1CEA5DC500827E72 /* MKAnnotationView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKAnnotationView+WebCache.m"; sourceTree = "<group>"; };
 		C637620C1CEA5DC500827E72 /* NSData+ImageContentType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ImageContentType.h"; sourceTree = "<group>"; };
@@ -123,6 +127,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D80201CB585D02D8A400394 /* Pods_WhatTheFilm.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,6 +141,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		022AE8A12C5D188AB6C4FF95 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				417B78044279BFCE8260AED6 /* Pods_WhatTheFilm.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		48D2A6C61E2A83E5A2F873C6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A4AB35CB443DEBC117E247D3 /* Pods-WhatTheFilm.debug.xcconfig */,
+				1EFD0B0CA8264DACAE47CF46 /* Pods-WhatTheFilm.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		C63762091CEA5DC500827E72 /* SDWebImage */ = {
 			isa = PBXGroup;
 			children = (
@@ -195,6 +217,8 @@
 				C6EF60E71CC5565A007B0279 /* WhatTheFilm */,
 				C6EF60FD1CC5565A007B0279 /* WhatTheFilmTests */,
 				C6EF60E61CC5565A007B0279 /* Products */,
+				48D2A6C61E2A83E5A2F873C6 /* Pods */,
+				022AE8A12C5D188AB6C4FF95 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -280,9 +304,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C6EF61041CC5565A007B0279 /* Build configuration list for PBXNativeTarget "WhatTheFilm" */;
 			buildPhases = (
+				50B10805C15F5134D74DD441 /* 📦 Check Pods Manifest.lock */,
 				C6EF60E11CC5565A007B0279 /* Sources */,
 				C6EF60E21CC5565A007B0279 /* Frameworks */,
 				C6EF60E31CC5565A007B0279 /* Resources */,
+				BD6287172DCA614FC2AA53BF /* 📦 Embed Pods Frameworks */,
+				CB0E60A3784B8188CCAF166D /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -376,6 +403,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		50B10805C15F5134D74DD441 /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		BD6287172DCA614FC2AA53BF /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WhatTheFilm/Pods-WhatTheFilm-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CB0E60A3784B8188CCAF166D /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WhatTheFilm/Pods-WhatTheFilm-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C6EF60E11CC5565A007B0279 /* Sources */ = {
@@ -533,6 +608,7 @@
 		};
 		C6EF61051CC5565A007B0279 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A4AB35CB443DEBC117E247D3 /* Pods-WhatTheFilm.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = WhatTheFilm/Info.plist;
@@ -545,6 +621,7 @@
 		};
 		C6EF61061CC5565A007B0279 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1EFD0B0CA8264DACAE47CF46 /* Pods-WhatTheFilm.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = WhatTheFilm/Info.plist;
