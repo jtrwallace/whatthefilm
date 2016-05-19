@@ -7,21 +7,28 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class MainMoviesViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableViewHeader: UIView!
     
-    var categories = ["Action", "Drama", "Science Fiction", "Kids", "Horror"]
+    var categories = [String]()
 
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
 
         
         tableView.registerNib(UINib(nibName: "MoviePreviewCell", bundle: nil), forCellReuseIdentifier: "MoviePreview")
-            
+        
+        fetchCategories()
+        
 
 
     }
@@ -38,6 +45,26 @@ class MainMoviesViewController: UIViewController {
         
         print(tableViewHeader.frame.size.height)
         print(tableViewHeader.frame.size.width)
+    }
+    
+    
+    
+    func fetchCategories() {
+        Alamofire.request(.GET, API_Helper.requestCategories).responseJSON { (response) in
+            switch response.result {
+            case .Success:
+                if let value = response.result.value {
+                    self.categories = (JSON(value).array?.map { $0.string! })!
+                    
+                    // Sorts array of categories ignoring upper/lower case
+                    // self.categories.sortInPlace { $0.localizedCompare($1) == NSComparisonResult.OrderedAscending }
+                
+                    self.tableView.reloadData()
+                }
+            case .Failure(let error):
+                print(error)
+            }
+        }
     }
     
     
@@ -107,9 +134,15 @@ extension MainMoviesViewController: UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCellWithIdentifier("genreCell") as! CategoryRowTableViewCell
-            cell.currentVC = self
-            return cell
+            if indexPath.row == 1 {
+                let cell = tableView.dequeueReusableCellWithIdentifier("MoviePreview") as! MoviePreviewTableViewCell
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCellWithIdentifier("genreCell") as! CategoryRowTableViewCell
+                cell.currentVC = self
+                return cell
+            }
+            
         } else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCellWithIdentifier("MoviePreview") as! MoviePreviewTableViewCell
             return cell

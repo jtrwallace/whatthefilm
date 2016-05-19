@@ -23,7 +23,8 @@ class MoviePreviewTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
-        let url = NSURL(string: "https://www.dropbox.com/s/6luttidlmdwjkfa/discretion2.mp4?dl=1")!
+        
+        let url = NSURL(string: "https://www.dropbox.com/s/ede0aqfcxisxk3b/discretion3.mp4?dl=1")!
         
         print()
         print(testview.bounds.size.width)

@@ -9,6 +9,10 @@
 import UIKit
 import AVKit
 import AVFoundation
+import Alamofire
+import SwiftyJSON
+    
+    
 
 class MovieDetailsViewController: UIViewController, WTF_AVPLayerVCDelegate {
 
@@ -24,7 +28,7 @@ class MovieDetailsViewController: UIViewController, WTF_AVPLayerVCDelegate {
     @IBOutlet weak var movieImage: UIImageView!
 
     @IBOutlet weak var testLabel: UILabel!
-    
+    var arrRes = [[String:AnyObject]]() //Array of dictionary
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +42,59 @@ class MovieDetailsViewController: UIViewController, WTF_AVPLayerVCDelegate {
 //        movieURL = NSURL(string: "https://www.dropbox.com/s/q2nsrel0v1u5d0l/Discretion.mp4?dl=1")
         
         movieURL = NSURL(string: "https://www.dropbox.com/s/kbkqxvpw4fl67u7/Discretion.mp4?dl=1")
+        
+        
+//        Alamofire.request(.GET, "http://api.androidhive.info/contacts/").response { (req, res, data, error) -> Void in
+//            print(res)
+//            let outputString = NSString(data: data!, encoding:NSUTF8StringEncoding)
+//            print(outputString)
+//        }
+//        
+//        
+//        
+//        Alamofire.request(.GET, "http://api.androidhive.info/contacts/").responseJSON { (responseData) -> Void in
+//            if((responseData.result.value) != nil) {
+//                let swiftyJsonVar = JSON(responseData.result.value!)
+//                
+//                if let resData = swiftyJsonVar["contacts"].arrayObject {
+//                    self.arrRes = resData as! [[String:AnyObject]]
+//                    print(self.arrRes)
+//                }
+//                if self.arrRes.count > 0 {
+////                    self.tblJSON.reloadData()
+//                }
+//            }
+//        }
+        
+//        let films = "http://whatthefilm.us-west-1.elasticbeanstalk.com/api/films/"
+        let categories = "http://whatthefilm.us-west-1.elasticbeanstalk.com/api/categories/"
+        
+        Alamofire.request(.GET, categories).responseJSON { (response) in
+            switch response.result{
+            case .Success:
+                print("response.request: \(response.request)")  // original URL request
+                print("response.response: \(response.response)") // URL response
+//                print("response.data: \(response.data)")     // server data
+                print("response.result: \(response.result)")   // result of response serialization
+                print("response.result: \(response.result.value)")   // result of response serialization
+
+                if let value = response.result.value {
+                    let json = JSON(value)
+                    print("JSON: \(json)")
+                    let contactsArr = json["contacts"].array
+                    let testemail = contactsArr![0]["email"].string
+                    for contact in contactsArr! {
+                        print(contact["email"].string)
+                    }
+                    
+                    print("test: \(testemail)")
+                }
+            case .Failure(let error):
+                print(error)
+                
+            }
+        }
+        
     
     }
     
