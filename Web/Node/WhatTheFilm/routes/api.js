@@ -24,6 +24,10 @@ module.exports = (function() {
         films.delete(req.params.id, res);
     });
 
+    api.get('/films/:id/', function(req, res) {
+        films.specificFilm(req.params.id, res);
+    });
+
     api.get('/categories/', function(req, res) {
         films.categories(res);
     });
@@ -38,6 +42,10 @@ module.exports = (function() {
 
     api.get('/genres/:genre', function(req, res) {
         films.specificGenre(req.params.genre, res);
+    });
+
+    api.get('/maxid/', function(req, res) {
+        films.getMaxID(res);
     });
 
     return api;
