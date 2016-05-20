@@ -4,8 +4,11 @@ $(document).ready(function() {
         dots: true,
         infinite: true,
         speed: 300,
-        slidesToShow: 3,
+        slidesToShow: 4,
         slidesToScroll: 2,
+        prevArrow: ".prev-arrow",
+        nextArrow: ".next-arrow",
+        speed: 900,
         responsive: [{
                 breakpoint: 1024,
                 settings: {
@@ -32,5 +35,13 @@ $(document).ready(function() {
             // instead of a settings object
         ]
     });
+
+
+    //slider arrows appear when hover
+    $('.slider').hover(function() { 
+    	$('.next-arrow').show();
+    	$('.prev-arrow').show();
+     });
+
 
 });

@@ -12,7 +12,15 @@ module.exports = (function() {
         res.render('index', { films: result});
       });
     });
-
+  });
+  
+  router.get('/data/', function(req, res) {
+    connection.acquire(function(err, con) {
+      con.query('select * from films', function(err, result) {
+        con.release();
+        res.render('data', { films: result});
+      });
+    });
   });
 
   return router;

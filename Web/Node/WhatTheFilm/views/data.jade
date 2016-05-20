@@ -1,0 +1,95 @@
+extends layout
+
+block content
+    script(src="/javascripts/data.js")
+    h1 Database Content
+    ul#list
+        each film in films
+            li.title(data-id=film.id)= film.title
+        li.title(data-id="-1") New Film
+    .movie_info
+        .field
+            .left
+                .field_title
+                    h3 ID
+            #film_id.field_content.right
+                input(type="text", name="id")
+        .field
+            .left
+                .field_title
+                    h3 Title
+            #film_title.field_content.right
+                input(type="text", name="id")
+        .field
+            .left
+                .field_title
+                    h3 Description
+            #film_description.field_content.right
+                input(type="text", name="id")
+        .field
+            .left
+                .field_title
+                    h3 Summary
+            #film_summary.field_content.right
+                input(type="text", name="id")
+        .field
+            .left
+                .field_title
+                    h3 Genre
+            #film_genre.field_content.right
+                input(type="text", name="id")
+        .field
+            .left
+                .field_title
+                    h3 Duration (s)
+            #film_duration.field_content.right
+                input(type="text", name="id")
+        .field
+            .left
+                .field_title
+                    h3 Category
+            #film_category.field_content.right
+                input(type="text", name="id")
+        .field
+            .left
+                .field_title
+                    h3 Director
+            #film_director.field_content.right
+                input(type="text", name="id")
+        .field
+            .left
+                .field_title
+                    h3 Actors
+            #film_actors.field_content.right
+                input(type="text", name="id")
+        .field
+            .left
+                .field_title
+                    h3 Year
+            #film_year.field_content.right
+                input(type="text", name="id")
+        .field
+            .left
+                .field_title
+                    h3 Studio
+            #film_studio.field_content.right
+                input(type="text", name="id")
+        .field
+            .left
+                .field_title
+                    h3 Video
+            #film_video.field_content.right
+                input(type="text", name="id")
+        .field
+            .left
+                .field_title
+                    h3 Poster
+            #film_poster.field_content.right
+                input(type="text", name="id")
+        .field
+            .left
+                .field_title
+                    h3 Still
+            #film_still.field_content.right
+                input(type="text", name="id")
+    button(type="submit", id="button") Save

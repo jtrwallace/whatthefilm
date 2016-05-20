@@ -50,6 +50,16 @@ function Films() {
         });
     };
 
+    this.specificFilm = function(id, res) {
+        connection.acquire(function(err, con) {
+            con.query('select * from films where id = ?', [id], function(err, result) {
+                con.release();
+                var single = result[0];
+                res.send(single);
+            })
+        });
+    };
+
     this.categories = function(res) {
         connection.acquire(function(err, con) {
            con.query('select distinct(category) from films', function(err, result) {
@@ -91,6 +101,16 @@ function Films() {
             con.query('select * from films where genre = ?', [genre], function(err, result) {
                 con.release();
                 res.send(result);
+            })
+        });
+    };
+
+    this.getMaxID = function(res) {
+        connection.acquire(function(err, con) {
+            con.query('SELECT * FROM films ORDER BY id DESC LIMIT 0, 1', function(err, result) {
+                con.release();
+                console.log(result[0]);
+                res.send(result[0]);
             })
         });
     };
