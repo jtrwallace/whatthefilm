@@ -11,6 +11,7 @@ import UIKit
 class CategoryRowTableViewCell: UITableViewCell {
     
     var selectedMovie: Int!
+    @IBOutlet weak var categoryTitle: UILabel!
     
     @IBOutlet weak var collectionView: UICollectionView!
     

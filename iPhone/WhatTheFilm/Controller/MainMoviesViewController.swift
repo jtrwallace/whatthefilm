@@ -15,34 +15,23 @@ class MainMoviesViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableViewHeader: UIView!
     
+    // Property categories will contain an 'empty' on index0 and every other '3rd' value. ["empty",cat1,cat2,"empty",cat3,cat4,"empty",cat5...]
+    // This is to show a movie preview on every 3rd row i.e. row1:categories, row2:categories, row3:moviePreview.
     var categories = [String]()
-
+    
+    var movies: [String : [Movie]] = [:]
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
-        
-        tableView.registerNib(UINib(nibName: "MoviePreviewCell", bundle: nil), forCellReuseIdentifier: "MoviePreview")
+        tableView.registerNib(UINib(nibName: "MoviePreviewCell", bundle: nil), forCellReuseIdentifier: "moviePreviewCell")
         
         fetchCategories()
-        
-
-
     }
-    
-    
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     override func viewDidAppear(animated: Bool) {
-//        navigationItem.ti
-        
         print(tableViewHeader.frame.size.height)
         print(tableViewHeader.frame.size.width)
     }
@@ -54,16 +43,71 @@ class MainMoviesViewController: UIViewController {
             switch response.result {
             case .Success:
                 if let value = response.result.value {
-                    self.categories = (JSON(value).array?.map { $0.string! })!
+                    print("json: \(JSON(value))")
+                    // Iterating through JSON obj array and mapping it to a string array
+                    let catsOnServer = (JSON(value).array?.map { $0.string! })!
+                    self.orderCategoriesWithEmptyValues(catsOnServer)
+                    
+                    //# TODO:
+                    // THIS NEEDS TO BE MOVED TO AFTER FETCHING THE MOVIES FROM FIRST CATEGORY
+                    self.tableView.reloadData()
                     
                     // Sorts array of categories ignoring upper/lower case
                     // self.categories.sortInPlace { $0.localizedCompare($1) == NSComparisonResult.OrderedAscending }
-                
-                    self.tableView.reloadData()
+                    self.fetchMoviesFromCategories()
                 }
             case .Failure(let error):
                 print(error)
             }
+        }
+    }
+    
+    func fetchMoviesFromCategories() {
+        for category in categories {
+            fetchMoviesFromCategory(category)
+        }
+    }
+    
+    func fetchMoviesFromCategory(category: String) {
+        let url = "\(API_Helper.requestCategories)\(category)"
+        Alamofire.request(.GET, url).responseJSON { (response) in
+            switch response.result {
+            case .Success:
+                if let value = response.result.value {
+                    print("json: \(JSON(value))")
+                    let moviesJSON = JSON(value).array
+                    var movies = [Movie]()
+                    for movie in moviesJSON! {
+                        movies.append(Movie(json: movie))
+                    }
+                    
+                    for mov in movies {
+                        mov.output()
+                    }
+                }
+            case .Failure(let error):
+                print(error)
+            }
+        }
+
+    }
+    
+    // Arranges categories string array with "empty" on '3rd' values
+    // @param : array of categories as fetched from the server
+    // @post : local categories with "empty" on every 3rd value
+    // i.e. ["empty",cat1,cat2,"empty",cat3,cat4,"empty"...]
+    func orderCategoriesWithEmptyValues(arr: [String]) {
+        for (i, cat) in arr.enumerate() {
+            if i % 2 == 0 {
+                categories.append("empty")
+                categories.append(cat)
+                
+            } else {
+                categories.append(cat)
+            }
+        }
+        if categories.count % 3 == 0 {
+            categories.append("empty")
         }
     }
     
@@ -102,84 +146,58 @@ class MainMoviesViewController: UIViewController {
 extension MainMoviesViewController: UITableViewDataSource {
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 3
+        return 1
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var num = 0
-        if section == 0 {
-            num = categories.count
-        } else if section == 1 {
-            num = 1
-        } else if section == 2 {
-            num = categories.count
-        }
-        return num
-    }
-    
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
-        var label = ""
-        if section == 0 {
-            label = "First Section"
-        } else {
-            label = "Second Section"
-        }
-        
-        
-        return label
+        return categories.count
     }
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        if indexPath.section == 0 {
-            if indexPath.row == 1 {
-                let cell = tableView.dequeueReusableCellWithIdentifier("MoviePreview") as! MoviePreviewTableViewCell
+        // I am ignoring the first row, index = 0
+        if indexPath.row == 0 {
+            return UITableViewCell()
+        } else {
+            if indexPath.row % 3 == 0 {
+                let cell = tableView.dequeueReusableCellWithIdentifier("moviePreviewCell") as! MoviePreviewTableViewCell
                 return cell
             } else {
-                let cell = tableView.dequeueReusableCellWithIdentifier("genreCell") as! CategoryRowTableViewCell
+                let cell = tableView.dequeueReusableCellWithIdentifier("categoryCell") as! CategoryRowTableViewCell
+                cell
                 cell.currentVC = self
                 return cell
             }
-            
-        } else if indexPath.section == 1 {
-            let cell = tableView.dequeueReusableCellWithIdentifier("MoviePreview") as! MoviePreviewTableViewCell
-            return cell
-        } else if indexPath.section == 2 {
-            let cell = tableView.dequeueReusableCellWithIdentifier("genreCell") as! CategoryRowTableViewCell
-            cell.currentVC = self
-            return cell
         }
-        return UITableViewCell()
-        
     }
+    
+    
 }
 
 extension MainMoviesViewController: UITableViewDelegate {
     
-//    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-//        if indexPath.section == 1 {
-//            let cell = tableView.dequeueReusableCellWithIdentifier("MoviewPreview") as! MoviePreviewTableViewCell
-//            if cell.player!.rate == 0.0 {
-//                // Not playing forward, so play.
-////                if currentTime == duration {
-////                    // At end, so got back to begining.
-////                    currentTime = 0.0
-////                }
-//                
-//                cell.player!.play()
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.section == 1 {
+            let cell = tableView.dequeueReusableCellWithIdentifier("moviePreviewCell") as! MoviePreviewTableViewCell
+            if cell.player!.rate == 0.0 {
+                // Not playing forward, so play.
+//                if currentTime == duration {
+//                    // At end, so got back to begining.
+//                    currentTime = 0.0
+//                }
+                
+                cell.player!.play()
+            }
+//            else {
+//                // Playing, so pause.
+//                cell.player!.pause()
 //            }
-////            else {
-////                // Playing, so pause.
-////                cell.player!.pause()
-////            }
-//        }
-//    }
+        }
+    }
     
     func tableView(tableView: UITableView, didEndDisplayingCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 1 {
-            let cell = tableView.dequeueReusableCellWithIdentifier("MoviePreview") as! MoviePreviewTableViewCell
+            let cell = tableView.dequeueReusableCellWithIdentifier("moviePreviewCell") as! MoviePreviewTableViewCell
             //            cell.player.
             
             if cell.player!.rate == 1.0 {
@@ -198,17 +216,15 @@ extension MainMoviesViewController: UITableViewDelegate {
         }
     }
     
-//    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-//        if indexPath.row == 0 {
-//            return 50
-//        } else if indexPath.row == 1{
-//            return 80
-//        } else if indexPath.row == 2 {
-//            return 150
-//        } else {
-//            return 210
-//        }
-//    }
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if indexPath.row == 0 {
+            return 0
+        } else if indexPath.row % 3 == 0{
+            return 250
+        } else {
+            return 200
+        }
+    }
     
 //    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 //        return 35
