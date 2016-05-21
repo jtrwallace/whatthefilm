@@ -7,12 +7,17 @@
 //
 
 import UIKit
+import CoreMedia
 import AVFoundation
 
 class MoviePreviewTableViewCell: UITableViewCell {
     
 
-    @IBOutlet weak var testview: PlayerView!
+    @IBOutlet weak var movieStill: UIImageView!
+    @IBOutlet weak var playerView: PlayerView!
+    
+    
+    
     var playerItem:AVPlayerItem?
     var player:AVPlayer?
     
@@ -27,8 +32,8 @@ class MoviePreviewTableViewCell: UITableViewCell {
         let url = NSURL(string: "https://www.dropbox.com/s/ede0aqfcxisxk3b/discretion3.mp4?dl=1")!
         
         print()
-        print(testview.bounds.size.width)
-        print(testview.bounds.size.height)
+        print(playerView.bounds.size.width)
+        print(playerView.bounds.size.height)
         print()
         print(contentView.bounds.size.width)
         print(contentView.bounds.size.height)
@@ -40,10 +45,26 @@ class MoviePreviewTableViewCell: UITableViewCell {
 //        playerLayer.frame=CGRectMake(0, 0, testview.bounds.size.width-10, testview.bounds.size.height-10)
 //        testview.layer.addSublayer(playerLayer)
         
-        testview.playerLayer.player = player
-        testview.playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+        playerView.playerLayer.player = player
+        playerView.playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
         
         player?.play()
+        
+        
+        
+        
+        
+        let cmTime  = CMTimeMake(1, 3)
+        let cmValue = NSValue(CMTime: cmTime)
+        
+        
+        
+        
+        var timeObserver: AnyObject!
+        timeObserver = player?.addBoundaryTimeObserverForTimes([cmValue], queue: nil, usingBlock: {
+            self.movieStill.hidden = true
+            self.player?.removeTimeObserver(timeObserver)
+        })
         
         NSNotificationCenter.defaultCenter().addObserver(self,
                                                          selector: #selector(TestVideoViewController.playerItemDidReachEnd),
@@ -56,6 +77,9 @@ class MoviePreviewTableViewCell: UITableViewCell {
     func playerItemDidReachEnd() {
         self.player!.seekToTime(kCMTimeZero)
         self.player!.play()
+    }
+    @IBAction func movieStillButtonPressed(sender: AnyObject) {
+        print("need to segue to movie details")
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

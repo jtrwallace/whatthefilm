@@ -74,16 +74,26 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="240"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="filmFeatured2.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="L7O-yA-apv">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="filmFeatured2.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="L7O-yA-apv" userLabel="headerImage">
                                             <rect key="frame" x="0.0" y="44" width="600" height="181"/>
                                         </imageView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fk0-yd-Qz9" userLabel="headerButton">
+                                            <rect key="frame" x="0.0" y="44" width="600" height="181"/>
+                                            <connections>
+                                                <action selector="headerButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="B9Z-lb-u4X"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" red="0.098039215686274508" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="L7O-yA-apv" secondAttribute="bottom" constant="15" id="1fF-JA-Twk"/>
                                         <constraint firstItem="L7O-yA-apv" firstAttribute="top" secondItem="M9J-Ca-wfs" secondAttribute="top" constant="44" id="6ee-fa-cBS"/>
+                                        <constraint firstItem="fk0-yd-Qz9" firstAttribute="top" secondItem="M9J-Ca-wfs" secondAttribute="top" constant="44" id="CQy-nQ-0tp"/>
                                         <constraint firstItem="L7O-yA-apv" firstAttribute="leading" secondItem="M9J-Ca-wfs" secondAttribute="leading" id="CUM-Es-0kL"/>
+                                        <constraint firstItem="fk0-yd-Qz9" firstAttribute="leading" secondItem="M9J-Ca-wfs" secondAttribute="leading" id="TXO-9u-bKg"/>
                                         <constraint firstAttribute="trailing" secondItem="L7O-yA-apv" secondAttribute="trailing" id="aRn-Uq-gfk"/>
+                                        <constraint firstAttribute="bottom" secondItem="fk0-yd-Qz9" secondAttribute="bottom" constant="15" id="aio-0a-pgT"/>
+                                        <constraint firstAttribute="trailing" secondItem="fk0-yd-Qz9" secondAttribute="trailing" id="hje-VT-EKl"/>
                                     </constraints>
                                 </view>
                                 <prototypes>
@@ -129,7 +139,7 @@
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             </view>
-                                                            <color key="backgroundColor" red="1" green="0.47450980390000003" blue="0.32549019610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <color key="backgroundColor" red="0.14901960784313725" green="0.14901960784313725" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
                                                             <connections>
                                                                 <outlet property="testLabel" destination="1Kd-ZL-8de" id="jzt-cN-gCp"/>
                                                             </connections>

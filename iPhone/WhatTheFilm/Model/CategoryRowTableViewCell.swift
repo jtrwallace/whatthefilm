@@ -16,12 +16,22 @@ class CategoryRowTableViewCell: UITableViewCell {
     @IBOutlet weak var collectionView: UICollectionView!
     
     
+    var movies: [Movie] = []
+    
+    
     
     weak var currentVC: UIViewController!
 
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+//        print("printing movies from categoryrow cell")
+//        for movie in movies {
+//            movie.output()
+//        }
+        
+        
     
     }
 
@@ -37,7 +47,7 @@ class CategoryRowTableViewCell: UITableViewCell {
 extension CategoryRowTableViewCell: UICollectionViewDataSource {
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 12
+        return movies.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {

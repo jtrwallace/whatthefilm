@@ -14,26 +14,39 @@
                 <rect key="frame" x="0.0" y="0.0" width="600" height="249"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="test2.png" translatesAutoresizingMaskIntoConstraints="NO" id="IwP-At-H4C">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aia-mN-C1g" userLabel="PlayerView" customClass="PlayerView" customModule="WhatTheFilm" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="239"/>
+                        <color key="backgroundColor" red="0.14901960784313725" green="0.14901960784313725" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="test2.png" translatesAutoresizingMaskIntoConstraints="NO" id="IwP-At-H4C" userLabel="MovieStill">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="239"/>
                     </imageView>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aia-mN-C1g" customClass="PlayerView" customModule="WhatTheFilm" customModuleProvider="target">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GeI-Gk-j3b" userLabel="MovieButton">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="239"/>
-                    </view>
+                        <connections>
+                            <action selector="movieStillButtonPressed:" destination="YWP-sb-Av3" eventType="touchUpInside" id="5lg-mW-WLf"/>
+                        </connections>
+                    </button>
                 </subviews>
+                <color key="backgroundColor" red="0.098039215686274508" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
                     <constraint firstItem="IwP-At-H4C" firstAttribute="leading" secondItem="U9e-xe-QDQ" secondAttribute="leading" id="4KO-bn-GcI"/>
                     <constraint firstAttribute="bottom" secondItem="aia-mN-C1g" secondAttribute="bottom" constant="10" id="5uM-Ag-be6"/>
+                    <constraint firstAttribute="bottom" secondItem="GeI-Gk-j3b" secondAttribute="bottom" constant="10" id="I94-Qg-hUX"/>
+                    <constraint firstAttribute="trailing" secondItem="GeI-Gk-j3b" secondAttribute="trailing" id="ICx-BC-PUg"/>
                     <constraint firstAttribute="bottom" secondItem="IwP-At-H4C" secondAttribute="bottom" constant="10" id="KGe-3I-Kld"/>
                     <constraint firstItem="aia-mN-C1g" firstAttribute="top" secondItem="U9e-xe-QDQ" secondAttribute="top" id="MHH-av-rbA"/>
                     <constraint firstItem="aia-mN-C1g" firstAttribute="leading" secondItem="U9e-xe-QDQ" secondAttribute="leading" id="Na3-tT-ppa"/>
+                    <constraint firstItem="GeI-Gk-j3b" firstAttribute="leading" secondItem="U9e-xe-QDQ" secondAttribute="leading" id="Pdk-4t-0rM"/>
+                    <constraint firstItem="GeI-Gk-j3b" firstAttribute="top" secondItem="U9e-xe-QDQ" secondAttribute="top" id="TW4-M7-Yf3"/>
                     <constraint firstAttribute="trailing" secondItem="aia-mN-C1g" secondAttribute="trailing" id="hyh-t3-QJe"/>
                     <constraint firstItem="IwP-At-H4C" firstAttribute="top" secondItem="U9e-xe-QDQ" secondAttribute="top" id="mR1-ir-ett"/>
                     <constraint firstAttribute="trailing" secondItem="IwP-At-H4C" secondAttribute="trailing" id="oNz-ZX-yCf"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="testview" destination="aia-mN-C1g" id="dSG-BS-fGO"/>
+                <outlet property="movieStill" destination="IwP-At-H4C" id="bAT-jC-Dxh"/>
+                <outlet property="playerView" destination="aia-mN-C1g" id="yLp-IZ-3fs"/>
             </connections>
             <point key="canvasLocation" x="66" y="347"/>
         </tableViewCell>

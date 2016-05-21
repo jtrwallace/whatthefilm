@@ -27,15 +27,15 @@ class Movie {
     var videoStillLink: String!
     
     init(json: JSON) {
-        id = json["id"].int as Int? ?? 0000
+        id = json["id"].int as Int? ?? -1
         title = json["title"].string as String? ?? ""
         description = json["description"].string as String? ?? ""
         genre = json["genre"].string as String? ?? ""
-        duration = json["duration"].double as Double? ?? 0000
+        duration = json["duration"].double as Double? ?? -1
         category = json["category"].string as String? ?? ""
         director = json["director"].string as String? ?? ""
         actors = json["actors"].string as String? ?? ""
-        year = json["year"].int as Int? ?? 0000
+        year = json["year"].int as Int? ?? -1
         studio = json["studio"].string as String? ?? ""
         summary = json["summary"].string as String? ?? ""
         videoLink = json["video"].string as String? ?? ""
@@ -44,11 +44,9 @@ class Movie {
     }
     
     func output() {
-        print("ID: \(id)")
-        print("Title: \(title)")
-        print("Genre: \(genre)")
-        print("Category: \(category)")
-        print("Video Link: \(videoLink)")
+        print("[ID: \(id) - Title: \(title)")
+        print("Genre: \(genre) - Category: \(category)")
+        print("Video Link: \(videoLink)]")
     }
 }
 

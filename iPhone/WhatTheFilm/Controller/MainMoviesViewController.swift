@@ -17,7 +17,7 @@ class MainMoviesViewController: UIViewController {
     
     // Property categories will contain an 'empty' on index0 and every other '3rd' value. ["empty",cat1,cat2,"empty",cat3,cat4,"empty",cat5...]
     // This is to show a movie preview on every 3rd row i.e. row1:categories, row2:categories, row3:moviePreview.
-    var categories = [String]()
+    var categories: [String] = []
     
     var movies: [String : [Movie]] = [:]
     
@@ -48,10 +48,6 @@ class MainMoviesViewController: UIViewController {
                     let catsOnServer = (JSON(value).array?.map { $0.string! })!
                     self.orderCategoriesWithEmptyValues(catsOnServer)
                     
-                    //# TODO:
-                    // THIS NEEDS TO BE MOVED TO AFTER FETCHING THE MOVIES FROM FIRST CATEGORY
-                    self.tableView.reloadData()
-                    
                     // Sorts array of categories ignoring upper/lower case
                     // self.categories.sortInPlace { $0.localizedCompare($1) == NSComparisonResult.OrderedAscending }
                     self.fetchMoviesFromCategories()
@@ -64,7 +60,9 @@ class MainMoviesViewController: UIViewController {
     
     func fetchMoviesFromCategories() {
         for category in categories {
-            fetchMoviesFromCategory(category)
+            if category != "empty" {
+                fetchMoviesFromCategory(category)
+            }
         }
     }
     
@@ -81,15 +79,17 @@ class MainMoviesViewController: UIViewController {
                         movies.append(Movie(json: movie))
                     }
                     
-                    for mov in movies {
-                        mov.output()
-                    }
+                    self.movies[category] = movies
+                    
+                    
+                    
+                    self.tableView.reloadData()
+                    
                 }
             case .Failure(let error):
                 print(error)
             }
         }
-
     }
     
     // Arranges categories string array with "empty" on '3rd' values
@@ -110,6 +110,22 @@ class MainMoviesViewController: UIViewController {
             categories.append("empty")
         }
     }
+    
+    
+    
+    @IBAction func headerButton(sender: AnyObject) {
+        print("categories: \(categories)")
+        print("movie dict count: \(movies.count)")
+        
+        for (key, value) in movies {
+            print("the key is: \(key)")
+            for val in value {
+                val.output()
+            }
+        }
+        
+    }
+    
     
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -152,10 +168,8 @@ extension MainMoviesViewController: UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return categories.count
     }
-    
-    
+
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        // I am ignoring the first row, index = 0
         if indexPath.row == 0 {
             return UITableViewCell()
         } else {
@@ -164,56 +178,74 @@ extension MainMoviesViewController: UITableViewDataSource {
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCellWithIdentifier("categoryCell") as! CategoryRowTableViewCell
-                cell
                 cell.currentVC = self
+                cell.categoryTitle.text = categories[indexPath.row]
+                
+                if let movies = movies[categories[indexPath.row]] {
+                    print("the row is : \(indexPath.row) and the cat is \(categories[indexPath.row])")
+                    cell.movies = movies
+                    cell.collectionView.reloadData()
+                }
+//                cell.movies = movies[categories[indexPath.row]]!
                 return cell
             }
         }
     }
     
-    
 }
+
 
 extension MainMoviesViewController: UITableViewDelegate {
     
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == 1 {
-            let cell = tableView.dequeueReusableCellWithIdentifier("moviePreviewCell") as! MoviePreviewTableViewCell
-            if cell.player!.rate == 0.0 {
-                // Not playing forward, so play.
-//                if currentTime == duration {
-//                    // At end, so got back to begining.
-//                    currentTime = 0.0
-//                }
-                
-                cell.player!.play()
-            }
-//            else {
-//                // Playing, so pause.
-//                cell.player!.pause()
+//    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+//        if indexPath.section == 1 {
+//            let cell = tableView.dequeueReusableCellWithIdentifier("moviePreviewCell") as! MoviePreviewTableViewCell
+//            if cell.player!.rate == 0.0 {
+//                // Not playing forward, so play.
+////                if currentTime == duration {
+////                    // At end, so got back to begining.
+////                    currentTime = 0.0
+////                }
+//                
+//                cell.player!.play()
 //            }
-        }
-    }
+////            else {
+////                // Playing, so pause.
+////                cell.player!.pause()
+////            }
+//        }
+//    }
     
     func tableView(tableView: UITableView, didEndDisplayingCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == 1 {
+        
+        if indexPath.row % 3 == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier("moviePreviewCell") as! MoviePreviewTableViewCell
-            //            cell.player.
-            
             if cell.player!.rate == 1.0 {
-                // Not playing forward, so play.
-                //                if currentTime == duration {
-                //                    // At end, so got back to begining.
-                //                    currentTime = 0.0
-                //                }
-                
                 cell.player!.pause()
+                cell.movieStill.hidden = false
             }
-//            else {
-//                // Playing, so pause.
+        }
+        
+        
+        
+//        if indexPath.section == 1 {
+//            let cell = tableView.dequeueReusableCellWithIdentifier("moviePreviewCell") as! MoviePreviewTableViewCell
+//            //            cell.player.
+//            
+//            if cell.player!.rate == 1.0 {
+//                // Not playing forward, so play.
+//                //                if currentTime == duration {
+//                //                    // At end, so got back to begining.
+//                //                    currentTime = 0.0
+//                //                }
+//                
 //                cell.player!.pause()
 //            }
-        }
+////            else {
+////                // Playing, so pause.
+////                cell.player!.pause()
+////            }
+//        }
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
