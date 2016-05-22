@@ -15,7 +15,6 @@ class PlayerView: UIView {
         get {
             return playerLayer.player
         }
-        
         set {
             playerLayer.player = newValue
         }
@@ -29,3 +28,5 @@ class PlayerView: UIView {
         return AVPlayerLayer.self
     }
 }
+
+
