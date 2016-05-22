@@ -31,7 +31,7 @@ class API_Helper {
     // Queries DB to get the array of categories
     // A new array is returned in callback which contains 'empty' on every
     // 3rd value.
-    class func fetchCategories(completionBlock: ([String])->Void) {
+    class func fetchCategories(completionBlock: (Int,[String])->Void) {
         Alamofire.request(.GET, API_Helper.requestCategories).responseJSON { (response) in
             switch response.result {
             case .Success:
@@ -43,12 +43,10 @@ class API_Helper {
                     // Sorts array of categories ignoring upper/lower case
                     // self.categories.sortInPlace { $0.localizedCompare($1) == NSComparisonResult.OrderedAscending }
                     
-                    completionBlock(self.categoriesWithEmptyValues(fromArr: catsOnServer))
+                    completionBlock(1,self.categoriesWithEmptyValues(fromArr: catsOnServer))
                 }
             case .Failure(let error):
-                print(error)
-                //send notification to be caught by moviesVC to display alert error
-                // since i dont want to pass VC to show alert from this helper class
+                completionBlock(0, [error.localizedDescription])
             }
         }
     }
@@ -63,7 +61,7 @@ class API_Helper {
             switch response.result {
             case .Success:
                 if let value = response.result.value {
-                    print("json: \(JSON(value))")
+                    print("json: \(JSON(value)) with category: \(category)")
                     let moviesJSON = JSON(value).array
                     var moviesArr = [Movie]()
                     for movie in moviesJSON! {

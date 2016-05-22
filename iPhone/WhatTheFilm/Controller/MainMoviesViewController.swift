@@ -27,22 +27,26 @@ class MainMoviesViewController: UIViewController {
         
         tableView.registerNib(UINib(nibName: "MoviePreviewCell", bundle: nil), forCellReuseIdentifier: "moviePreviewCell")
         
-        API_Helper.fetchCategories { (cats) in
-            self.categories = cats
-            
-            // Do logic to only fetch movies from the first 5 categories
-            // after that the movies should only be fetched when scrolling the tableview
-            // to reveal > 5 category
-            for cat in cats {
-                if cat != "empty" {
-                    API_Helper.fetchMovies(fromCategory: cat, completionBlock: { (movies) in
-                        self.movies[cat] = movies[cat]
-                        self.tableView.reloadData()
-                    })
+        API_Helper.fetchCategories { (response, categories) in
+            if response == 1 {
+                self.categories = categories
+                
+                // Fetch movies from the first 5 categories (+2 indeces with 'empty', thus i=7)
+                // The rest will be fetched when actually scrolling through tableview
+                for (i, cat) in categories.enumerate() {
+                    if (cat != "empty") && (i < 7) {
+                        API_Helper.fetchMovies(fromCategory: cat, completionBlock: { (movies) in
+                            self.movies[cat] = movies[cat]
+                            self.tableView.reloadData()
+                        })
+                    }
                 }
+            } else {
+                self.showAlert(withTitle: "Error", andMsg: categories[0])
             }
+            
+            
         }
-
         
     }
 
@@ -65,6 +69,15 @@ class MainMoviesViewController: UIViewController {
             }
         }
         
+        
+        
+    }
+    
+    func showAlert(withTitle title: String, andMsg msg: String) {
+        let alertController = UIAlertController(title: title, message: msg, preferredStyle: UIAlertControllerStyle.Alert)
+        let okAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil)
+        alertController.addAction(okAction)
+        presentViewController(alertController, animated: true, completion: nil)
     }
     
     
