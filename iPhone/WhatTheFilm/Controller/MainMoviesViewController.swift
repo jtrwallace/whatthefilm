@@ -22,13 +22,28 @@ class MainMoviesViewController: UIViewController {
     var movies: [String : [Movie]] = [:]
     
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.registerNib(UINib(nibName: "MoviePreviewCell", bundle: nil), forCellReuseIdentifier: "moviePreviewCell")
         
-        fetchCategories()
+        API_Helper.fetchCategories { (cats) in
+            self.categories = cats
+            
+            // Do logic to only fetch movies from the first 5 categories
+            // after that the movies should only be fetched when scrolling the tableview
+            // to reveal > 5 category
+            for cat in cats {
+                if cat != "empty" {
+                    API_Helper.fetchMovies(fromCategory: cat, completionBlock: { (movies) in
+                        self.movies[cat] = movies[cat]
+                        self.tableView.reloadData()
+                    })
+                }
+            }
+        }
+
+        
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -36,80 +51,6 @@ class MainMoviesViewController: UIViewController {
         print(tableViewHeader.frame.size.width)
     }
     
-    
-    
-    func fetchCategories() {
-        Alamofire.request(.GET, API_Helper.requestCategories).responseJSON { (response) in
-            switch response.result {
-            case .Success:
-                if let value = response.result.value {
-                    print("json: \(JSON(value))")
-                    // Iterating through JSON obj array and mapping it to a string array
-                    let catsOnServer = (JSON(value).array?.map { $0.string! })!
-                    self.orderCategoriesWithEmptyValues(catsOnServer)
-                    
-                    // Sorts array of categories ignoring upper/lower case
-                    // self.categories.sortInPlace { $0.localizedCompare($1) == NSComparisonResult.OrderedAscending }
-                    self.fetchMoviesFromCategories()
-                }
-            case .Failure(let error):
-                print(error)
-            }
-        }
-    }
-    
-    func fetchMoviesFromCategories() {
-        for category in categories {
-            if category != "empty" {
-                fetchMoviesFromCategory(category)
-            }
-        }
-    }
-    
-    func fetchMoviesFromCategory(category: String) {
-        let url = "\(API_Helper.requestCategories)\(category)"
-        Alamofire.request(.GET, url).responseJSON { (response) in
-            switch response.result {
-            case .Success:
-                if let value = response.result.value {
-                    print("json: \(JSON(value))")
-                    let moviesJSON = JSON(value).array
-                    var movies = [Movie]()
-                    for movie in moviesJSON! {
-                        movies.append(Movie(json: movie))
-                    }
-                    
-                    self.movies[category] = movies
-                    
-                    
-                    
-                    self.tableView.reloadData()
-                    
-                }
-            case .Failure(let error):
-                print(error)
-            }
-        }
-    }
-    
-    // Arranges categories string array with "empty" on '3rd' values
-    // @param : array of categories as fetched from the server
-    // @post : local categories with "empty" on every 3rd value
-    // i.e. ["empty",cat1,cat2,"empty",cat3,cat4,"empty"...]
-    func orderCategoriesWithEmptyValues(arr: [String]) {
-        for (i, cat) in arr.enumerate() {
-            if i % 2 == 0 {
-                categories.append("empty")
-                categories.append(cat)
-                
-            } else {
-                categories.append(cat)
-            }
-        }
-        if categories.count % 3 == 0 {
-            categories.append("empty")
-        }
-    }
     
     
     
