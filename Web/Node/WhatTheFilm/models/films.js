@@ -109,8 +109,30 @@ function Films() {
         connection.acquire(function(err, con) {
             con.query('SELECT * FROM films ORDER BY id DESC LIMIT 0, 1', function(err, result) {
                 con.release();
-                console.log(result[0]);
                 res.send(result[0]);
+            })
+        });
+    };
+
+    this.search = function(query, res) {
+        connection.acquire(function(err, con) {
+            con.query('select * from films where title sounds like "%' + [query] + '%"', function(err, titleResult) {
+                con.query('select * from films where genre sounds like "%' + [query] + '%"', function(err, genreResult) {
+                    con.query('select * from films where category sounds like "%' + [query] + '%"', function(err, categoryResult) {
+                        con.query('select * from films where description like "%' + [query] + '%"', function(err, descriptionResult) {
+                            con.query('select * from films where summary like "%' + [query] + '%"', function(err, summaryResult) {
+                                var result = {
+                                    'title': titleResult,
+                                    'genre': genreResult,
+                                    'category': categoryResult,
+                                    'description': descriptionResult,
+                                    'summary': summaryResult
+                                };
+                                res.send(result);
+                            })
+                        })
+                    })
+                })
             })
         });
     };

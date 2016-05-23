@@ -48,5 +48,9 @@ module.exports = (function() {
         films.getMaxID(res);
     });
 
+    api.get('/search/:query', function(req, res) {
+        films.search(req.params.query, res);
+    });
+
     return api;
 })();
