@@ -30,6 +30,8 @@
 		C63762501CF2D6CE00827E72 /* playButton.png in Resources */ = {isa = PBXBuildFile; fileRef = C637624F1CF2D6CE00827E72 /* playButton.png */; };
 		C63762521CF2D84400827E72 /* closeButton.png in Resources */ = {isa = PBXBuildFile; fileRef = C63762511CF2D84400827E72 /* closeButton.png */; };
 		C63762541CF2DC6200827E72 /* CAGradientLayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63762531CF2DC6200827E72 /* CAGradientLayer+Extension.swift */; };
+		C63762561CF2F71E00827E72 /* Billabong.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C63762551CF2F56A00827E72 /* Billabong.ttf */; };
+		C63762581CF2F7A000827E72 /* BebasNeue.otf in Resources */ = {isa = PBXBuildFile; fileRef = C63762571CF2F79500827E72 /* BebasNeue.otf */; };
 		C6BBD2F51CD7699E00689270 /* Logo2.png in Resources */ = {isa = PBXBuildFile; fileRef = C6BBD2F41CD7699E00689270 /* Logo2.png */; };
 		C6BBD2F71CDEF9B200689270 /* StyleConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BBD2F61CDEF9B200689270 /* StyleConstants.swift */; };
 		C6BBD2F91CDF0CA100689270 /* filmFeatured.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C6BBD2F81CDF0CA100689270 /* filmFeatured.jpg */; };
@@ -106,6 +108,8 @@
 		C637624F1CF2D6CE00827E72 /* playButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playButton.png; sourceTree = "<group>"; };
 		C63762511CF2D84400827E72 /* closeButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = closeButton.png; sourceTree = "<group>"; };
 		C63762531CF2DC6200827E72 /* CAGradientLayer+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CAGradientLayer+Extension.swift"; sourceTree = "<group>"; };
+		C63762551CF2F56A00827E72 /* Billabong.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Billabong.ttf; sourceTree = "<group>"; };
+		C63762571CF2F79500827E72 /* BebasNeue.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = BebasNeue.otf; sourceTree = "<group>"; };
 		C6BBD2F41CD7699E00689270 /* Logo2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo2.png; sourceTree = "<group>"; };
 		C6BBD2F61CDEF9B200689270 /* StyleConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StyleConstants.swift; path = Model/StyleConstants.swift; sourceTree = "<group>"; };
 		C6BBD2F81CDF0CA100689270 /* filmFeatured.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = filmFeatured.jpg; sourceTree = "<group>"; };
@@ -267,6 +271,8 @@
 			children = (
 				C6BBD2F61CDEF9B200689270 /* StyleConstants.swift */,
 				C63762531CF2DC6200827E72 /* CAGradientLayer+Extension.swift */,
+				C63762551CF2F56A00827E72 /* Billabong.ttf */,
+				C63762571CF2F79500827E72 /* BebasNeue.otf */,
 				C6BBD2F31CD7698A00689270 /* Assets */,
 				C6EF60E91CC5565A007B0279 /* Info.plist */,
 			);
@@ -397,6 +403,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C63762581CF2F7A000827E72 /* BebasNeue.otf in Resources */,
+				C63762561CF2F71E00827E72 /* Billabong.ttf in Resources */,
 				C63762521CF2D84400827E72 /* closeButton.png in Resources */,
 				C6BBD2FF1CDF18C000689270 /* horiz.png in Resources */,
 				C63762501CF2D6CE00827E72 /* playButton.png in Resources */,

@@ -22,13 +22,18 @@ class MovieDetailsViewController: UIViewController, WTF_AVPLayerVCDelegate {
     
     var movieURL: NSURL!
     
+    @IBOutlet weak var scrollView: UIScrollView!
     
     var movie: Movie!
     
     var testCmTime: CMTime!
     @IBOutlet weak var movieImage: UIImageView!
+    @IBOutlet weak var movieImageTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var gradientBehindTitle: UIView!
-
+    
+    
+    
+    
     @IBOutlet weak var testLabel: UILabel!
     var arrRes = [[String:AnyObject]]() //Array of dictionary
     
@@ -36,7 +41,7 @@ class MovieDetailsViewController: UIViewController, WTF_AVPLayerVCDelegate {
         super.viewDidLoad()
         
         if movie != nil {
-            testLabel.text = "The title of the movie goes here: \(movie.title)"
+            testLabel.text = "\(movie.title)"
         }
         
         if movie.videoStillLink != "" {
@@ -158,3 +163,24 @@ class MovieDetailsViewController: UIViewController, WTF_AVPLayerVCDelegate {
     
 
 }
+    
+extension MovieDetailsViewController: UIScrollViewDelegate {
+
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        
+        // The following bit gives the zooming effect of the 
+        // movie still when scrolling down, only zooms for the first 40pts
+        let offsetY = scrollView.contentOffset.y
+        if offsetY < 0 && offsetY > -40 {
+            movieImageTopConstraint.constant = offsetY
+        } else if offsetY < -40 {
+            movieImageTopConstraint.constant = -40
+        }
+        
+    }
+    
+}
+    
+    
+    
+    
