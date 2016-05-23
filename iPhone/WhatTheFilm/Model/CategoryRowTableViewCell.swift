@@ -10,30 +10,21 @@ import UIKit
 
 class CategoryRowTableViewCell: UITableViewCell {
     
-    var selectedMovie: Int!
     @IBOutlet weak var categoryTitle: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
 
     var movies: [Movie] = []
+    var selectedMovie: Movie!
     
     weak var currentVC: UIViewController!
 
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
-//        print("printing movies from categoryrow cell")
-//        for movie in movies {
-//            movie.output()
-//        }
-        
-        
-    
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
 
@@ -55,11 +46,11 @@ extension CategoryRowTableViewCell: UICollectionViewDataSource {
         cell.movieCover.sd_setImageWithURL(url, placeholderImage: nil, options: SDWebImageOptions.RetryFailed) { (image, error, type, nsurl) in
             // hide activity indicator maybe??
         }
-        
         return cell
     }
     
 }
+
 
 //extension CategoryRowTableViewCell: UICollectionViewDelegateFlowLayout {
 //    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
@@ -74,9 +65,8 @@ extension CategoryRowTableViewCell: UICollectionViewDataSource {
 
 extension CategoryRowTableViewCell: UICollectionViewDelegate {
 
-    
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        selectedMovie = indexPath.row
+        selectedMovie = movies[indexPath.row]
         currentVC.performSegueWithIdentifier("MovieDetails", sender: self)
     }
 }

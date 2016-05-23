@@ -83,12 +83,11 @@ class MainMoviesViewController: UIViewController {
     
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
         if segue.identifier == "MovieDetails" {
             if let cell = sender as? CategoryRowTableViewCell {
                 
                 let destination = segue.destinationViewController as! MovieDetailsViewController
-                destination.testValue = cell.selectedMovie
+                destination.movie = cell.selectedMovie
                 
 //                if let collecCell = 
 //                cell.collectionView.indexPathForCell(collecCell)

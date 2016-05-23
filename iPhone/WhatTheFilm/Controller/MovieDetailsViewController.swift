@@ -22,10 +22,12 @@ class MovieDetailsViewController: UIViewController, WTF_AVPLayerVCDelegate {
     
     var movieURL: NSURL!
     
-    var testValue: Int!
+    
+    var movie: Movie!
     
     var testCmTime: CMTime!
     @IBOutlet weak var movieImage: UIImageView!
+    @IBOutlet weak var gradientBehindTitle: UIView!
 
     @IBOutlet weak var testLabel: UILabel!
     var arrRes = [[String:AnyObject]]() //Array of dictionary
@@ -33,9 +35,20 @@ class MovieDetailsViewController: UIViewController, WTF_AVPLayerVCDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if testValue != nil {
-            testLabel.text = "The title of the movie goes here: \(testValue)"
+        if movie != nil {
+            testLabel.text = "The title of the movie goes here: \(movie.title)"
         }
+        
+        if movie.videoStillLink != "" {
+            let url = NSURL(string: movie.videoStillLink)
+            movieImage.sd_setImageWithURL(url)
+        }
+        
+        
+        // Setting gradient background
+        let backgroundGradient = CAGradientLayer().grayBehindTitle()
+        backgroundGradient.frame = gradientBehindTitle.bounds
+        gradientBehindTitle.layer.insertSublayer(backgroundGradient, atIndex: 0)
         
         
 //        movieURL = NSURL(string: "http://jplayer.org/video/m4v/Big_Buck_Bunny_Trailer.m4v")
@@ -78,17 +91,17 @@ class MovieDetailsViewController: UIViewController, WTF_AVPLayerVCDelegate {
                 print("response.result: \(response.result)")   // result of response serialization
                 print("response.result: \(response.result.value)")   // result of response serialization
 
-                if let value = response.result.value {
-                    let json = JSON(value)
-                    print("JSON: \(json)")
-                    let contactsArr = json["contacts"].array
-                    let testemail = contactsArr![0]["email"].string
-                    for contact in contactsArr! {
-                        print(contact["email"].string)
-                    }
-                    
-                    print("test: \(testemail)")
-                }
+//                if let value = response.result.value {
+//                    let json = JSON(value)
+//                    print("JSON: \(json)")
+//                    let contactsArr = json["contacts"].array
+//                    let testemail = contactsArr![0]["email"].string
+//                    for contact in contactsArr! {
+//                        print(contact["email"].string)
+//                    }
+//                    
+//                    print("test: \(testemail)")
+//                }
             case .Failure(let error):
                 print(error)
                 
@@ -106,11 +119,11 @@ class MovieDetailsViewController: UIViewController, WTF_AVPLayerVCDelegate {
     override func viewDidAppear(animated: Bool) {
         
         
-        let url = NSURL(string: "http://s.imgur.com/images/logo-1200-630.jpg")
-        
-        movieImage.sd_setImageWithURL(url) { (image, error, type, nsurl) in
-            print("might use complete block to stop activity indicator")
-        }
+//        let url = NSURL(string: "http://s.imgur.com/images/logo-1200-630.jpg")
+//        
+//        movieImage.sd_setImageWithURL(url) { (image, error, type, nsurl) in
+//            print("might use complete block to stop activity indicator")
+//        }
         
         print("movie details: \(testCmTime)")
     }
