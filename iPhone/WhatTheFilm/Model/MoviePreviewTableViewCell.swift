@@ -48,6 +48,7 @@ class MoviePreviewTableViewCell: UITableViewCell {
         playerView.playerLayer.player = player
         playerView.playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
         
+        //ENABLE
         player?.play()
         
         

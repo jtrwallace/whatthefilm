@@ -15,7 +15,7 @@ class Movie {
     var title: String!
     var description: String!
     var genre: String!
-    var duration: Double!
+    var duration: Int!
     var category: String!
     var director: String!
     var actors: String!
@@ -31,7 +31,7 @@ class Movie {
         title = json["title"].string as String? ?? ""
         description = json["description"].string as String? ?? ""
         genre = json["genre"].string as String? ?? ""
-        duration = json["duration"].double as Double? ?? -1
+        duration = json["duration"].int as Int? ?? -1
         category = json["category"].string as String? ?? ""
         director = json["director"].string as String? ?? ""
         actors = json["actors"].string as String? ?? ""

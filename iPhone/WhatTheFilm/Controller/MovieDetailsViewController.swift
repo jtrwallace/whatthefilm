@@ -12,130 +12,75 @@ import AVFoundation
 import Alamofire
 import SwiftyJSON
     
-    
-
 class MovieDetailsViewController: UIViewController, WTF_AVPLayerVCDelegate {
 
-//    var avPlayerVC: AVPlayerViewController!
     var avPLayerVC: WTF_AVPlayerVC!
     var avPlayer: AVPlayer!
     
-    var movieURL: NSURL!
-    
     @IBOutlet weak var scrollView: UIScrollView!
+    var dismissVCHeight: CGFloat!
     
-    var movie: Movie!
+    
     
     var testCmTime: CMTime!
+    
     @IBOutlet weak var movieImage: UIImageView!
     @IBOutlet weak var movieImageTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var gradientBehindTitle: UIView!
+    @IBOutlet weak var gradientContainer: UIView!
+
+    var movie: Movie!
+    @IBOutlet weak var movieTitle: UILabel!
+    @IBOutlet weak var year: UILabel!
+    @IBOutlet weak var duration: UILabel!
+    @IBOutlet weak var summary: UILabel!
+    @IBOutlet weak var cast: UILabel!
+    @IBOutlet weak var genre: UILabel!
+    @IBOutlet weak var director: UILabel!
     
+    @IBOutlet weak var strecherLineTopConstraint: NSLayoutConstraint!
     
-    
-    
-    @IBOutlet weak var testLabel: UILabel!
-    var arrRes = [[String:AnyObject]]() //Array of dictionary
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // Init misc properties
+        dismissVCHeight = (-1)*(view.bounds.size.height * 0.22)
         
-        if movie != nil {
-            testLabel.text = "\(movie.title)"
-        }
+        // Init UI
+        movieTitle.text = movie.title
+        year.text = (movie.year > 0 ? movie.year.description : "")
+        duration.text = (movie.duration > 0 ? timeFormatted(movie.duration) : "")
+        summary.text = movie.description
+        cast.text = "Cast: \(movie.actors)"
+        genre.text = "Genre: \(movie.genre)"
+        director.text = "Director: \(movie.director)"
+
         
         if movie.videoStillLink != "" {
             let url = NSURL(string: movie.videoStillLink)
             movieImage.sd_setImageWithURL(url)
         }
         
-        
-        // Setting gradient background
-        let backgroundGradient = CAGradientLayer().grayBehindTitle()
-        backgroundGradient.frame = gradientBehindTitle.bounds
-        gradientBehindTitle.layer.insertSublayer(backgroundGradient, atIndex: 0)
-        
-        
-//        movieURL = NSURL(string: "http://jplayer.org/video/m4v/Big_Buck_Bunny_Trailer.m4v")
-//        movieURL = NSURL(string: "https://www.dropbox.com/s/q2nsrel0v1u5d0l/Discretion.mp4?dl=1")
-        
-        movieURL = NSURL(string: "https://www.dropbox.com/s/kbkqxvpw4fl67u7/Discretion.mp4?dl=1")
+        // Add gradient behind Movie title that blends movieImage & scrollView
+        let gradientLayer = CAGradientLayer().grayBehindTitle()
+        gradientLayer.frame = gradientContainer.bounds
+        gradientContainer.layer.insertSublayer(gradientLayer, atIndex: 0)
         
         
-//        Alamofire.request(.GET, "http://api.androidhive.info/contacts/").response { (req, res, data, error) -> Void in
-//            print(res)
-//            let outputString = NSString(data: data!, encoding:NSUTF8StringEncoding)
-//            print(outputString)
-//        }
-//        
-//        
-//        
-//        Alamofire.request(.GET, "http://api.androidhive.info/contacts/").responseJSON { (responseData) -> Void in
-//            if((responseData.result.value) != nil) {
-//                let swiftyJsonVar = JSON(responseData.result.value!)
-//                
-//                if let resData = swiftyJsonVar["contacts"].arrayObject {
-//                    self.arrRes = resData as! [[String:AnyObject]]
-//                    print(self.arrRes)
-//                }
-//                if self.arrRes.count > 0 {
-////                    self.tblJSON.reloadData()
-//                }
-//            }
-//        }
-        
-//        let films = "http://whatthefilm.us-west-1.elasticbeanstalk.com/api/films/"
-        let categories = "http://whatthefilm.us-west-1.elasticbeanstalk.com/api/categories/"
-        
-        Alamofire.request(.GET, categories).responseJSON { (response) in
-            switch response.result{
-            case .Success:
-                print("response.request: \(response.request)")  // original URL request
-                print("response.response: \(response.response)") // URL response
-//                print("response.data: \(response.data)")     // server data
-                print("response.result: \(response.result)")   // result of response serialization
-                print("response.result: \(response.result.value)")   // result of response serialization
-
-//                if let value = response.result.value {
-//                    let json = JSON(value)
-//                    print("JSON: \(json)")
-//                    let contactsArr = json["contacts"].array
-//                    let testemail = contactsArr![0]["email"].string
-//                    for contact in contactsArr! {
-//                        print(contact["email"].string)
-//                    }
-//                    
-//                    print("test: \(testemail)")
-//                }
-            case .Failure(let error):
-                print(error)
-                
-            }
-        }
-        
-    
     }
-    
-    func currentTimeUpdate(time: CMTime) {
-        testCmTime = time
-    }
-    
     
     override func viewDidAppear(animated: Bool) {
         
-        
-//        let url = NSURL(string: "http://s.imgur.com/images/logo-1200-630.jpg")
-//        
-//        movieImage.sd_setImageWithURL(url) { (image, error, type, nsurl) in
-//            print("might use complete block to stop activity indicator")
-//        }
-        
-        print("movie details: \(testCmTime)")
+        // To allow a scrollable VC even is there is not enough content to scroll
+        // The strecherLine is fixed to bottom of contentView and has a top constraint to
+        // director-UILabel which is increased to 1pt past the height of the scrollview.
+        let directorLabelBottomYPostition = director.frame.origin.y + director.frame.size.height
+        strecherLineTopConstraint.constant = scrollView.frame.size.height - directorLabelBottomYPostition
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    // Protocol function - WTF_AVPLayerVCDelegate
+    func currentTimeUpdate(time: CMTime) {
+        testCmTime = time
     }
     
     @IBAction func backButtonPressed(sender: AnyObject) {
@@ -143,11 +88,10 @@ class MovieDetailsViewController: UIViewController, WTF_AVPLayerVCDelegate {
     }
 
     @IBAction func playButtonPressed(sender: AnyObject) {
-        avPlayer = AVPlayer(URL: movieURL)
+        let url = NSURL(string: movie.videoLink)
+        avPlayer = AVPlayer(URL: url!)
         avPLayerVC = WTF_AVPlayerVC()
         avPLayerVC.player = avPlayer
-//        avPlayerVC = AVPlayerViewController()
-//        avPlayerVC.player = avPlayer
     
         presentViewController(avPLayerVC, animated: true) {
             self.avPLayerVC.wtfDelegate = self
@@ -156,20 +100,31 @@ class MovieDetailsViewController: UIViewController, WTF_AVPLayerVCDelegate {
             if let time = self.testCmTime {
                 self.avPLayerVC.player?.seekToTime(time)
             }
-            
-//            self.avPLayerVC.player?.seekToTime(self.testCmTime)
         }
     }
     
-
+    
+    // Formats seconds to either 1h 33m or 33m 15s
+    func timeFormatted(secs: Int) -> String {
+        let seconds: Int = secs % 60
+        let minutes: Int = (secs / 60) % 60
+        let hours: Int = secs / 3600
+        
+        if hours > 0 {
+            return "\(hours)h \(minutes)m"
+        } else {
+            return "\(minutes)m \(seconds)s"
+        }
+    }
+    
 }
     
+    
 extension MovieDetailsViewController: UIScrollViewDelegate {
-
+    
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        
-        // The following bit gives the zooming effect of the 
-        // movie still when scrolling down, only zooms for the first 40pts
+        // Zooming effect of the movie-still
+        // when scrolling down only zooms for the first 40pts
         let offsetY = scrollView.contentOffset.y
         if offsetY < 0 && offsetY > -40 {
             movieImageTopConstraint.constant = offsetY
@@ -177,10 +132,13 @@ extension MovieDetailsViewController: UIScrollViewDelegate {
             movieImageTopConstraint.constant = -40
         }
         
+        // Dismiss VC when the screen has been scrolled down 22% of the view's height
+        if offsetY < dismissVCHeight {
+            dismissViewControllerAnimated(true, completion: nil)
+        }
+        
     }
     
 }
-    
-    
     
     
