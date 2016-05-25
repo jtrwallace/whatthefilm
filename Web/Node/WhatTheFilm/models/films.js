@@ -114,6 +114,15 @@ function Films() {
         });
     };
 
+    this.getFeaturedMaxID = function(res) {
+        connection.acquire(function(err, con) {
+            con.query('SELECT * FROM featured ORDER BY id DESC LIMIT 0, 1', function(err, result) {
+                con.release();
+                res.send(result[0]);
+            })
+        });
+    };
+
     this.search = function(query, res) {
         connection.acquire(function(err, con) {
             con.query('select * from films where title sounds like "%' + [query] + '%"', function(err, titleResult) {
@@ -134,6 +143,74 @@ function Films() {
                     })
                 })
             })
+        });
+    };
+
+    function getMatchingFilm(feature, films) {
+        var result = films.filter(function(film) {
+           return film.id == feature['film_id'];
+        });
+        return result[0];
+    }
+
+    this.getFeatured = function(res) {
+        connection.acquire(function(err, con) {
+            con.query('select * from featured', function(err, featuredResult) {
+                con.query('select * from films', function(err, filmsResult) {
+                    con.release();
+                    var featured = [];
+                    featuredResult.forEach(function(feature) {
+                        var combo = {
+                            "feature": feature,
+                            "film": getMatchingFilm(feature, filmsResult)
+                        };
+                        featured.push(combo);
+                    });
+                    res.send(featured);
+                });
+            });
+        });
+    };
+
+    this.specificFeature = function(id, res) {
+        connection.acquire(function(err, con) {
+            con.query('select * from featured where id = ?', [id], function(err, result) {
+                con.query('select * from films where id = ?', result[0].film_id, function(err, filmsResult) {
+                    con.release();
+                    var single = {
+                        "feature": result[0],
+                        "film": filmsResult[0]
+                    };
+                    res.send(single);
+                });
+            });
+        });
+    };
+
+    this.createFeatured = function(featured, res) {
+        connection.acquire(function(err, con) {
+            console.log(featured);
+            con.query('insert into featured set ?', featured, function(err, result) {
+                con.release();
+                if (err) {
+                    res.send({status: 1, message: 'Feature creation failed'});
+                } else {
+                    res.send({status: 0, message: 'Feature created successfully'});
+                }
+            });
+        });
+    };
+
+    this.updateFeatured = function(featured, res) {
+        connection.acquire(function(err, con) {
+            con.query('update featured set ? where id = ?', [featured, featured.id], function(err, result) {
+                con.release();
+                if (err) {
+                    res.send({status: 1, message: 'Feature update failed'});
+                } else {
+                    res.send({status: 0, message: 'Feature updated successfully'});
+                }
+            });
         });
     };
 

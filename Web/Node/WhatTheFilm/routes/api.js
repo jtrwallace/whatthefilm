@@ -48,8 +48,28 @@ module.exports = (function() {
         films.getMaxID(res);
     });
 
+    api.get('/featured_maxid/', function(req, res) {
+        films.getFeaturedMaxID(res);
+    });
+
     api.get('/search/:query', function(req, res) {
         films.search(req.params.query, res);
+    });
+
+    api.get('/featured/', function(req, res) {
+        films.getFeatured(res);
+    });
+
+    api.get('/featured/:id', function(req, res) {
+        films.specificFeature(req.params.id, res);
+    });
+
+    api.post('/featured/', function(req, res) {
+        films.createFeatured(req.body, res);
+    });
+
+    api.put('/featured/', function(req, res) {
+        films.updateFeatured(req.body, res);
     });
 
     return api;

@@ -39,7 +39,7 @@ a {
 
 }
 
-.title, .title_new {
+.title, .title_new, .featured_title {
     cursor: pointer;
 }
 
@@ -48,7 +48,7 @@ input {
     height: 100%;
 }
 
-#button {
+#button, #featured_button {
     margin: auto;
     font-size: 20pt;
     display: none;

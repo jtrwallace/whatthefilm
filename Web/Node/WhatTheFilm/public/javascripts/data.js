@@ -5,6 +5,7 @@ $(document).ready( function() {
     });
     
     var isNew = 0;
+    var isNewFeature = 0;
     
     $(document).on('click', '.title', function() {
         var id;
@@ -27,6 +28,7 @@ $(document).ready( function() {
                     $("#film_video > input").val("");
                     $("#film_poster > input").val("");
                     $("#film_still > input").val("");
+                    $("#film_iphone_still > input").val("");
                     isNew = 1;
                 }
             })
@@ -51,12 +53,46 @@ $(document).ready( function() {
                     $("#film_video > input").val(data.video);
                     $("#film_poster > input").val(data.poster);
                     $("#film_still > input").val(data.still);
+                    $("#film_iphone_still > input").val(data.iphonestill);
                     isNew = 0;
                 }
             });
         }
         $("#button").show();
     });
+
+    $(document).on('click', '.featured_title', function() {
+        var id;
+        if ($(this).data("id") == -1) {
+            $.ajax({
+                type: "GET",
+                url: '/api/featured_maxid/',
+                success: function(data) {
+                    $("#featured_id > input").val(data.id + 1);
+                    $("#featured_title > select").val('empty');
+                    $("#featured_image > input").val("");
+                    $("#featured_video > input").val("");
+                    isNewFeature = 1;
+                }
+            })
+        } else {
+            id = $(this).data("id");
+            $.ajax({
+                type: "GET",
+                url: '/api/featured/' + id,
+                dataType: 'JSON',
+                success: function(data) {
+                    $("#featured_id > input").val(data['feature'].id);
+                    $("#featured_title > select").val(data['film'].title);
+                    $("#featured_image > input").val(data['feature'].image);
+                    $("#featured_video > input").val(data['feature'].video);
+                    isNewFeature = 0;
+                }
+            });
+        }
+        $("#featured_button").show();
+    });
+
 
     $("#button").click(function() {
         var film = {
@@ -73,8 +109,9 @@ $(document).ready( function() {
             'studio': $("#film_studio > input").val(),
             'video': $("#film_video > input").val(),
             'poster': $("#film_poster > input").val(),
-            'still': $("#film_still > input").val()
-        }
+            'still': $("#film_still > input").val(),
+            'iphonestill': $("#film_iphone_still > input").val()
+        };
         if (isNew == 1) {
             $.ajax({
                 type: "POST",
@@ -92,6 +129,38 @@ $(document).ready( function() {
                 url: '/api/films/',
                 dataType: 'JSON',
                 data: film,
+                success: function() {
+                    alert("Saved!");
+                }
+            });
+        }
+    });
+
+    $("#featured_button").click(function() {
+        var feature = {
+            'id': $("#featured_id > input").val(),
+            'film_id': $("#featured_title > select").find(':selected').data('id'),
+            'image': $("#featured_image > input").val(),
+            'video': $("#featured_video > input").val()
+        };
+        console.log(feature);
+        if (isNewFeature == 1) {
+            $.ajax({
+                type: "POST",
+                url: '/api/featured/',
+                dataType: 'JSON',
+                data: feature,
+                success: function() {
+                    alert("Created!");
+                    $("#featuredlist").append('<li data-id="' + feature.id + '" class="featured_title">' + $("#featured_title > select").val() + '</li>');
+                }
+            })
+        } else {
+            $.ajax({
+                type: "PUT",
+                url: '/api/featured/',
+                dataType: 'JSON',
+                data: feature,
                 success: function() {
                     alert("Saved!");
                 }

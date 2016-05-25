@@ -19,77 +19,118 @@ block content
                 .field_title
                     h3 Title
             #film_title.field_content.right
-                input(type="text", name="id")
+                input(type="text", name="title")
         .field
             .left
                 .field_title
                     h3 Description
             #film_description.field_content.right
-                input(type="text", name="id")
+                input(type="text", name="description")
         .field
             .left
                 .field_title
                     h3 Summary
             #film_summary.field_content.right
-                input(type="text", name="id")
+                input(type="text", name="summary")
         .field
             .left
                 .field_title
                     h3 Genre
             #film_genre.field_content.right
-                input(type="text", name="id")
+                input(type="text", name="genre")
         .field
             .left
                 .field_title
                     h3 Duration (s)
             #film_duration.field_content.right
-                input(type="text", name="id")
+                input(type="text", name="duration")
         .field
             .left
                 .field_title
                     h3 Category
             #film_category.field_content.right
-                input(type="text", name="id")
+                input(type="text", name="category")
         .field
             .left
                 .field_title
                     h3 Director
             #film_director.field_content.right
-                input(type="text", name="id")
+                input(type="text", name="director")
         .field
             .left
                 .field_title
                     h3 Actors
             #film_actors.field_content.right
-                input(type="text", name="id")
+                input(type="text", name="actors")
         .field
             .left
                 .field_title
                     h3 Year
             #film_year.field_content.right
-                input(type="text", name="id")
+                input(type="text", name="year")
         .field
             .left
                 .field_title
                     h3 Studio
             #film_studio.field_content.right
-                input(type="text", name="id")
+                input(type="text", name="studio")
         .field
             .left
                 .field_title
                     h3 Video
             #film_video.field_content.right
-                input(type="text", name="id")
+                input(type="text", name="video")
         .field
             .left
                 .field_title
                     h3 Poster
             #film_poster.field_content.right
-                input(type="text", name="id")
+                input(type="text", name="poster")
         .field
             .left
                 .field_title
                     h3 Still
             #film_still.field_content.right
-                input(type="text", name="id")
+                input(type="text", name="still")
+        .field
+            .left
+                .field_title
+                    h3 iPhone Still
+            #film_iphone_still.field_content.right
+                input(type="text", name="iphone_still")
     button(type="submit", id="button") Save
+
+    h1 Featured
+    ul#featuredlist
+        each featured in features
+            li.featured_title(data-id=featured['feature'].id)= featured['film'].title
+        li.featured_title(data-id="-1") New Film
+    .movie_info
+        .field
+            .left
+                .field_title
+                    h3 ID
+            #featured_id.field_content.right
+                input(type="text", name="featured_id")
+        .field
+            .left
+                .field_title
+                    h3 Film Title
+            #featured_title.field_content.right
+                select(id="titles_drop_down", name="select_titles")
+                    option(value="empty", data-id="-1") -
+                    each film in films
+                        option(value=film.title, data-id=film.id)= film.title
+        .field
+            .left
+                .field_title
+                    h3 Featured Image
+            #featured_image.field_content.right
+                input(type="text", name="featured_image")
+        .field
+            .left
+                .field_title
+                    h3 Featured Video
+            #featured_video.field_content.right
+                input(type="text", name="featured_video")
+    button(type="submit", id="featured_button") Save
