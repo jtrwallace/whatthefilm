@@ -1,0 +1,263 @@
+@import url(https://fonts.googleapis.com/css?family=PT+Mono);
+body {
+    font-family: 'PT Mono' !important;
+    background-color: black;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+
+/* front-page-category-grid */
+
+:root {
+    --cat-div-height: 250px;
+}
+
+.cat-header {
+    height: 60px;
+    background-color: #e7b94b;
+    color: white;
+    vertical-align: middle;
+    padding-left: 30px;
+    padding-top: 20px;
+    font-size: 17px;
+}
+
+.row.no-gutter {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.row.no-gutter [class*='col-']:not(:first-child),
+.row.no-gutter [class*='col-']:not(:last-child) {
+    padding-right: 0;
+    padding-left: 0;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.cat-feat-poster {
+    position: relative;
+    height: var(--cat-div-height);
+    width: 100%;
+    z-index: -10;
+}
+
+.cat-feat-description {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 9999;
+    width: 80%;
+    color: white;
+}
+
+.cat-feat-description h1 {
+    color: white;
+    font-size: 24pt;
+    font-weight: bold;
+}
+
+#year {
+    color: #c06455;
+    font-size: 70%;
+}
+
+.feat-triangle-small {
+    float: right;
+    height: 0;
+    margin-top: -200px;
+    border-top: 250px solid transparent;
+    border-right: 400px solid rgba(0, 0, 0, .5);
+}
+
+.feat-triangle-large {
+    float: right;
+    height: 0;
+    margin-top: -200px;
+    border-top: 250px solid transparent;
+    border-right: 700px solid rgba(0, 0, 0, .5);
+}
+
+.feat-desc-text {
+    position: absolute;
+    right: 20px;
+    margin-top: -125px;
+    text-align: right;
+}
+
+.slider {
+    width: auto;
+}
+
+.slider div {
+    height: var(--cat-div-height);
+}
+
+.slider-item-poster {
+    position: relative;
+}
+
+.slider-item-description {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 9999;
+}
+
+.slider-item-description h1 {
+    color: white;
+    font-size: 24pt;
+    font-weight: bold;
+}
+
+.slider-desc-text {
+    position: absolute;
+    right: 20px;
+    margin-top: -100px;
+    text-align: right;
+}
+
+.slider-item-triangle {
+    float: right;
+    height: 0;
+    margin-top: 20px;
+    border-top: 250px solid transparent;
+    border-right: 320px solid rgba(0, 0, 0, .5);
+}
+
+.prev-arrow {
+    position: absolute;
+    top: 100px;
+    font-size: 65px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #e7b94b;
+    border: none;
+}
+
+.next-arrow {
+    position: absolute;
+    right: 20px;
+    top: 100px;
+    font-size: 65px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #e7b94b;
+    border: none;
+}
+
+
+/* player page */
+
+video {
+    width: 100%
+}
+
+.header-video {
+    position: relative;
+    overflow: hidden;
+    max-height: 550px;
+    z-index: 1;
+}
+
+.header-video iframe,
+.header-video video {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.header-video iframe {
+    height: 100%;
+    width: 100%;
+}
+
+.header-video video {
+    width: 100 %;
+}
+
+.header-video__teaser-video {
+    width: 100%;
+    height: auto;
+}
+
+.header-video__media {
+    width: 100%;
+    height: auto;
+}
+
+.back-btn {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    margin-top: -40px;
+    color: #e7b94b;
+    font-size: 80px;
+    height: 80px;
+    width: 80px;
+    border: none;
+    background-color: transparent;
+    z-index: 1000;
+}
+
+.back-btn:hover {
+    transition: all 0.5s ease-out;
+    color: #e5ab20;
+}
+
+.film-synopsis {
+    position: absolute;
+    width: 38%;
+    left: 30px;
+    top: 30%;
+    color: white;
+    text-align: left;
+    z-index: 99999;
+    height: 10%;
+}
+
+.film-synopsis h1 {
+    font-size: 42pt;
+    color: #c06455;
+}
+
+.film-synopsis h2 {
+    font-size: 14.5pt;
+}
+
+.film-synopsis p {
+    margin-top: 25px;
+    font-size: 12pt;
+}
+
+.film-reviews {
+    position: absolute;
+    color: white;
+    font-size: 12pt;
+    margin-top: 20px;
+    margin-left: 3%;
+}
+
+.film-reviews h1 {
+    font-size: 22pt;
+}
+
+.play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -70px;
+    margin-top: -40px;
+    color: #e7b94b;
+    font-size: 80px;
+    height: 80px;
+    width: 80px;
+    background-color: transparent;
+    border: none;
+}
+
+.play-btn:hover {
+    transition: all 0.5s ease-out;
+    color: #e5ab20;
+}

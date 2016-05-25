@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Film Preview</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="header-video">
+        <img src="video/achoo/achoo-poster.jpg" class="header-video__media" data-video-src="video/achoo/achoo.mp4" data-provider="html5" data-video-width="560" data-video-height="315">
+        <div class="film-synopsis">
+            <h1>Achoo (2016)</h1>
+            <h2>by Lauren Schecter ⋅ United States ⋅ 6 min</h2>
+            <p>How funny is it that everybody deals with the common cold in different ways?</p>
+        </div>
+        <button type="button" class="header-video__play-trigger play-btn" id="header-video__play-trigger"><i class="fa fa-play" aria-hidden="true"></i></button>
+        <button type="button" class="header-video__close-trigger back-btn" id="header-video__close-trigger"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+    </div>
+    <div class="film-reviews">
+        <h1>Review section here</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo, accusamus, eius aperiam velit modi obcaecati aliquid fugiat quisquam corporis consequatur neque nemo magnam quas molestias nostrum ex a voluptatibus consectetur praesentium pariatur nobis tempore hic ea mollitia in illum deserunt accusantium natus distinctio quae magni reprehenderit alias ipsa rerum quos.</p>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="js/film-page.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('.header-video').each(function(i, elem) {
+            headerVideo = new HeaderVideo({
+                element: elem,
+                media: '.header-video__media',
+                playTrigger: '.header-video__play-trigger',
+                closeTrigger: '.header-video__close-trigger',
+                filmSynopsis: '.film-synopsis'
+            });
+        });
+    });
+    </script>
+</body>
+
+</html>

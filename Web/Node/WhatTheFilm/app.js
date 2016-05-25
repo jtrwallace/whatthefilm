@@ -4,8 +4,11 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+//var mysql = require('mysql');
 
+var connection = require('./connection');
 var routes = require('./routes/index');
+var api = require('./routes/api');
 var users = require('./routes/users');
 
 var app = express();
@@ -22,6 +25,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/api', api);
 app.use('/', routes);
 app.use('/users', users);
 
@@ -55,6 +59,8 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
+
+connection.init();
 
 
 module.exports = app;

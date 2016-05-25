@@ -1,5 +1,9 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to Your mom
+  each film in films
+    h1= film.title
+    p= film.description
+    video(width="1280", height="720", controls)
+      source(src=film.video, type="video/mp4")
+    script(src="/javascripts/index.js")
