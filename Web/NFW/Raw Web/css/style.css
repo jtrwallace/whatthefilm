@@ -1,5 +1,4 @@
 @import url(https://fonts.googleapis.com/css?family=PT+Mono);
-
 body {
     font-family: 'PT Mono' !important;
     background-color: black;
@@ -23,7 +22,6 @@ body {
     padding-top: 20px;
     font-size: 17px;
 }
-
 
 .row.no-gutter {
     margin-left: 0;
@@ -105,7 +103,6 @@ body {
     bottom: 0;
     right: 0;
     z-index: 9999;
-    
 }
 
 .slider-item-description h1 {
@@ -149,79 +146,80 @@ body {
 }
 
 
-/* film-page */
+/* player page */
 
-#film-cover {
-    position: fixed;
-    background-repeat: no-repeat;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+video {
+    width: 100%
+}
+
+.header-video {
+    position: relative;
+    overflow: hidden;
+    max-height: 550px;
+    z-index: 1;
+}
+
+.header-video iframe,
+.header-video video {
+    position: absolute;
     top: 0;
+    bottom: 0;
     left: 0;
-    position: fixed;
-    height: 70%;
+    right: 0;
+}
+
+.header-video iframe {
+    height: 100%;
     width: 100%;
-    -webkit-transition: all 1s ease;
-    /* Safari and Chrome */
-    -moz-transition: all 1s ease;
-    /* Firefox */
-    -o-transition: all 1s ease;
-    /* IE 9 */
-    -ms-transition: all 1s ease;
-    /* Opera */
-    transition: all 1s ease;
-    max-width: 100%;
 }
 
-#film-cover:hover {
-    -webkit-transform: scale(1.25);
-    /* Safari and Chrome */
-    -moz-transform: scale(1.25);
-    /* Firefox */
-    -ms-transform: scale(1.25);
-    /* IE 9 */
-    -o-transform: scale(1.25);
-    /* Opera */
-    transform: scale(1.25);
+.header-video video {
+    width: 100 %;
 }
 
-#video-player {
-    width: 1000px;
-    margin: 0 auto;
-    padding-top: 20px;
+.header-video__teaser-video {
+    width: 100%;
+    height: auto;
 }
 
-#back-btn {
+.header-video__media {
+    width: 100%;
+    height: auto;
+}
+
+.back-btn {
     position: absolute;
     top: 50%;
     left: 20px;
     margin-top: -40px;
     color: #e7b94b;
-    font-size: 55pt;
-    height: 100px;
-    width: 100px;
+    font-size: 80px;
+    height: 80px;
+    width: 80px;
+    border: none;
+    background-color: transparent;
+    z-index: 1000;
 }
 
-#back-btn:hover {
+.back-btn:hover {
     transition: all 0.5s ease-out;
     color: #e5ab20;
 }
 
 .film-synopsis {
-    margin-left: 3%;
-    margin-top: 7%;
-    margin-bottom: 30%;
-    padding: 16px;
+    position: absolute;
+    width: 38%;
+    left: 30px;
+    top: 30%;
     color: white;
     text-align: left;
-    width: 38%;
-    z-index: 1000;
+    z-index: 99999;
+    height: 10%;
 }
 
 .film-synopsis h1 {
     font-size: 42pt;
+    color: #c06455;
 }
 
 .film-synopsis h2 {
@@ -237,7 +235,7 @@ body {
     position: absolute;
     color: white;
     font-size: 12pt;
-    margin-top: 550px;
+    margin-top: 20px;
     margin-left: 3%;
 }
 
@@ -245,19 +243,21 @@ body {
     font-size: 22pt;
 }
 
-#play-btn {
+.play-btn {
     position: absolute;
     top: 50%;
     left: 50%;
     margin-left: -70px;
     margin-top: -40px;
     color: #e7b94b;
-    font-size: 55pt;
-    height: 100px;
-    width: 100px;
+    font-size: 80px;
+    height: 80px;
+    width: 80px;
+    background-color: transparent;
+    border: none;
 }
 
-#play-btn:hover {
+.play-btn:hover {
     transition: all 0.5s ease-out;
     color: #e5ab20;
 }
