@@ -37,6 +37,10 @@ class WTF_AVPlayerVC: AVPlayerViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return [UIInterfaceOrientationMask.LandscapeLeft, UIInterfaceOrientationMask.LandscapeRight]
+    }
+    
 
     /*
     // MARK: - Navigation

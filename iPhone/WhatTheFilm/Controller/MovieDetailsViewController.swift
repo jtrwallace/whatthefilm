@@ -1,4 +1,4 @@
-    //
+        //
 //  MovieDetailsViewController.swift
 //  WhatTheFilm
 //
@@ -76,6 +76,10 @@ class MovieDetailsViewController: UIViewController, WTF_AVPLayerVCDelegate {
         // director-UILabel which is increased to 1pt past the height of the scrollview.
         let directorLabelBottomYPostition = director.frame.origin.y + director.frame.size.height
         strecherLineTopConstraint.constant = scrollView.frame.size.height - directorLabelBottomYPostition
+    }
+    
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.Portrait
     }
     
     // Protocol function - WTF_AVPLayerVCDelegate

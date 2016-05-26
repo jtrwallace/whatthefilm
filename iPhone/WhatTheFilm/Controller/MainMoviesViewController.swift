@@ -55,6 +55,9 @@ class MainMoviesViewController: UIViewController {
         print(tableViewHeader.frame.size.width)
     }
     
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.Portrait
+    }
     
     
     
