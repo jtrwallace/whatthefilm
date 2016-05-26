@@ -38,9 +38,6 @@ class TestVideoViewController: UIViewController {
             selector: #selector(TestVideoViewController.playerItemDidReachEnd),
             name: AVPlayerItemDidPlayToEndTimeNotification,
             object: self.player!.currentItem)
-            
-    
-        
         
 
         

@@ -11,45 +11,50 @@ import AVKit
 import AVFoundation
 
 protocol WTF_AVPLayerVCDelegate: class {
-    func currentTimeUpdate(time: CMTime)
+    func lastPlayerCurrentTime(time: CMTime)
 }
-
 
 class WTF_AVPlayerVC: AVPlayerViewController {
     
-    weak var wtfDelegate: WTF_AVPLayerVCDelegate? = nil
+    var lastCurrentTime: CMTime!
+    var movieDidFinish = false
+    
+    weak var wtfAVPlayerVCDelegate: WTF_AVPLayerVCDelegate? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        // Setting self as observer for when video finishes playing
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(WTF_AVPlayerVC.playerItemDidReachEnd), name: AVPlayerItemDidPlayToEndTimeNotification, object: player?.currentItem)
     }
-//    
+    
     override func viewWillDisappear(animated: Bool) {
         print("av player done button pressed")
         print(player?.currentTime())
         
-        wtfDelegate?.currentTimeUpdate((player?.currentTime())!)
+        if !movieDidFinish {
+            let currTime = player?.currentTime()
+            let secs = Double((currTime?.value)!) / Double((currTime?.timescale)!)
+            // Tested case with seconds being a negative number and there are no problems
+            // clip still starts at 0:0 mark
+            let currTimeMinus2Seconds = CMTime(seconds: secs-2, preferredTimescale: (currTime?.timescale)!)
+            lastCurrentTime = currTimeMinus2Seconds
+        }
+        wtfAVPlayerVCDelegate?.lastPlayerCurrentTime(lastCurrentTime)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
+    // Only allow landscape when playing video
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         return [UIInterfaceOrientationMask.LandscapeLeft, UIInterfaceOrientationMask.LandscapeRight]
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func playerItemDidReachEnd() {
+        movieDidFinish = true
+        lastCurrentTime = kCMTimeZero
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+        dismissViewControllerAnimated(true, completion: nil)
     }
-    */
-
+    
 }
+
+

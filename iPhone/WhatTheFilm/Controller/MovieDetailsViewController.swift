@@ -83,7 +83,7 @@ class MovieDetailsViewController: UIViewController, WTF_AVPLayerVCDelegate {
     }
     
     // Protocol function - WTF_AVPLayerVCDelegate
-    func currentTimeUpdate(time: CMTime) {
+    func lastPlayerCurrentTime(time: CMTime) {
         testCmTime = time
     }
     
@@ -98,7 +98,7 @@ class MovieDetailsViewController: UIViewController, WTF_AVPLayerVCDelegate {
         avPLayerVC.player = avPlayer
     
         presentViewController(avPLayerVC, animated: true) {
-            self.avPLayerVC.wtfDelegate = self
+            self.avPLayerVC.wtfAVPlayerVCDelegate = self
             self.avPLayerVC.player?.play()
             
             if let time = self.testCmTime {

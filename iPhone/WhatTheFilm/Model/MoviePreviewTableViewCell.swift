@@ -55,17 +55,18 @@ class MoviePreviewTableViewCell: UITableViewCell {
         
         
         
-        let cmTime  = CMTimeMake(1, 3)
+        let cmTime  = CMTimeMake(1, 3) // 1/3 of a second
         let cmValue = NSValue(CMTime: cmTime)
         
-        
-        
-        
+        // Since a UIImage of a movie still is on top of AVPlayer I'm adding observer to find
+        // out when clip started playing so I can hide image and video therefore is shown
         var timeObserver: AnyObject!
         timeObserver = player?.addBoundaryTimeObserverForTimes([cmValue], queue: nil, usingBlock: {
             self.movieStill.hidden = true
             self.player?.removeTimeObserver(timeObserver)
         })
+        
+        
         
         NSNotificationCenter.defaultCenter().addObserver(self,
                                                          selector: #selector(TestVideoViewController.playerItemDidReachEnd),
