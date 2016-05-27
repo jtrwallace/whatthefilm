@@ -40,7 +40,7 @@ class Movie {
         summary = json["summary"].string as String? ?? ""
         videoLink = json["video"].string as String? ?? ""
         posterLink = json["poster"].string as String? ?? ""
-        videoStillLink = json["still"].string as String? ?? ""
+        videoStillLink = json["iphonestill"].string as String? ?? ""
     }
     
     func output() {

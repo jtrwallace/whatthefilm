@@ -56,7 +56,9 @@ class API_Helper {
     // Returns in the callback a dict with the key as category and
     // the value as an array of Movie objs
     class func fetchMovies(fromCategory category: String, completionBlock: ([String: [Movie]])->Void) {
-        let url = "\(requestCategories)\(category)"
+        // To allow categories with spaces
+        let urlTextEscaped = category.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
+        let url = "\(requestCategories)\(urlTextEscaped)"
         Alamofire.request(.GET, url).responseJSON { (response) in
             switch response.result {
             case .Success:

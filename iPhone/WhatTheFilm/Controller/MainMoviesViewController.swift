@@ -30,6 +30,7 @@ class MainMoviesViewController: UIViewController {
         API_Helper.fetchCategories { (response, categories) in
             if response == 1 {
                 self.categories = categories
+                print(categories)
                 
                 // Fetch movies from the first 5 categories (+2 indeces with 'empty', thus i=7)
                 // The rest will be fetched when actually scrolling through tableview

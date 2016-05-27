@@ -12,17 +12,10 @@ import AVFoundation
 import Alamofire
 import SwiftyJSON
     
-class MovieDetailsViewController: UIViewController, WTF_AVPLayerVCDelegate {
+class MovieDetailsViewController: UIViewController {
 
-    var avPLayerVC: WTF_AVPlayerVC!
-    var avPlayer: AVPlayer!
-    
     @IBOutlet weak var scrollView: UIScrollView!
     var dismissVCHeight: CGFloat!
-    
-    
-    
-    var testCmTime: CMTime!
     
     @IBOutlet weak var movieImage: UIImageView!
     @IBOutlet weak var movieImageTopConstraint: NSLayoutConstraint!
@@ -36,8 +29,10 @@ class MovieDetailsViewController: UIViewController, WTF_AVPLayerVCDelegate {
     @IBOutlet weak var cast: UILabel!
     @IBOutlet weak var genre: UILabel!
     @IBOutlet weak var director: UILabel!
-    
     @IBOutlet weak var strecherLineTopConstraint: NSLayoutConstraint!
+    
+    var avPLayerVC: WTF_AVPlayerVC!
+    var avPlayer: AVPlayer!
     
     
     override func viewDidLoad() {
@@ -55,7 +50,6 @@ class MovieDetailsViewController: UIViewController, WTF_AVPLayerVCDelegate {
         genre.text = "Genre: \(movie.genre)"
         director.text = "Director: \(movie.director)"
 
-        
         if movie.videoStillLink != "" {
             let url = NSURL(string: movie.videoStillLink)
             movieImage.sd_setImageWithURL(url)
@@ -65,12 +59,9 @@ class MovieDetailsViewController: UIViewController, WTF_AVPLayerVCDelegate {
         let gradientLayer = CAGradientLayer().grayBehindTitle()
         gradientLayer.frame = gradientContainer.bounds
         gradientContainer.layer.insertSublayer(gradientLayer, atIndex: 0)
-        
-        
     }
     
     override func viewDidAppear(animated: Bool) {
-        
         // To allow a scrollable VC even is there is not enough content to scroll
         // The strecherLine is fixed to bottom of contentView and has a top constraint to
         // director-UILabel which is increased to 1pt past the height of the scrollview.
@@ -78,33 +69,32 @@ class MovieDetailsViewController: UIViewController, WTF_AVPLayerVCDelegate {
         strecherLineTopConstraint.constant = scrollView.frame.size.height - directorLabelBottomYPostition
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        NSUserDefaults.standardUserDefaults().synchronize()
+    }
+    
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         return UIInterfaceOrientationMask.Portrait
     }
     
     // Protocol function - WTF_AVPLayerVCDelegate
-    func lastPlayerCurrentTime(time: CMTime) {
-        testCmTime = time
-    }
+//    func lastPlayerCurrentTime(time: CMTime) {
+//        lastCurrentTime = time
+//    }
     
     @IBAction func backButtonPressed(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)
     }
 
     @IBAction func playButtonPressed(sender: AnyObject) {
+        let keyForDefaults = movie.id.description + movie.title
         let url = NSURL(string: movie.videoLink)
         avPlayer = AVPlayer(URL: url!)
         avPLayerVC = WTF_AVPlayerVC()
+        avPLayerVC.keyForDefaults = keyForDefaults
         avPLayerVC.player = avPlayer
     
-        presentViewController(avPLayerVC, animated: true) {
-            self.avPLayerVC.wtfAVPlayerVCDelegate = self
-            self.avPLayerVC.player?.play()
-            
-            if let time = self.testCmTime {
-                self.avPLayerVC.player?.seekToTime(time)
-            }
-        }
+        presentViewController(avPLayerVC, animated: true, completion: nil)
     }
     
     
