@@ -72,6 +72,7 @@ $(document).ready( function() {
                     $("#featured_title > select").val('empty');
                     $("#featured_image > input").val("");
                     $("#featured_video > input").val("");
+                    $("#featured_still > input").val("");
                     isNewFeature = 1;
                 }
             })
@@ -86,6 +87,7 @@ $(document).ready( function() {
                     $("#featured_title > select").val(data['film'].title);
                     $("#featured_image > input").val(data['feature'].image);
                     $("#featured_video > input").val(data['feature'].video);
+                    $("#featured_still > input").val(data['feature'].videostill);
                     isNewFeature = 0;
                 }
             });
@@ -141,7 +143,8 @@ $(document).ready( function() {
             'id': $("#featured_id > input").val(),
             'film_id': $("#featured_title > select").find(':selected').data('id'),
             'image': $("#featured_image > input").val(),
-            'video': $("#featured_video > input").val()
+            'video': $("#featured_video > input").val(),
+            'videostill': $("#featured_still > input").val()
         };
         console.log(feature);
         if (isNewFeature == 1) {
