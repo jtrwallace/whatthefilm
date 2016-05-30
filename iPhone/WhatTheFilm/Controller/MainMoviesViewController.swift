@@ -76,14 +76,11 @@ class MainMoviesViewController: UIViewController {
         print("scrollview height \(featuredCollectionView.frame.size.height)")
         print("scrollview width \(featuredCollectionView.frame.size.width)")
 
-    }
-    
-    override func viewWillAppear(animated: Bool) {
+        // Resume movie preview if necessary
         if moviePreviewPaused {
             let visibleCells = tableView.visibleCells
             for cell in visibleCells {
-                if cell is MoviePreviewTableViewCell {
-                    let previewCell = cell as! MoviePreviewTableViewCell
+                if let previewCell = cell as? MoviePreviewTableViewCell {
                     if previewCell.player!.rate == 0.0 {
                         previewCell.player!.play()
                         moviePreviewPaused = false
@@ -91,14 +88,26 @@ class MainMoviesViewController: UIViewController {
                 }
             }
         }
+        
     }
+    
+    override func viewWillDisappear(animated: Bool) {
+        // Pause movie preview if necessary
+        let visibleCells = tableView.visibleCells
+        for cell in visibleCells {
+            if let previewCell = cell as? MoviePreviewTableViewCell {
+                if previewCell.player!.rate == 1.0 {
+                    previewCell.player!.pause()
+                    moviePreviewPaused = true
+                }
+            }
+        }
+        
+    }
+
     
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         return UIInterfaceOrientationMask.Portrait
-    }
-    
-    @IBAction func test(sender: AnyObject) {
-        print("button pressed")
     }
     
     
@@ -150,20 +159,18 @@ class MainMoviesViewController: UIViewController {
                 let destination = segue.destinationViewController as! MovieDetailsViewController
                 destination.movie = selectedFeature
             }
+            
+            if let cell = sender as? MoviePreviewTableViewCell {
+                let destination = segue.destinationViewController as! MovieDetailsViewController
+                destination.movie = cell.movie
+            }
+            
+            
+            
+            
         }
         
-        // Do this no matter the segue
-        // If there is a moviePreviewCell playing, it needs to be paused before segue
-        let visibleCells = tableView.visibleCells
-        for cell in visibleCells {
-            if cell is MoviePreviewTableViewCell {
-                let previewCell = cell as! MoviePreviewTableViewCell
-                if previewCell.player!.rate == 1.0 {
-                    previewCell.player!.pause()
-                    moviePreviewPaused = true
-                }
-            }
-        }
+        
         
         
         
@@ -191,6 +198,19 @@ extension MainMoviesViewController: UITableViewDataSource {
         } else {
             if indexPath.row % 3 == 0 {
                 let cell = tableView.dequeueReusableCellWithIdentifier("moviePreviewCell") as! MoviePreviewTableViewCell
+                cell.currentVC = self
+                let index = (indexPath.row/3)-1
+                cell.movie = features[index].movie
+                cell.feature = features[index].feature
+                cell.activityIndicator.startAnimating()
+                cell.playPreview()
+                
+                // Movie Preview image still download
+                cell.movieStill.image = nil
+                let url = NSURL(string: cell.feature.videoStill)
+                cell.movieStill.sd_setImageWithURL(url, placeholderImage: nil, options: SDWebImageOptions.RetryFailed) { (image, error, type, nsurl) in
+                    // hide activity indicator maybe??
+                }
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCellWithIdentifier("categoryCell") as! CategoryRowTableViewCell
@@ -198,11 +218,9 @@ extension MainMoviesViewController: UITableViewDataSource {
                 cell.categoryTitle.text = categories[indexPath.row]
                 
                 if let movies = movies[categories[indexPath.row]] {
-                    print("the row is : \(indexPath.row) and the cat is \(categories[indexPath.row])")
                     cell.movies = movies
                     cell.collectionView.reloadData()
                 }
-//                cell.movies = movies[categories[indexPath.row]]!
                 return cell
             }
         }
@@ -214,12 +232,12 @@ extension MainMoviesViewController: UITableViewDataSource {
 extension MainMoviesViewController: UITableViewDelegate {
     
     func tableView(tableView: UITableView, didEndDisplayingCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        
-        if indexPath.row % 3 == 0 {
-            let cell = tableView.dequeueReusableCellWithIdentifier("moviePreviewCell") as! MoviePreviewTableViewCell
-            if cell.player!.rate == 1.0 {
-                cell.player!.pause()
-                cell.movieStill.hidden = false
+        if let preview = cell as? MoviePreviewTableViewCell {
+            if let player = preview.player {
+                if player.rate == 1.0 {
+                    player.pause()
+                    preview.movieStill.hidden = false
+                }
             }
         }
     }
@@ -235,6 +253,8 @@ extension MainMoviesViewController: UITableViewDelegate {
     }
 }
 
+
+// MARK: Featured Films
 
 extension MainMoviesViewController: UICollectionViewDataSource {
     

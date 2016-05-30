@@ -14,12 +14,14 @@ class Featured {
     var movieID: Int!
     var imageLink: String!
     var videoLink: String!
+    var videoStill: String!
     
     init(json: JSON) {
         id = json["id"].int as Int? ?? -1
         movieID = json["film_id"].int as Int? ?? -1
         imageLink = json["image"].string as String? ?? ""
         videoLink = json["video"].string as String? ?? ""
+        videoStill = json["videostill"].string as String? ?? ""
     }
     
 }
