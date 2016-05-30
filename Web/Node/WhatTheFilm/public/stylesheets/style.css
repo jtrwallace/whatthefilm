@@ -48,8 +48,12 @@ input {
     height: 100%;
 }
 
-#button, #featured_button {
+#button, #featured_button, #button-delete, #featured_button-delete {
     margin: auto;
     font-size: 20pt;
     display: none;
+}
+
+#button-delete, #featured_button-delete {
+    background-color: red;
 }

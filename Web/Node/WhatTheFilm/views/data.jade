@@ -99,6 +99,7 @@ block content
             #film_iphone_still.field_content.right
                 input(type="text", name="iphone_still")
     button(type="submit", id="button") Save
+    button(type="submit", id="button-delete") Delete
 
     h1 Featured
     ul#featuredlist
@@ -133,4 +134,11 @@ block content
                     h3 Featured Video
             #featured_video.field_content.right
                 input(type="text", name="featured_video")
+        .field
+            .left
+                .field_title
+                    h3 Featured Still
+            #featured_still.field_content.right
+                input(type="text", name="featured_still")
     button(type="submit", id="featured_button") Save
+    button(type="submit", id="featured_button-delete") Delete

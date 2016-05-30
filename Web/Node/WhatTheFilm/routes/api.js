@@ -72,5 +72,9 @@ module.exports = (function() {
         films.updateFeatured(req.body, res);
     });
 
+    api.delete('/featured/:id/', function(req, res) {
+        films.deleteFeatured(req.params.id, res);
+    });
+
     return api;
 })();
