@@ -59,6 +59,7 @@ $(document).ready( function() {
             });
         }
         $("#button").show();
+        $("#button-delete").show();
     });
 
     $(document).on('click', '.featured_title', function() {
@@ -93,6 +94,7 @@ $(document).ready( function() {
             });
         }
         $("#featured_button").show();
+        $("#featured_button-delete").show();
     });
 
 
@@ -138,6 +140,33 @@ $(document).ready( function() {
         }
     });
 
+    $("#button-delete").click(function() {
+        $.ajax({
+            type: "DELETE",
+            url: '/api/films/' + $("#film_id > input").val(),
+            dataType: 'JSON',
+            success: function() {
+                alert("Deleted!");
+                $("#list").find("[data-id='" + $("#film_id > input").val() + "']").remove();
+                $("#film_id > input").val("");
+                $("#film_title > input").val('');
+                $("#film_description > input").val("");
+                $("#film_summary > input").val("");
+                $("#film_genre > input").val("");
+                $("#film_duration > input").val("");
+                $("#film_category > input").val("");
+                $("#film_director > input").val("");
+                $("#film_actors > input").val("");
+                $("#film_year > input").val("");
+                $("#film_studio > input").val("");
+                $("#film_video > input").val("");
+                $("#film_poster > input").val("");
+                $("#film_still > input").val("");
+                $("#film_iphone_still > input").val("");
+            }
+        })
+    });
+
     $("#featured_button").click(function() {
         var feature = {
             'id': $("#featured_id > input").val(),
@@ -169,6 +198,23 @@ $(document).ready( function() {
                 }
             });
         }
+    });
+
+    $("#featured_button-delete").click(function() {
+        $.ajax({
+            type: "DELETE",
+            url: '/api/featured/' + $("#featured_id > input").val(),
+            dataType: 'JSON',
+            success: function() {
+                alert("DELETED!");
+                $("#featuredlist").find("[data-id='" + $("#featured_id > input").val() + "']").remove();
+                $("#featured_id > input").val("");
+                $("#featured_title > select").val('empty');
+                $("#featured_image > input").val("");
+                $("#featured_video > input").val("");
+                $("#featured_still > input").val("");
+            }
+        })
     });
 
 });
