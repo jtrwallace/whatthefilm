@@ -1,6 +1,11 @@
 body {
     background: #000;
-    font-family: Courier, "Helvetica Neue", Arial, sans-serif;
+    font-family: Courier, "Times New Roman", serif;
+}
+
+@font-face {
+    font-family: Revolution;
+    src: url(../fonts/Revolution.ttf);
 }
 
 .wrapper {
@@ -61,22 +66,14 @@ body {
     left: 0px;
 }
 
+#featured-container {
+    margin-bottom: 40px;
+}
+
 .feature {
     height: 600px;
     position: relative;
     cursor: pointer;
-}
-
-#feature1 {
-    background-image: url("../images/achoo.png");
-}
-
-#feature2 {
-    background-image: url("../images/succulent.png");
-}
-
-#feature3 {
-    background-image: url("../images/discretion.png");
 }
 
 .feature-callout {
@@ -90,7 +87,9 @@ body {
 }
 
 .feature-title {
-    font-size: 40pt;
+    font-size: 30pt;
+    max-width: 300px;
+    line-height: 1;
 }
 
 .feature-year {
@@ -111,4 +110,23 @@ body {
 .feature-studio {
     color: #1D8E95;
     font-size: 15pt;
+}
+
+.heading-bar {
+    height: 57px;
+    background-color: #1D8E95;
+    margin-top: 20px;
+}
+
+.heading-title {
+    margin-left: 70px;
+    color: white;
+    font-family: Revolution, "Helvetica Neue", Arial, sans-serif;
+    font-size: 20pt;
+}
+
+.heading-diagonal {
+    height: 57px;
+    width: 57px;
+    background: linear-gradient(135deg, rgba(29,142,149,1) 0%,rgba(29,142,149,1) 50%,rgba(0,0,0,1) 50%,rgba(0,0,0,1) 50%,rgba(0,0,0,1) 100%,rgba(0,0,0,1) 100%);
 }

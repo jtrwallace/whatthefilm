@@ -9,12 +9,14 @@ $(document).ready( function() {
         }
     });*/
 
-    $('.my-slider').unslider({
+    $('.featured-slider').unslider({
         autoplay: true,
         nav: false,
         arrows: false,
         speed: 1200,
-        delay: 5000
+        delay: 7500
     });
+
+    $('#ca-container').contentcarousel();
 
 });

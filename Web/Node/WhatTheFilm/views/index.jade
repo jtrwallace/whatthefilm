@@ -3,18 +3,254 @@ extends layout
 block content
     #main-content.container
         #featured-container.row
-            .my-slider
+            .featured-slider
                 ul
-                    li
-                        each feature in features
-                            .feature
+                    each feature in features
+                        li
+                            .feature(style="background-image: url('#{feature['feature'].image}')" data-id="#{feature['film'].id}")
                                 .feature-callout
-                                     .feature-title-container.flex-row.flex-centered
-                                         .feature-title Achoo!
-                                         .feature-year (2016)
-                                     .feature-director-container.flex-row.flex-baseline
-                                         .feature-by by
-                                         .feature-director Lauren Schechter
-                                     .feature-studio UC Santa Cruz
+                                    .feature-title= feature['film'].title
+                                    .feature-year (#{feature['film'].year})
+                                    .feature-director-container.flex-row.flex-baseline
+                                        .feature-by by
+                                        .feature-director= feature['film'].director
+                                    .feature-studio= feature['film'].studio
+        #genre-container.row
+            .heading-bar.flex-row.flex-centered
+                .heading-title Drama
+            .heading-diagonal
+            .movie-scroll
+                #ca-container.ca-container
+                    .ca-wrapper
+                        .ca-item.ca-item-1
+                            .ca-item-main
+                                .ca-icon
+                                h3 Stop factory farming
+                                h4
+                                    span.ca-quote “
+                                    span
+                                        | The greatness of a nation and its moral progress can be judged by the way in which its animals are treated.
+                                a.ca-more(href='#') more...
+                            .ca-content-wrapper
+                                .ca-content
+                                    h6 Animals are not commodities
+                                    a.ca-close(href='#') close
+                                    .ca-content-text
+                                        p
+                                            | I am so happy, my dear friend, so absorbed in the exquisite sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at the present moment; and yet I feel that I never was a greater artist than now.
+                                        p
+                                            | When, while the lovely valley teems with vapour around me, and the meridian sun strikes the upper surface of the impenetrable foliage of my trees, and but a few stray gleams steal into the inner sanctuary, I throw myself down among the tall grass by the trickling stream;
+                                        p
+                                            | She packed her seven versalia, put her initial into the belt and made herself on the way.
+                                    ul
+                                        li
+                                            a(href='#') Read more
+                                        li
+                                            a(href='#') Share this
+                                        li
+                                            a(href='#') Become a member
+                                        li
+                                            a(href='#') Donate
+                        .ca-item.ca-item-2
+                            .ca-item-main
+                                .ca-icon
+                                h3 Respect Life & Rights
+                                h4
+                                    span.ca-quote “
+                                    span
+                                        | I hold that the more helpless a creature, the more entitled it is to protection by man from the cruelty of man.
+                                a.ca-more(href='#') more...
+                            .ca-content-wrapper
+                                .ca-content
+                                    h6 Would you eat your dog?
+                                    a.ca-close(href='#') close
+                                    .ca-content-text
+                                        p
+                                            | I am so happy, my dear friend, so absorbed in the exquisite sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at the present moment; and yet I feel that I never was a greater artist than now.
+                                        p
+                                            | When, while the lovely valley teems with vapour around me, and the meridian sun strikes the upper surface of the impenetrable foliage of my trees, and but a few stray gleams steal into the inner sanctuary, I throw myself down among the tall grass by the trickling stream;
+                                        p
+                                            | She packed her seven versalia, put her initial into the belt and made herself on the way.
+                                    ul
+                                        li
+                                            a(href='#') Read more
+                                        li
+                                            a(href='#') Share this
+                                        li
+                                            a(href='#') Become a member
+                                        li
+                                            a(href='#') Donate
+                        .ca-item.ca-item-3
+                            .ca-item-main
+                                .ca-icon
+                                h3 Become 100% meat-free
+                                h4
+                                    span.ca-quote “
+                                    span
+                                        | I feel that spiritual progress does demand at some stage that we should cease to kill our fellow creatures for the satisfaction of our bodily wants.
+                                a.ca-more(href='#') more...
+                            .ca-content-wrapper
+                                .ca-content
+                                    h6 You can change the world
+                                    a.ca-close(href='#') close
+                                    .ca-content-text
+                                        p
+                                            | I am so happy, my dear friend, so absorbed in the exquisite sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at the present moment; and yet I feel that I never was a greater artist than now.
+                                        p
+                                            | When, while the lovely valley teems with vapour around me, and the meridian sun strikes the upper surface of the impenetrable foliage of my trees, and but a few stray gleams steal into the inner sanctuary, I throw myself down among the tall grass by the trickling stream;
+                                        p
+                                            | She packed her seven versalia, put her initial into the belt and made herself on the way.
+                                    ul
+                                        li
+                                            a(href='#') Read more
+                                        li
+                                            a(href='#') Share this
+                                        li
+                                            a(href='#') Become a member
+                                        li
+                                            a(href='#') Donate
+                        .ca-item.ca-item-4
+                            .ca-item-main
+                                .ca-icon
+                                h3 Make a difference
+                                h4
+                                    span.ca-quote “
+                                    span A man is but the product of his thoughts what he thinks, he becomes.
+                                a.ca-more(href='#') more...
+                            .ca-content-wrapper
+                                .ca-content
+                                    h6 Think globally, act locally
+                                    a.ca-close(href='#') close
+                                    .ca-content-text
+                                        p
+                                            | I am so happy, my dear friend, so absorbed in the exquisite sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at the present moment; and yet I feel that I never was a greater artist than now.
+                                        p
+                                            | When, while the lovely valley teems with vapour around me, and the meridian sun strikes the upper surface of the impenetrable foliage of my trees, and but a few stray gleams steal into the inner sanctuary, I throw myself down among the tall grass by the trickling stream;
+                                        p
+                                            | She packed her seven versalia, put her initial into the belt and made herself on the way.
+                                    ul
+                                        li
+                                            a(href='#') Read more
+                                        li
+                                            a(href='#') Share this
+                                        li
+                                            a(href='#') Become a member
+                                        li
+                                            a(href='#') Donate
+                        .ca-item.ca-item-5
+                            .ca-item-main
+                                .ca-icon
+                                h3 Say no to killing
+                                h4
+                                    span.ca-quote “
+                                    span
+                                        | A weak man is just by accident. A strong but non-violent man is unjust by accident.
+                                a.ca-more(href='#') more...
+                            .ca-content-wrapper
+                                .ca-content
+                                    h6 Animals have rights, too!
+                                    a.ca-close(href='#') close
+                                    .ca-content-text
+                                        p
+                                            | I am so happy, my dear friend, so absorbed in the exquisite sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at the present moment; and yet I feel that I never was a greater artist than now.
+                                        p
+                                            | When, while the lovely valley teems with vapour around me, and the meridian sun strikes the upper surface of the impenetrable foliage of my trees, and but a few stray gleams steal into the inner sanctuary, I throw myself down among the tall grass by the trickling stream;
+                                        p
+                                            | She packed her seven versalia, put her initial into the belt and made herself on the way.
+                                    ul
+                                        li
+                                            a(href='#') Read more
+                                        li
+                                            a(href='#') Share this
+                                        li
+                                            a(href='#') Become a member
+                                        li
+                                            a(href='#') Donate
+                        .ca-item.ca-item-6
+                            .ca-item-main
+                                .ca-icon
+                                h3 Don't believe the lies
+                                h4
+                                    span.ca-quote “
+                                    span
+                                        | An error does not become truth by reason of multiplied propagation, nor does truth become error because nobody sees it.
+                                a.ca-more(href='#') more...
+                            .ca-content-wrapper
+                                .ca-content
+                                    h6 How essential is meat?
+                                    a.ca-close(href='#') close
+                                    .ca-content-text
+                                        p
+                                            | I am so happy, my dear friend, so absorbed in the exquisite sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at the present moment; and yet I feel that I never was a greater artist than now.
+                                        p
+                                            | When, while the lovely valley teems with vapour around me, and the meridian sun strikes the upper surface of the impenetrable foliage of my trees, and but a few stray gleams steal into the inner sanctuary, I throw myself down among the tall grass by the trickling stream;
+                                        p
+                                            | She packed her seven versalia, put her initial into the belt and made herself on the way.
+                                    ul
+                                        li
+                                            a(href='#') Read more
+                                        li
+                                            a(href='#') Share this
+                                        li
+                                            a(href='#') Become a member
+                                        li
+                                            a(href='#') Donate
+                        .ca-item.ca-item-7
+                            .ca-item-main
+                                .ca-icon
+                                h3 Save the planet
+                                h4
+                                    span.ca-quote “
+                                    span
+                                        | A small body of determined spirits fired by an unquenchable faith in their mission can alter the course of history.
+                                a.ca-more(href='#') more...
+                            .ca-content-wrapper
+                                .ca-content
+                                    h6 Collateral damage?
+                                    a.ca-close(href='#') close
+                                    .ca-content-text
+                                        p
+                                            | I am so happy, my dear friend, so absorbed in the exquisite sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at the present moment; and yet I feel that I never was a greater artist than now.
+                                        p
+                                            | When, while the lovely valley teems with vapour around me, and the meridian sun strikes the upper surface of the impenetrable foliage of my trees, and but a few stray gleams steal into the inner sanctuary, I throw myself down among the tall grass by the trickling stream;
+                                        p
+                                            | She packed her seven versalia, put her initial into the belt and made herself on the way.
+                                    ul
+                                        li
+                                            a(href='#') Read more
+                                        li
+                                            a(href='#') Share this
+                                        li
+                                            a(href='#') Become a member
+                                        li
+                                            a(href='#') Donate
+                        .ca-item.ca-item-8
+                            .ca-item-main
+                                .ca-icon
+                                h3 It's time to move on
+                                h4
+                                    span.ca-quote “
+                                    span A nation's culture resides in the hearts and in the soul of its people.
+                                a.ca-more(href='#') more...
+                            .ca-content-wrapper
+                                .ca-content
+                                    h6 Let's finally become humans
+                                    a.ca-close(href='#') close
+                                    .ca-content-text
+                                        p
+                                            | I am so happy, my dear friend, so absorbed in the exquisite sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at the present moment; and yet I feel that I never was a greater artist than now.
+                                        p
+                                            | When, while the lovely valley teems with vapour around me, and the meridian sun strikes the upper surface of the impenetrable foliage of my trees, and but a few stray gleams steal into the inner sanctuary, I throw myself down among the tall grass by the trickling stream;
+                                        p
+                                            | She packed her seven versalia, put her initial into the belt and made herself on the way.
+                                    ul
+                                        li
+                                            a(href='#') Read more
+                                        li
+                                            a(href='#') Share this
+                                        li
+                                            a(href='#') Become a member
+                                        li
+                                            a(href='#') Donate
         include footer
     script(src="/javascripts/index.js")
