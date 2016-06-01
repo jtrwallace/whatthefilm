@@ -1,9 +1,20 @@
 extends layout
 
 block content
-  each film in films
-    h1= film.title
-    p= film.description
-    video(width="1280", height="720", controls)
-      source(src=film.video, type="video/mp4")
+    #main-content.container
+        #featured-container.row
+            .my-slider
+                ul
+                    li
+                        each feature in features
+                            .feature
+                                .feature-callout
+                                     .feature-title-container.flex-row.flex-centered
+                                         .feature-title Achoo!
+                                         .feature-year (2016)
+                                     .feature-director-container.flex-row.flex-baseline
+                                         .feature-by by
+                                         .feature-director Lauren Schechter
+                                     .feature-studio UC Santa Cruz
+        include footer
     script(src="/javascripts/index.js")
