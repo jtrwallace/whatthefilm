@@ -85,11 +85,11 @@ function Films() {
 
     this.genres = function(res) {
         connection.acquire(function(err, con) {
-            con.query('select distinct(genre) from films', function(err, result) {
+            con.query('select distinct(name) from genres', function(err, result) {
                 con.release();
                 var genres = [];
                 result.forEach(function (item) {
-                    genres.push(item.genre);
+                    genres.push(item.name);
                 });
                 res.send(genres);
             })
@@ -98,7 +98,7 @@ function Films() {
 
     this.specificGenre = function(genre, res) {
         connection.acquire(function(err, con) {
-            con.query('select * from films where genre = ?', [genre], function(err, result) {
+            con.query('SELECT distinct f.* from films f join genres_films gf on f.id = gf.filmID join genres g on gf.genreID = g.id where g.name = ?', [genre], function(err, result) {
                 con.release();
                 res.send(result);
             })
