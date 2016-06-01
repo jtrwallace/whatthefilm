@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="239"/>
                         <color key="backgroundColor" red="0.14901960784313725" green="0.14901960784313725" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="test2.png" translatesAutoresizingMaskIntoConstraints="NO" id="IwP-At-H4C" userLabel="MovieStill">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IwP-At-H4C" userLabel="MovieStill">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="239"/>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GeI-Gk-j3b" userLabel="MovieButton">
@@ -27,6 +27,9 @@
                             <action selector="movieStillButtonPressed:" destination="YWP-sb-Av3" eventType="touchUpInside" id="5lg-mW-WLf"/>
                         </connections>
                     </button>
+                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="zi2-or-ss8">
+                        <rect key="frame" x="290" y="110" width="20" height="20"/>
+                    </activityIndicatorView>
                 </subviews>
                 <color key="backgroundColor" red="0.098039215686274508" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
@@ -35,6 +38,7 @@
                     <constraint firstAttribute="bottom" secondItem="GeI-Gk-j3b" secondAttribute="bottom" constant="10" id="I94-Qg-hUX"/>
                     <constraint firstAttribute="trailing" secondItem="GeI-Gk-j3b" secondAttribute="trailing" id="ICx-BC-PUg"/>
                     <constraint firstAttribute="bottom" secondItem="IwP-At-H4C" secondAttribute="bottom" constant="10" id="KGe-3I-Kld"/>
+                    <constraint firstItem="zi2-or-ss8" firstAttribute="centerY" secondItem="IwP-At-H4C" secondAttribute="centerY" id="LuL-Tx-CHV"/>
                     <constraint firstItem="aia-mN-C1g" firstAttribute="top" secondItem="U9e-xe-QDQ" secondAttribute="top" id="MHH-av-rbA"/>
                     <constraint firstItem="aia-mN-C1g" firstAttribute="leading" secondItem="U9e-xe-QDQ" secondAttribute="leading" id="Na3-tT-ppa"/>
                     <constraint firstItem="GeI-Gk-j3b" firstAttribute="leading" secondItem="U9e-xe-QDQ" secondAttribute="leading" id="Pdk-4t-0rM"/>
@@ -42,16 +46,15 @@
                     <constraint firstAttribute="trailing" secondItem="aia-mN-C1g" secondAttribute="trailing" id="hyh-t3-QJe"/>
                     <constraint firstItem="IwP-At-H4C" firstAttribute="top" secondItem="U9e-xe-QDQ" secondAttribute="top" id="mR1-ir-ett"/>
                     <constraint firstAttribute="trailing" secondItem="IwP-At-H4C" secondAttribute="trailing" id="oNz-ZX-yCf"/>
+                    <constraint firstItem="zi2-or-ss8" firstAttribute="centerX" secondItem="IwP-At-H4C" secondAttribute="centerX" id="sOH-rm-rgj"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="activityIndicator" destination="zi2-or-ss8" id="0us-LV-U05"/>
                 <outlet property="movieStill" destination="IwP-At-H4C" id="bAT-jC-Dxh"/>
                 <outlet property="playerView" destination="aia-mN-C1g" id="yLp-IZ-3fs"/>
             </connections>
             <point key="canvasLocation" x="66" y="347"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="test2.png" width="1272" height="713"/>
-    </resources>
 </document>

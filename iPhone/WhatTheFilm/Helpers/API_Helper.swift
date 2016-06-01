@@ -14,20 +14,23 @@ class API_Helper {
     
     // Returns list of all films
     static let requestFilms = "http://whatthefilm.us-west-1.elasticbeanstalk.com/api/films/"
+    
     // Returns list of all categories
     static let requestCategories = "http://whatthefilm.us-west-1.elasticbeanstalk.com/api/categories/"
-    // Returns list of all genres
-    static let requestGenres = "http://whatthefilm.us-west-1.elasticbeanstalk.com/api/genres/"
-    
     // Returns list of all movies under the category
     // "http://whatthefilm.us-west-1.elasticbeanstalk.com/api/categories/[category]"
     // So /api/categories/lgbt returns the Discretion JSON object among others
     
+    // Returns list of all genres
+    static let requestGenres = "http://whatthefilm.us-west-1.elasticbeanstalk.com/api/genres/"
     // Returns list of all movies under the genre
     // "http://whatthefilm.us-west-1.elasticbeanstalk.com/api/genres/[genre]"
     // So /api/genres/drama returns the Discretion JSON object among others
     
+    // Returs list of featured films
+    static let requestFeatured = "http://whatthefilm.us-west-1.elasticbeanstalk.com/api/featured/"
     
+
     // Queries DB to get the array of categories
     // A new array is returned in callback which contains 'empty' on every
     // 3rd value.
@@ -51,12 +54,13 @@ class API_Helper {
         }
     }
 
-    
     // Queries DB for the movies in a certain category
     // Returns in the callback a dict with the key as category and
     // the value as an array of Movie objs
     class func fetchMovies(fromCategory category: String, completionBlock: ([String: [Movie]])->Void) {
-        let url = "\(requestCategories)\(category)"
+        // To allow categories with spaces
+        let urlTextEscaped = category.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
+        let url = "\(requestCategories)\(urlTextEscaped)"
         Alamofire.request(.GET, url).responseJSON { (response) in
             switch response.result {
             case .Success:
@@ -72,6 +76,29 @@ class API_Helper {
                     movies[category] = moviesArr
                     completionBlock(movies)
                 }
+            case .Failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    
+    class func fetchFeatured(completionBlock: [(feature: Featured, movie: Movie)] -> Void) {
+        Alamofire.request(.GET, requestFeatured).responseJSON { (response) in
+            switch response.result {
+            case .Success:
+                if let value = response.result.value {
+                    let featuredJSON = JSON(value).array
+                    var featuredArr = [(feature: Featured, movie: Movie)]()
+                    
+                    for featured in featuredJSON! {
+                        let feature = Featured(json: featured["feature"])
+                        let movie = Movie(json: featured["film"])
+                        featuredArr.append((feature, movie))
+                    }
+                    completionBlock(featuredArr)
+                }
+
             case .Failure(let error):
                 print(error)
             }

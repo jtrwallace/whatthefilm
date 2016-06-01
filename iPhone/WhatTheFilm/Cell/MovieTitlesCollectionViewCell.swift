@@ -9,9 +9,7 @@
 import UIKit
 
 class MovieTitlesCollectionViewCell: UICollectionViewCell {
-    
     @IBOutlet weak var movieCover: UIImageView!
-    
 }
 
 

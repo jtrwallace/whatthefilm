@@ -10,9 +10,7 @@ import UIKit
 
 extension CAGradientLayer {
     
-    
     func grayBehindTitle() -> CAGradientLayer {
-        
         let gradientColors = [StyleConstants.gradientTopGray.CGColor, StyleConstants.gradientBottomGray.CGColor]
         let gradientLocations: [Float] = [0.0, 1.0]
         let gradientLayer = CAGradientLayer()
@@ -22,3 +20,5 @@ extension CAGradientLayer {
         return gradientLayer
     }
 }
+
+

@@ -52,16 +52,16 @@ extension CategoryRowTableViewCell: UICollectionViewDataSource {
 }
 
 
-//extension CategoryRowTableViewCell: UICollectionViewDelegateFlowLayout {
-//    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-//        let itemsPerRow:CGFloat = 2.75
-//        let hardCodedPadding:CGFloat = 5
-//        let itemWidth = (collectionView.bounds.width / itemsPerRow) - hardCodedPadding
-//        let itemHeight = collectionView.bounds.height - (2 * hardCodedPadding)
-//        return CGSize(width: itemWidth, height: itemHeight)
-////        return CGSize(width: 115, height: 165)
-//    }
-//}
+extension CategoryRowTableViewCell: UICollectionViewDelegateFlowLayout {
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        let itemsPerRow:CGFloat = 2.75
+        let hardCodedPadding:CGFloat = 5
+        let itemWidth = (collectionView.bounds.width / itemsPerRow) - hardCodedPadding
+        let itemHeight = collectionView.bounds.height - (2 * hardCodedPadding)
+        return CGSize(width: itemWidth, height: itemHeight)
+//        return CGSize(width: 115, height: 165)
+    }
+}
 
 extension CategoryRowTableViewCell: UICollectionViewDelegate {
 

@@ -26,17 +26,15 @@
 		C637623A1CEA5DC500827E72 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C637622A1CEA5DC500827E72 /* UIView+WebCacheOperation.m */; };
 		C637623D1CED34FD00827E72 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = C637623C1CED34FD00827E72 /* Movie.swift */; };
 		C637623F1CED360200827E72 /* API_Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C637623E1CED360200827E72 /* API_Helper.swift */; };
-		C63762431CEE5C3500827E72 /* test2.png in Resources */ = {isa = PBXBuildFile; fileRef = C63762421CEE5C3500827E72 /* test2.png */; };
 		C63762501CF2D6CE00827E72 /* playButton.png in Resources */ = {isa = PBXBuildFile; fileRef = C637624F1CF2D6CE00827E72 /* playButton.png */; };
 		C63762521CF2D84400827E72 /* closeButton.png in Resources */ = {isa = PBXBuildFile; fileRef = C63762511CF2D84400827E72 /* closeButton.png */; };
 		C63762541CF2DC6200827E72 /* CAGradientLayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63762531CF2DC6200827E72 /* CAGradientLayer+Extension.swift */; };
 		C63762561CF2F71E00827E72 /* Billabong.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C63762551CF2F56A00827E72 /* Billabong.ttf */; };
 		C63762581CF2F7A000827E72 /* BebasNeue.otf in Resources */ = {isa = PBXBuildFile; fileRef = C63762571CF2F79500827E72 /* BebasNeue.otf */; };
+		C637625A1CF809ED00827E72 /* FeaturedFilmCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63762591CF809ED00827E72 /* FeaturedFilmCollectionViewCell.swift */; };
+		C637625C1CF9304E00827E72 /* Featured.swift in Sources */ = {isa = PBXBuildFile; fileRef = C637625B1CF9304E00827E72 /* Featured.swift */; };
 		C6BBD2F51CD7699E00689270 /* Logo2.png in Resources */ = {isa = PBXBuildFile; fileRef = C6BBD2F41CD7699E00689270 /* Logo2.png */; };
 		C6BBD2F71CDEF9B200689270 /* StyleConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BBD2F61CDEF9B200689270 /* StyleConstants.swift */; };
-		C6BBD2F91CDF0CA100689270 /* filmFeatured.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C6BBD2F81CDF0CA100689270 /* filmFeatured.jpg */; };
-		C6BBD2FB1CDF0D8300689270 /* filmFeatured2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C6BBD2FA1CDF0D8300689270 /* filmFeatured2.jpg */; };
-		C6BBD2FD1CDF13F500689270 /* horiz-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = C6BBD2FC1CDF13F500689270 /* horiz-logo.png */; };
 		C6BBD2FF1CDF18C000689270 /* horiz.png in Resources */ = {isa = PBXBuildFile; fileRef = C6BBD2FE1CDF18C000689270 /* horiz.png */; };
 		C6BBD3011CE0120400689270 /* TestVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BBD3001CE0120400689270 /* TestVideoViewController.swift */; };
 		C6CA4F5C1CE0681C00F644FC /* MoviePreviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6CA4F5B1CE0681C00F644FC /* MoviePreviewCell.xib */; };
@@ -104,17 +102,15 @@
 		C637623B1CEA5DDE00827E72 /* WhatTheFilm-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WhatTheFilm-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		C637623C1CED34FD00827E72 /* Movie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		C637623E1CED360200827E72 /* API_Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API_Helper.swift; sourceTree = "<group>"; };
-		C63762421CEE5C3500827E72 /* test2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test2.png; sourceTree = "<group>"; };
 		C637624F1CF2D6CE00827E72 /* playButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playButton.png; sourceTree = "<group>"; };
 		C63762511CF2D84400827E72 /* closeButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = closeButton.png; sourceTree = "<group>"; };
 		C63762531CF2DC6200827E72 /* CAGradientLayer+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CAGradientLayer+Extension.swift"; sourceTree = "<group>"; };
 		C63762551CF2F56A00827E72 /* Billabong.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Billabong.ttf; sourceTree = "<group>"; };
 		C63762571CF2F79500827E72 /* BebasNeue.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = BebasNeue.otf; sourceTree = "<group>"; };
+		C63762591CF809ED00827E72 /* FeaturedFilmCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeaturedFilmCollectionViewCell.swift; sourceTree = "<group>"; };
+		C637625B1CF9304E00827E72 /* Featured.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Featured.swift; sourceTree = "<group>"; };
 		C6BBD2F41CD7699E00689270 /* Logo2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo2.png; sourceTree = "<group>"; };
-		C6BBD2F61CDEF9B200689270 /* StyleConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StyleConstants.swift; path = Model/StyleConstants.swift; sourceTree = "<group>"; };
-		C6BBD2F81CDF0CA100689270 /* filmFeatured.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = filmFeatured.jpg; sourceTree = "<group>"; };
-		C6BBD2FA1CDF0D8300689270 /* filmFeatured2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = filmFeatured2.jpg; sourceTree = "<group>"; };
-		C6BBD2FC1CDF13F500689270 /* horiz-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "horiz-logo.png"; sourceTree = "<group>"; };
+		C6BBD2F61CDEF9B200689270 /* StyleConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyleConstants.swift; sourceTree = "<group>"; };
 		C6BBD2FE1CDF18C000689270 /* horiz.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = horiz.png; sourceTree = "<group>"; };
 		C6BBD3001CE0120400689270 /* TestVideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestVideoViewController.swift; sourceTree = "<group>"; };
 		C6CA4F5B1CE0681C00F644FC /* MoviePreviewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoviePreviewCell.xib; sourceTree = "<group>"; };
@@ -212,17 +208,38 @@
 			path = SDWebImage;
 			sourceTree = "<group>";
 		};
+		C637625D1CFCB20700827E72 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				C63762591CF809ED00827E72 /* FeaturedFilmCollectionViewCell.swift */,
+				C6EF610B1CC55DF6007B0279 /* CategoryRowTableViewCell.swift */,
+				C6EF610E1CC578A3007B0279 /* MovieTitlesCollectionViewCell.swift */,
+				C6CA4F5B1CE0681C00F644FC /* MoviePreviewCell.xib */,
+				C6CA4F5D1CE068D500F644FC /* MoviePreviewTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		C637625E1CFCB39E00827E72 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				C6CA4F5F1CE5905D00F644FC /* PlayerView.swift */,
+				C637623E1CED360200827E72 /* API_Helper.swift */,
+				C6BBD2F61CDEF9B200689270 /* StyleConstants.swift */,
+				C63762531CF2DC6200827E72 /* CAGradientLayer+Extension.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		C6BBD2F31CD7698A00689270 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				C63762551CF2F56A00827E72 /* Billabong.ttf */,
+				C63762571CF2F79500827E72 /* BebasNeue.otf */,
 				C63762511CF2D84400827E72 /* closeButton.png */,
 				C637624F1CF2D6CE00827E72 /* playButton.png */,
-				C63762421CEE5C3500827E72 /* test2.png */,
 				C6BBD2F41CD7699E00689270 /* Logo2.png */,
-				C6BBD2FC1CDF13F500689270 /* horiz-logo.png */,
 				C6BBD2FE1CDF18C000689270 /* horiz.png */,
-				C6BBD2FA1CDF0D8300689270 /* filmFeatured2.jpg */,
-				C6BBD2F81CDF0CA100689270 /* filmFeatured.jpg */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -251,11 +268,10 @@
 			isa = PBXGroup;
 			children = (
 				C6EF60EA1CC5565A007B0279 /* AppDelegate.swift */,
-				C6CA4F631CE6892400F644FC /* WTF_AVPlayerVC.swift */,
-				C6CA4F5F1CE5905D00F644FC /* PlayerView.swift */,
-				C637623E1CED360200827E72 /* API_Helper.swift */,
-				C6EF610D1CC55E1F007B0279 /* Controller */,
+				C637625E1CFCB39E00827E72 /* Helpers */,
 				C6EF610A1CC55DC6007B0279 /* Model */,
+				C6EF610D1CC55E1F007B0279 /* Controller */,
+				C637625D1CFCB20700827E72 /* Cell */,
 				C6EF60EE1CC5565A007B0279 /* Main.storyboard */,
 				C6EF60F11CC5565A007B0279 /* Images.xcassets */,
 				C6EF60F31CC5565A007B0279 /* LaunchScreen.xib */,
@@ -269,10 +285,6 @@
 		C6EF60E81CC5565A007B0279 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				C6BBD2F61CDEF9B200689270 /* StyleConstants.swift */,
-				C63762531CF2DC6200827E72 /* CAGradientLayer+Extension.swift */,
-				C63762551CF2F56A00827E72 /* Billabong.ttf */,
-				C63762571CF2F79500827E72 /* BebasNeue.otf */,
 				C6BBD2F31CD7698A00689270 /* Assets */,
 				C6EF60E91CC5565A007B0279 /* Info.plist */,
 			);
@@ -299,11 +311,8 @@
 		C6EF610A1CC55DC6007B0279 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				C6EF610B1CC55DF6007B0279 /* CategoryRowTableViewCell.swift */,
-				C6EF610E1CC578A3007B0279 /* MovieTitlesCollectionViewCell.swift */,
-				C6CA4F5B1CE0681C00F644FC /* MoviePreviewCell.xib */,
-				C6CA4F5D1CE068D500F644FC /* MoviePreviewTableViewCell.swift */,
 				C637623C1CED34FD00827E72 /* Movie.swift */,
+				C637625B1CF9304E00827E72 /* Featured.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -313,6 +322,7 @@
 			children = (
 				C6EF60EC1CC5565A007B0279 /* MainMoviesViewController.swift */,
 				C6EF61101CC57A8B007B0279 /* MovieDetailsViewController.swift */,
+				C6CA4F631CE6892400F644FC /* WTF_AVPlayerVC.swift */,
 				C6BBD3001CE0120400689270 /* TestVideoViewController.swift */,
 			);
 			path = Controller;
@@ -408,11 +418,7 @@
 				C63762521CF2D84400827E72 /* closeButton.png in Resources */,
 				C6BBD2FF1CDF18C000689270 /* horiz.png in Resources */,
 				C63762501CF2D6CE00827E72 /* playButton.png in Resources */,
-				C63762431CEE5C3500827E72 /* test2.png in Resources */,
 				C6CA4F5C1CE0681C00F644FC /* MoviePreviewCell.xib in Resources */,
-				C6BBD2FB1CDF0D8300689270 /* filmFeatured2.jpg in Resources */,
-				C6BBD2F91CDF0CA100689270 /* filmFeatured.jpg in Resources */,
-				C6BBD2FD1CDF13F500689270 /* horiz-logo.png in Resources */,
 				C6EF60F01CC5565A007B0279 /* Main.storyboard in Resources */,
 				C6EF60F51CC5565A007B0279 /* LaunchScreen.xib in Resources */,
 				C6EF60F21CC5565A007B0279 /* Images.xcassets in Resources */,
@@ -496,7 +502,9 @@
 				C637622F1CEA5DC500827E72 /* SDWebImageDecoder.m in Sources */,
 				C637623D1CED34FD00827E72 /* Movie.swift in Sources */,
 				C63762541CF2DC6200827E72 /* CAGradientLayer+Extension.swift in Sources */,
+				C637625A1CF809ED00827E72 /* FeaturedFilmCollectionViewCell.swift in Sources */,
 				C63762361CEA5DC500827E72 /* UIImage+MultiFormat.m in Sources */,
+				C637625C1CF9304E00827E72 /* Featured.swift in Sources */,
 				C63762371CEA5DC500827E72 /* UIImage+WebP.m in Sources */,
 				C63762311CEA5DC500827E72 /* SDWebImageDownloaderOperation.m in Sources */,
 				C637623A1CEA5DC500827E72 /* UIView+WebCacheOperation.m in Sources */,
