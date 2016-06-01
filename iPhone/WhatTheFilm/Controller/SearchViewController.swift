@@ -18,6 +18,9 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     
     var isIphone4s = false
+    
+    var movies = [Movie]()
+    var selectedMovie: Movie!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,8 +65,12 @@ class SearchViewController: UIViewController {
     
     // MARK: - Navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "MovieDetails" {
+            let destination = segue.destinationViewController as! MovieDetailsViewController
+            destination.movie = selectedMovie
+        }
+        // Dismising keyboard here otherwise keyboard bugs out when coming back
+        searchBar.resignFirstResponder()
     }
 }
 
@@ -74,25 +81,38 @@ extension SearchViewController: UISearchBarDelegate {
         dismissViewControllerAnimated(false, completion: nil)
     }
     
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        // searchText<3 -> string too short, ignore
+        if (searchText == "") || ((searchText.characters.count) < 3) {
+            // Need to set results back to empty
+            movies = []
+            collectionView.reloadData()
+            
+        // searchText>=3 -> query db, show results
+        } else {
+            API_Helper.searchWithString(searchText, completionBlock: { (movies) in
+                self.movies = movies
+                self.collectionView.reloadData()
+            })
+        }
+    }
 }
 
 
 extension SearchViewController: UICollectionViewDataSource {
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 15
+        return movies.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("searchResultCell", forIndexPath: indexPath) as! SearchResultCollectionViewCell
         
-        
-        
-        if indexPath.row == 0 {
-            print("collectionview height: \(collectionView.frame.size.height)")
-            print("collectionview width: \(collectionView.frame.size.width)")
-            print("cell width: \(cell.frame.size.width)")
+        // Movie cover download
+        cell.movieCover.image = nil
+        let url = NSURL(string: movies[indexPath.row].posterLink)
+        cell.movieCover.sd_setImageWithURL(url, placeholderImage: nil, options: SDWebImageOptions.RetryFailed) { (image, error, type, nsurl) in
+            // hide activity indicator maybe??
         }
-        
         return cell
     }
 }
@@ -105,6 +125,8 @@ extension SearchViewController: UICollectionViewDelegate {
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        selectedMovie = movies[indexPath.row]
+        performSegueWithIdentifier("MovieDetails", sender: self)
     }
 
 }

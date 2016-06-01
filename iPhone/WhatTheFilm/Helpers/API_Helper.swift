@@ -27,8 +27,13 @@ class API_Helper {
     // "http://whatthefilm.us-west-1.elasticbeanstalk.com/api/genres/[genre]"
     // So /api/genres/drama returns the Discretion JSON object among others
     
-    // Returs list of featured films
+    // Returns list of featured films
     static let requestFeatured = "http://whatthefilm.us-west-1.elasticbeanstalk.com/api/featured/"
+    
+    // Returns results for string searched
+    static let requestSearch = "http://whatthefilm.us-west-1.elasticbeanstalk.com/api/search/"
+    // Results are of the form;
+    // {"title":[],"genre":[],"category":[],"description":[],"summary":[]}
     
 
     // Queries DB to get the array of categories
@@ -103,6 +108,49 @@ class API_Helper {
                 print(error)
             }
         }
+    }
+    
+    class func searchWithString(string: String, completionBlock: [Movie] -> Void) -> Alamofire.Request {
+        // To allow searches with spaces
+        let urlTextEscaped = string.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
+        let url = requestSearch + urlTextEscaped
+        
+        var request: Alamofire.Request!
+        request = Alamofire.request(.GET, url).responseJSON(completionHandler: { (response) in
+            switch response.result {
+            case .Success:
+                if let value = response.result.value {
+                    let foundByTitle = JSON(value)["title"].array!
+                    let foundByGenre = JSON(value)["genre"].array!
+                    let foundByCategory = JSON(value)["category"].array!
+                    let foundByDescription = JSON(value)["description"].array!
+                    let foundBySummary = JSON(value)["summary"].array!
+                    let allFound = [foundByTitle,foundByGenre,foundByCategory,foundByDescription,foundBySummary]
+                    
+                    // For the purposes of this project will return all movies in one array
+                    // without referencing where the movie was found.
+                    
+                    var movies = [Movie]()
+                    var addedID = [Int]()
+                    for found in allFound {
+                        if !found.isEmpty {
+                            for movie in found {
+                                let toAdd = (Movie(json: movie))
+                                if !addedID.contains(toAdd.id) {
+                                    movies.append(Movie(json: movie))
+                                }
+                                addedID.append(toAdd.id)
+                            }
+                        }
+                    }
+                    completionBlock(movies)
+                }
+                
+            case .Failure(let error):
+                print("API_Helper searchWithString error: \(error)")
+            }
+        })
+        return request
     }
     
     

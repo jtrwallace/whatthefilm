@@ -372,6 +372,7 @@
                         <outlet property="flowLayout" destination="IHx-6t-z7v" id="aUW-gp-Nr9"/>
                         <outlet property="searchBar" destination="TQb-WV-gH5" id="ULK-ZP-wBm"/>
                         <segue destination="vXZ-lx-hvc" kind="show" id="1IF-VY-7mA"/>
+                        <segue destination="rYg-OQ-cPP" kind="show" identifier="MovieDetails" id="MtW-ou-XfT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Lf-PG-YR7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -613,4 +614,7 @@
         <image name="horiz.png" width="285" height="32"/>
         <image name="playButton.png" width="121" height="121"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="MtW-ou-XfT"/>
+    </inferredMetricsTieBreakers>
 </document>
