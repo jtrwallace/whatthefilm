@@ -1,6 +1,7 @@
 body {
     background: #000;
     font-family: Courier, "Times New Roman", serif;
+    color: black;
 }
 
 @font-face {
@@ -9,13 +10,13 @@ body {
 }
 
 .wrapper {
-    width: 1154px;
+    width: 980px;
     margin: auto;
     position: relative;
 }
 
 .container {
-    width: 1154px;
+    width: 980px;
 }
 
 .full-width {
@@ -71,7 +72,7 @@ body {
 }
 
 .feature {
-    height: 600px;
+    height: 500px;
     position: relative;
     cursor: pointer;
 }
@@ -112,10 +113,19 @@ body {
     font-size: 15pt;
 }
 
+.genre-row {
+    position: relative;
+    width: 100%;
+    height: 440px;
+}
+
 .heading-bar {
     height: 57px;
     background-color: #1D8E95;
-    margin-top: 20px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
 }
 
 .heading-title {
@@ -125,8 +135,146 @@ body {
     font-size: 20pt;
 }
 
-.heading-diagonal {
+.heading-diagonal-left {
     height: 57px;
     width: 57px;
-    background: linear-gradient(135deg, rgba(29,142,149,1) 0%,rgba(29,142,149,1) 50%,rgba(0,0,0,1) 50%,rgba(0,0,0,1) 50%,rgba(0,0,0,1) 100%,rgba(0,0,0,1) 100%);
+    background: linear-gradient(135deg, rgba(29,142,149,1) 0%,rgba(29,142,149,1) 50%,rgba(0,0,0,0) 50%,rgba(0,0,0,0) 50%,rgba(0,0,0,0) 100%,rgba(0,0,0,0) 100%);
+    position: absolute;
+    top: 57px;
+    left: 0px;
+    z-index: 10;
+}
+
+.heading-diagonal-right {
+    height: 57px;
+    width: 57px;
+    background: linear-gradient(225deg, rgba(29,142,149,1) 0%,rgba(29,142,149,1) 50%,rgba(0,0,0,0) 50%,rgba(0,0,0,0) 50%,rgba(0,0,0,0) 100%,rgba(0,0,0,0) 100%);
+    position: absolute;
+    top: 57px;
+    right: 0px;
+    z-index: 10;
+}
+
+.movie-scroll {
+    position: absolute;
+    top: 70px;
+    left: 0px;
+    width: 100%;
+    z-index: 1;
+}
+
+.left-fader {
+    position: absolute;
+    height: 376px;
+    width: 30px;
+    top: 57px;
+    left: 0px;
+    z-index: 5;
+    background: linear-gradient(to right, rgba(0,0,0,1) 0%,rgba(0,0,0,0.3) 50%,rgba(0,0,0,0) 100%);
+}
+
+.right-fader {
+    position: absolute;
+    height: 376px;
+    width: 30px;
+    top: 57px;
+    right: 0px;
+    z-index: 5;
+    background: linear-gradient(to left, rgba(0,0,0,1) 0%,rgba(0,0,0,0.3) 50%,rgba(0,0,0,0) 100%);
+}
+
+.film-container {
+    width: 224px;
+    height: 348px;
+    margin: 0px 15px;
+    float: left;
+    padding-top: 20px;
+}
+
+.film {
+    width: 204px;
+    height: 308px;
+    background-size: 100% 100%;
+    background-position: center;
+    box-shadow: 0px 0px 35px 0px rgba(244,185,75,1);
+    border-radius: 10px;
+    padding-top: 10px;
+    transition: background-size 2s ease;
+    position: relative;
+    text-align: center;
+}
+
+.film:hover {
+    background-size: 120% 120%;
+}
+
+.film a {
+    font-size: 50pt;
+    text-decoration: none;
+    color: #F4B94B;
+    transition: color 1s;
+}
+
+.film a:hover {
+    color: #1D8E95;
+}
+
+.overlay {
+    width: 204px;
+    height: 308px;
+    border-radius: 10px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    opacity: 0;
+    background:rgba(0,0,0,.75);
+    transition: opacity 0.75s ease;
+}
+
+.overlay:hover {
+    opacity: 1;
+}
+
+.title {
+    color: white;
+    font-size: 20pt;
+    line-height: 20pt;
+    font-weight: 400;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.play {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+ul {
+    list-style: none;
+}
+
+/* Scrollbar */
+.scrollbar {
+    margin: 15px 0 1em 0;
+    height: 4px;
+    background: #ccc;
+    line-height: 0;
+}
+.scrollbar .handle {
+    width: 100px;
+    height: 100%;
+    background: #F4B94B;
+    cursor: pointer;
+    position: relative;
+}
+.scrollbar .handle .mousearea {
+    position: absolute;
+    top: -9px;
+    left: 0;
+    width: 100%;
+    height: 20px;
 }
