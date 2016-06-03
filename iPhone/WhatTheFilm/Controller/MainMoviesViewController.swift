@@ -215,7 +215,13 @@ extension MainMoviesViewController: UITableViewDataSource {
             } else {
                 let cell = tableView.dequeueReusableCellWithIdentifier("categoryCell") as! CategoryRowTableViewCell
                 cell.currentVC = self
-                cell.categoryTitle.text = categories[indexPath.row]
+                cell.categoryTitle.text = "        \(categories[indexPath.row])"
+                
+                if indexPath.row % 2 == 0 {
+                    cell.leftTriangle.hidden = true
+                } else {
+                    cell.rightTriangle.hidden = true
+                }
                 
                 if let movies = movies[categories[indexPath.row]] {
                     cell.movies = movies

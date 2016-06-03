@@ -12,6 +12,10 @@ class CategoryRowTableViewCell: UITableViewCell {
     
     @IBOutlet weak var categoryTitle: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
+    
+    @IBOutlet weak var genreTitle: UILabel!
+    @IBOutlet weak var leftTriangle: UIView!
+    @IBOutlet weak var rightTriangle: UIView!
 
     var movies: [Movie] = []
     var selectedMovie: Movie!
@@ -21,6 +25,14 @@ class CategoryRowTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        genreTitle.backgroundColor = StyleConstants.greenForGenres
+//        leftTriangle.backgroundColor = StyleConstants.greenForGenres
+        rightTriangle.backgroundColor = StyleConstants.greenForGenres
+        
+//        leftTriangle.drawRect()
+//        let triangle = TriangleView.drawRect()
+        
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
