@@ -14,6 +14,13 @@ class FeaturedFilmCollectionViewCell: UICollectionViewCell {
     var movie: Movie!
     var feature: Featured!
     
+    
+    
+    @IBOutlet weak var infoContainer: UIView!
+    @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var year: UILabel!
+    @IBOutlet weak var director: UILabel!
+    
     weak var currentVC: UIViewController!
     
 }

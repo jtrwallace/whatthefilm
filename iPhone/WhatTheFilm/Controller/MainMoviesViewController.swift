@@ -16,6 +16,7 @@ class MainMoviesViewController: UIViewController {
     @IBOutlet weak var tableViewHeader: UIView!
     
     @IBOutlet weak var featuredCollectionView: UICollectionView!
+    var featuredTimer: NSTimer!
     
     @IBOutlet weak var pageControl: UIPageControl!
     
@@ -67,6 +68,28 @@ class MainMoviesViewController: UIViewController {
             
         }
         
+        
+        featuredTimer = NSTimer.scheduledTimerWithTimeInterval(6.5, target: self, selector: #selector(timedFeatureFilmSlide), userInfo: nil, repeats: false)
+        
+    }
+    
+    // MARK: TODO
+    // Need to invalidate timer on viewwilldisapper and appwillresignactive
+    // Need to start new timer on viewwillapper and appwillenterforeground
+    func timedFeatureFilmSlide() {
+        let visibleItemsIndexPath = featuredCollectionView.indexPathsForVisibleItems()
+        let currentItem = visibleItemsIndexPath[0]
+        var nextItem = Int()
+        // If displaying last featured film, then go to beginning
+        if currentItem.item+1 == featuredCollectionView.numberOfItemsInSection(0) {
+            nextItem = 0
+        } else {
+            nextItem = currentItem.item + 1
+        }
+        let nextFeatureIndex = NSIndexPath(forItem: nextItem, inSection: 0)
+        featuredCollectionView.scrollToItemAtIndexPath(nextFeatureIndex, atScrollPosition: UICollectionViewScrollPosition.CenteredHorizontally, animated: true)
+        featuredTimer = NSTimer.scheduledTimerWithTimeInterval(6.5, target: self, selector: #selector(timedFeatureFilmSlide), userInfo: nil, repeats: false)
+        print("sliding")
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -272,9 +295,14 @@ extension MainMoviesViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("featuredCell", forIndexPath: indexPath) as! FeaturedFilmCollectionViewCell
         cell.movie = features[indexPath.row].movie
         cell.feature = features[indexPath.row].feature
+        cell.title.text = cell.movie.title
+        cell.year.text = cell.movie.year.description
+        cell.director.text = cell.movie.director
+        print("height of infocontainer: \(cell.infoContainer.frame.size.height)")
         
-        print("cell height \(cell.filmImage.frame.size.height)")
-        print("cell width \(cell.filmImage.frame.size.width)")
+//        print("cell height \(cell.filmImage.frame.size.height)")
+//        print("cell width \(cell.filmImage.frame.size.width)")
+//        print("indexpath item: \(indexPath.item)")
         
         // Feature image download
         cell.filmImage.image = nil
@@ -290,7 +318,7 @@ extension MainMoviesViewController: UICollectionViewDataSource {
 extension MainMoviesViewController: UICollectionViewDelegate {
     
     func collectionView(collectionView: UICollectionView, didEndDisplayingCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
-        // Used to highlight the proper item from the UIPageControl
+        // Used to highlight the proper item on the UIPageControl
         let visible = collectionView.indexPathsForVisibleItems()
         for index in visible {
             pageControl.currentPage = index.row
