@@ -1,0 +1,15 @@
+Title: A Succulent Life
+Description: A short film exploring the existential mind of a common succulent.
+Genre: Documentary
+Duration: 244
+Category: Shorts
+Director: Bartek Cebula
+Actors: Potted Succulent
+Year: 2016
+Studio: None
+Summary: A short film exploring the existential mind of a common succulent.
+Video: https://www.dropbox.com/s/zp4s6219lje06ei/A%20Succulent%20Life%20-%20Short%20Film.mp4?dl=1
+Poster: http://i.imgur.com/Ka1QVkq.jpg
+Still: http://i.imgur.com/OFgXLO2.jpg
+iPhone Still: http://i.imgur.com/VQ7UKte.jpg
+Featured Banner: http://i.imgur.com/7wBAlCA.png

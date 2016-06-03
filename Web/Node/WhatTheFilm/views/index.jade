@@ -1,9 +1,45 @@
 extends layout
 
 block content
-  each film in films
-    h1= film.title
-    p= film.description
-    video(width="1280", height="720", controls)
-      source(src=film.video, type="video/mp4")
+    #main-content.container
+        #featured-container.row
+            .featured-slider
+                ul
+                    each feature in features
+                        li
+                            .feature(style="background-image: url('#{feature['feature'].image}')" data-id="#{feature['film'].id}")
+                                .feature-callout
+                                    .feature-title= feature['film'].title
+                                    .feature-year (#{feature['film'].year})
+                                    .feature-director-container.flex-row.flex-baseline
+                                        .feature-by by
+                                        .feature-director= feature['film'].director
+                                    .feature-studio= feature['film'].studio
+        #genres-container.row
+            each genre, index in genrelist
+                .row
+                    div(id="#{genre}-conatiner" class="genre-row")
+                        .heading-bar.flex-row.flex-centered
+                            .heading-title=genre
+                        if (index % 2 == 0)
+                            .heading-diagonal-left
+                        else
+                            .heading-diagonal-right
+                        .left-fader
+                        .movie-scroll
+                            .frame
+                                ul.slidee
+                                    each film, index in genres[genre]
+                                        li.film-container
+                                            .film(style="background-image: url('#{film.poster}')")
+                                                .overlay
+                                                    .title=film.title
+                                                    a(href="/films/#{film.id}").play.fa.fa-play
+                                                    .year=film.year
+                        .right-fader
+
+        include footer
+    script(src="/javascripts/modernizr.js")
+    script(src="/javascripts/plugins.js")
+    script(src="/javascripts/sly.min.js")
     script(src="/javascripts/index.js")
