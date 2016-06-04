@@ -8,6 +8,11 @@ $(document).ready( function() {
         delay: 7500
     });
 
+    $(".feature").click(function() {
+        console.log()
+        window.open("/films/" + $(this).data('id'));
+    });
+
     $(document).find('.row').each(function () {
 
         if ($(this).find('.slidee').children().length < 5) {
