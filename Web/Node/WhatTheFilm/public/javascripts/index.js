@@ -10,7 +10,7 @@ $(document).ready( function() {
 
     $(".feature").click(function() {
         console.log()
-        window.open("/films/" + $(this).data('id'));
+        window.open("/films/" + $(this).data('id'), "_self");
     });
 
     $(document).find('.row').each(function () {

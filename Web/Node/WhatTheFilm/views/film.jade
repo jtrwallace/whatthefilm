@@ -15,7 +15,7 @@ html(lang='en')
         script(src="https://use.fontawesome.com/71a89dd96a.js")
     body
         .header-video
-            img(src="'#{film.still}'", data-video-src="'#{film.video}'", data-provider='html5', data-video-width='560', data-video-height='315').header-video__media
+            img(src="#{film.still}", data-video-URL="#{film.video}", data-provider='html5', data-video-width='560', data-video-height='315').header-video__media
             .film-synopsis
                 h1 #{film.title} (#{film.year})
                 h2 by #{film.director} ⋅ United States ⋅ #{film.duration}
