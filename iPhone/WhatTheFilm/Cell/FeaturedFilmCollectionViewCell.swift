@@ -11,10 +11,6 @@ import UIKit
 class FeaturedFilmCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var filmImage: UIImageView!
-    var movie: Movie!
-    var feature: Featured!
-    
-    
     
     @IBOutlet weak var infoContainer: UIView!
     @IBOutlet weak var title: UILabel!
@@ -23,6 +19,8 @@ class FeaturedFilmCollectionViewCell: UICollectionViewCell {
     
     weak var currentVC: UIViewController!
     
+    var movie: Movie!
+    var feature: Featured!
 }
 
 

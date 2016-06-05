@@ -24,22 +24,9 @@ class CategoryRowTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
         
         genreTitle.backgroundColor = StyleConstants.greenForGenres
-//        leftTriangle.backgroundColor = StyleConstants.greenForGenres
-        rightTriangle.backgroundColor = StyleConstants.greenForGenres
-        
-//        leftTriangle.drawRect()
-//        let triangle = TriangleView.drawRect()
-        
     }
-
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        // Configure the view for the selected state
-    }
-
 }
 
 

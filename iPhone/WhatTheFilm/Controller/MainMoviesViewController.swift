@@ -12,27 +12,27 @@ import SwiftyJSON
 
 class MainMoviesViewController: UIViewController {
     
+    @IBOutlet weak var blurredViewLoading: UIView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableViewHeader: UIView!
     
     @IBOutlet weak var featuredCollectionView: UICollectionView!
     var featuredTimer: NSTimer!
-    
     @IBOutlet weak var pageControl: UIPageControl!
-    
     
     var moviePreviewPaused = false
     
-    
-    
-    // Property categories will contain an 'empty' on index0 and every other '3rd' value. ["empty",cat1,cat2,"empty",cat3,cat4,"empty",cat5...]
-    // This is to show a movie preview on every 3rd row i.e. row1:categories, row2:categories, row3:moviePreview.
+    // Property categories will contain an 'empty' and every other 'rth' value.
+    // This is to show a movie preview, i.e. [cat1,cat2,cat3,"empty",cat4,cat5,cat6,"empty"...]
+    // This is to show a  on every 3rd row i.e. row1:categories, row2:categories, row3:moviePreview.
     var categories: [String] = []
-    
-    var movies: [String : [Movie]] = [:]
     
     var features: [(feature: Featured, movie: Movie)] = []
     var selectedFeature: Movie!
+    
+    var movies: [String : [Movie]] = [:]
     
     
     override func viewDidLoad() {
@@ -40,56 +40,14 @@ class MainMoviesViewController: UIViewController {
         
         tableView.registerNib(UINib(nibName: "MoviePreviewCell", bundle: nil), forCellReuseIdentifier: "moviePreviewCell")
         
-        API_Helper.fetchFeatured { (response) in
-            self.features = response
-            self.featuredCollectionView.reloadData()
-        }
+        fetchEverything()
         
-        API_Helper.fetchCategories { (response, categories) in
-            if response == 1 {
-                self.categories = categories
-                print(categories)
-                
-                // Fetch movies from the first 5 categories (+2 indeces with 'empty', thus i=7)
-                // The rest will be fetched when actually scrolling through tableview
-                // MARK: TODO - make sure categories >5 get downloaded 
-                for (i, cat) in categories.enumerate() {
-                    if (cat != "empty") && (i < 7) {
-                        API_Helper.fetchMovies(fromCategory: cat, completionBlock: { (movies) in
-                            self.movies[cat] = movies[cat]
-                            self.tableView.reloadData()
-                        })
-                    }
-                }
-            } else {
-                self.showAlert(withTitle: "Error", andMsg: categories[0])
-            }
-            
-            
-        }
-        
-        
-        featuredTimer = NSTimer.scheduledTimerWithTimeInterval(6.5, target: self, selector: #selector(timedFeatureFilmSlide), userInfo: nil, repeats: false)
-        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(sendingAppToBackground), name: UIApplicationWillResignActiveNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(appEnteringForeground), name: UIApplicationDidBecomeActiveNotification, object: nil)
     }
     
-    // MARK: TODO
-    // Need to invalidate timer on viewwilldisapper and appwillresignactive
-    // Need to start new timer on viewwillapper and appwillenterforeground
-    func timedFeatureFilmSlide() {
-        let visibleItemsIndexPath = featuredCollectionView.indexPathsForVisibleItems()
-        let currentItem = visibleItemsIndexPath[0]
-        var nextItem = Int()
-        // If displaying last featured film, then go to beginning
-        if currentItem.item+1 == featuredCollectionView.numberOfItemsInSection(0) {
-            nextItem = 0
-        } else {
-            nextItem = currentItem.item + 1
-        }
-        let nextFeatureIndex = NSIndexPath(forItem: nextItem, inSection: 0)
-        featuredCollectionView.scrollToItemAtIndexPath(nextFeatureIndex, atScrollPosition: UICollectionViewScrollPosition.CenteredHorizontally, animated: true)
-        featuredTimer = NSTimer.scheduledTimerWithTimeInterval(6.5, target: self, selector: #selector(timedFeatureFilmSlide), userInfo: nil, repeats: false)
-        print("sliding")
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.Portrait
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -99,6 +57,123 @@ class MainMoviesViewController: UIViewController {
         print("scrollview height \(featuredCollectionView.frame.size.height)")
         print("scrollview width \(featuredCollectionView.frame.size.width)")
 
+        resumeMoviePreview()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        fireFeaturedFilmsTimer()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        invalidateFeaturedFilmsTimer()
+        pauseMoviePreview()
+    }
+    
+    func fetchEverything() {
+        API_Helper.fetchGenres { (response, categories) in
+            if response == 1 {
+                self.categories = categories
+                // print(categories)
+                
+                API_Helper.fetchFeatured { (response) in
+                    self.features = response
+                    self.addMoreFeaturesIfNeeded()
+                    self.featuredCollectionView.reloadData()
+                }
+                
+                // For all the genres available, download the movies that
+                // belong to it and create a dictioary entry with them
+                for (i, cat) in categories.enumerate() {
+                    if (cat != "empty_ShowMoviePreview") {
+                        API_Helper.fetchMovies(fromCategory: cat, completionBlock: { (movies) in
+                            self.movies[cat] = movies[cat]
+                            
+                            // If we finish fetching films for all Genres, then enable screen
+                            if i+1 == categories.count {
+                                self.tableView.reloadData()
+                                self.blurredViewLoading.hidden = true
+                                self.activityIndicator.hidden = true
+                            }
+                        })
+                    }
+                }
+            } else {
+                self.showAlert(withTitle: "Error", andMsg: categories[0])
+            }
+        }
+    }
+    
+    
+    func sendingAppToBackground() {
+        invalidateFeaturedFilmsTimer()
+        pauseMoviePreview()
+    }
+    
+    func appEnteringForeground() {
+        fireFeaturedFilmsTimer()
+        resumeMoviePreview()
+    }
+    
+    func invalidateFeaturedFilmsTimer() {
+        if featuredTimer != nil {
+            featuredTimer.invalidate()
+            featuredTimer = nil
+        }
+    }
+    
+    func fireFeaturedFilmsTimer() {
+        if !features.isEmpty {
+            if featuredTimer == nil {
+                featuredTimer = NSTimer.scheduledTimerWithTimeInterval(6.5, target: self, selector: #selector(autoFeaturedFilmsScrolling), userInfo: nil, repeats: false)
+            }
+        }
+    }
+
+    func autoFeaturedFilmsScrolling() {
+        // Grab visible featured film
+        let visibleItemsIndexPath = featuredCollectionView.indexPathsForVisibleItems()
+        let currentItem = visibleItemsIndexPath[0]
+        var nextItem = Int()
+        // If displaying last featured film, then go to beginning, otherwise go to next one
+        if currentItem.item+1 == featuredCollectionView.numberOfItemsInSection(0) {
+            nextItem = 0
+        } else {
+            nextItem = currentItem.item + 1
+        }
+        let nextFeatureIndex = NSIndexPath(forItem: nextItem, inSection: 0)
+        featuredCollectionView.scrollToItemAtIndexPath(nextFeatureIndex, atScrollPosition: UICollectionViewScrollPosition.CenteredHorizontally, animated: true)
+        featuredTimer = NSTimer.scheduledTimerWithTimeInterval(6.5, target: self, selector: #selector(autoFeaturedFilmsScrolling), userInfo: nil, repeats: false)
+    }
+    
+    // The featuredFilms header on top is locked to count of 3
+    // But the moviePreviews also depends on the features array, so we 
+    // might repeat more features if necessary
+    func addMoreFeaturesIfNeeded() {
+        // There is one featuredFilm every 3 categories, therefore divide by 4
+        let featCountInCategories = Int(floor(Double(categories.count/4)))
+        
+        // If there are less featuredFilms on server, then we double and 
+        // repeat the featuredFilms so there is no problem scrolling and 
+        // showing the moviePreviews
+        if features.count < featCountInCategories {
+            features += features
+        }
+    }
+    
+    func pauseMoviePreview() {
+        // Pause movie preview if necessary
+        let visibleCells = tableView.visibleCells
+        for cell in visibleCells {
+            if let previewCell = cell as? MoviePreviewTableViewCell {
+                if previewCell.player!.rate == 1.0 {
+                    previewCell.player!.pause()
+                    moviePreviewPaused = true
+                }
+            }
+        }
+    }
+    
+    func resumeMoviePreview() {
         // Resume movie preview if necessary
         if moviePreviewPaused {
             let visibleCells = tableView.visibleCells
@@ -111,71 +186,26 @@ class MainMoviesViewController: UIViewController {
                 }
             }
         }
-        
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        // Pause movie preview if necessary
-        let visibleCells = tableView.visibleCells
-        for cell in visibleCells {
-            if let previewCell = cell as? MoviePreviewTableViewCell {
-                if previewCell.player!.rate == 1.0 {
-                    previewCell.player!.pause()
-                    moviePreviewPaused = true
-                }
-            }
-        }
-        
-    }
-
-    
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return UIInterfaceOrientationMask.Portrait
-    }
-    
-    
-    @IBAction func headerButton(sender: AnyObject) {
-        print("categories: \(categories)")
-        print("movie dict count: \(movies.count)")
-        
-        for (key, value) in movies {
-            print("the key is: \(key)")
-            for val in value {
-                val.output()
-            }
-        }
-        
-        
-        
     }
     
     func showAlert(withTitle title: String, andMsg msg: String) {
         let alertController = UIAlertController(title: title, message: msg, preferredStyle: UIAlertControllerStyle.Alert)
-        let okAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil)
+        let okAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default) { action in
+            NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(self.fetchEverything), userInfo: nil, repeats: false)
+        }
+        let retryAction = UIAlertAction(title: "Retry", style: UIAlertActionStyle.Default) { (action) in
+            self.fetchEverything()
+        }
         alertController.addAction(okAction)
+        alertController.addAction(retryAction)
         presentViewController(alertController, animated: true, completion: nil)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "MovieDetails" {
             if let cell = sender as? CategoryRowTableViewCell {
-                
                 let destination = segue.destinationViewController as! MovieDetailsViewController
                 destination.movie = cell.selectedMovie
-                
-//                if let collecCell = 
-//                cell.collectionView.indexPathForCell(collecCell)
-
-                
-                let indexPath = self.tableView.indexPathForCell(cell)
-                print("clicked on categoryRow \(indexPath!.row)")
-                print("clicked on categorySection \(indexPath!.section)")
-//                if let indexPath = self.tableView.indexPathForSelectedRow() {
-//                    println("clicked on categoryRow \(indexPath.row)")
-//                    println("clicked on categoryRow \(indexPath.section)")
-//                }
-                
-                
             }
             
             if sender is FeaturedFilmCollectionViewCell {
@@ -187,71 +217,58 @@ class MainMoviesViewController: UIViewController {
                 let destination = segue.destinationViewController as! MovieDetailsViewController
                 destination.movie = cell.movie
             }
-            
-            
-            
-            
         }
-        
-        
-        
-        
-        
     }
-
-
+    
 }
 
 
-
-
 extension MainMoviesViewController: UITableViewDataSource {
-    
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return categories.count
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if indexPath.row == 0 {
-            return UITableViewCell()
+        
+        if categories[indexPath.row] == "empty_ShowMoviePreview" {
+            let cell = tableView.dequeueReusableCellWithIdentifier("moviePreviewCell") as! MoviePreviewTableViewCell
+            cell.currentVC = self
+            let featIndex = Int(floor(Double(indexPath.row/4)))
+            cell.movie = features[featIndex].movie
+            cell.feature = features[featIndex].feature
+            cell.activityIndicator.startAnimating()
+            cell.playPreview()
+            
+            // Movie Preview image still download
+            cell.movieStill.image = nil
+            cell.movieStill.hidden = false
+            let url = NSURL(string: cell.feature.videoStill)
+            cell.movieStill.sd_setImageWithURL(url)
+            
+            return cell
         } else {
-            if indexPath.row % 3 == 0 {
-                let cell = tableView.dequeueReusableCellWithIdentifier("moviePreviewCell") as! MoviePreviewTableViewCell
-                cell.currentVC = self
-                let index = (indexPath.row/3)-1
-                cell.movie = features[index].movie
-                cell.feature = features[index].feature
-                cell.activityIndicator.startAnimating()
-                cell.playPreview()
-                
-                // Movie Preview image still download
-                cell.movieStill.image = nil
-                let url = NSURL(string: cell.feature.videoStill)
-                cell.movieStill.sd_setImageWithURL(url, placeholderImage: nil, options: SDWebImageOptions.RetryFailed) { (image, error, type, nsurl) in
-                    // hide activity indicator maybe??
-                }
-                return cell
+            let cell = tableView.dequeueReusableCellWithIdentifier("categoryCell") as! CategoryRowTableViewCell
+            cell.currentVC = self
+            cell.categoryTitle.text = "        \(categories[indexPath.row])"
+            
+            // Green triangle on genre header
+            cell.leftTriangle.hidden = false
+            cell.rightTriangle.hidden = false
+            if indexPath.row % 2 == 0 {
+                cell.leftTriangle.hidden = true
             } else {
-                let cell = tableView.dequeueReusableCellWithIdentifier("categoryCell") as! CategoryRowTableViewCell
-                cell.currentVC = self
-                cell.categoryTitle.text = "        \(categories[indexPath.row])"
-                
-                if indexPath.row % 2 == 0 {
-                    cell.leftTriangle.hidden = true
-                } else {
-                    cell.rightTriangle.hidden = true
-                }
-                
-                if let movies = movies[categories[indexPath.row]] {
-                    cell.movies = movies
-                    cell.collectionView.reloadData()
-                }
-                return cell
+                cell.rightTriangle.hidden = true
             }
+            
+            // Loading movies
+            if let movies = movies[categories[indexPath.row]] {
+                cell.movies = movies
+            } else {
+                cell.movies = []
+            }
+             cell.collectionView.reloadData()
+            return cell
         }
     }
     
@@ -272,9 +289,7 @@ extension MainMoviesViewController: UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.row == 0 {
-            return 0
-        } else if indexPath.row % 3 == 0{
+        if categories[indexPath.row] == "empty_ShowMoviePreview" {
             return 250
         } else {
             return 200
@@ -288,6 +303,7 @@ extension MainMoviesViewController: UITableViewDelegate {
 extension MainMoviesViewController: UICollectionViewDataSource {
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        // Only show first 3 featured films or none, DB should always have at least 3
         return (features.count >= 3) ? 3 : 0
     }
     
