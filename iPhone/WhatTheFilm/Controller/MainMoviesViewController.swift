@@ -28,12 +28,14 @@ class MainMoviesViewController: UIViewController {
     // This is to show a movie preview, i.e. [cat1,cat2,cat3,"empty",cat4,cat5,cat6,"empty"...]
     // This is to show a  on every 3rd row i.e. row1:categories, row2:categories, row3:moviePreview.
     var categories: [String] = []
+    // Keeps the CGPoint-X positions of the categories cell
+    var categoriesScrolledPositions: [CGFloat]!
     
     var features: [(feature: Featured, movie: Movie)] = []
     var selectedFeature: Movie!
     
     var movies: [String : [Movie]] = [:]
-    
+    var isIphone4s = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +43,18 @@ class MainMoviesViewController: UIViewController {
         tableView.registerNib(UINib(nibName: "MoviePreviewCell", bundle: nil), forCellReuseIdentifier: "moviePreviewCell")
         
         fetchEverything()
+        
+        if view.bounds.size.height == 480 {
+            isIphone4s = true
+        }
+        
+        if isIphone4s {
+            tableViewHeader.frame.size.height = 235
+        } else {
+            tableViewHeader.frame.size.height = (view.bounds.size.height * 0.42)
+        }
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(scrollingCategoryCell), name: "ScrollingCategoryCell", object: nil)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(sendingAppToBackground), name: UIApplicationWillResignActiveNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(appEnteringForeground), name: UIApplicationDidBecomeActiveNotification, object: nil)
@@ -51,12 +65,6 @@ class MainMoviesViewController: UIViewController {
     }
 
     override func viewDidAppear(animated: Bool) {
-        print("tableview header height \(tableViewHeader.frame.size.height)")
-        print("tableview header width \(tableViewHeader.frame.size.width)")
-        
-        print("scrollview height \(featuredCollectionView.frame.size.height)")
-        print("scrollview width \(featuredCollectionView.frame.size.width)")
-
         resumeMoviePreview()
     }
     
@@ -73,10 +81,13 @@ class MainMoviesViewController: UIViewController {
         API_Helper.fetchGenres { (response, categories) in
             if response == 1 {
                 self.categories = categories
-                // print(categories)
+                self.categoriesScrolledPositions = [CGFloat](count: self.categories.count, repeatedValue: 0.0)
+//                print(categories)
+//                print(self.categoriesScrolledPositions)
                 
                 API_Helper.fetchFeatured { (response) in
                     self.features = response
+                    self.fireFeaturedFilmsTimer()
                     self.addMoreFeaturesIfNeeded()
                     self.featuredCollectionView.reloadData()
                 }
@@ -188,6 +199,13 @@ class MainMoviesViewController: UIViewController {
         }
     }
     
+    // Keeping track of the last position scrolled on the category cell
+    func scrollingCategoryCell(notification: NSNotification) {
+        let row = notification.userInfo!["row"] as! Int
+        let pointX = notification.userInfo!["pointX"] as! CGFloat
+        categoriesScrolledPositions[row] = pointX
+    }
+    
     func showAlert(withTitle title: String, andMsg msg: String) {
         let alertController = UIAlertController(title: title, message: msg, preferredStyle: UIAlertControllerStyle.Alert)
         let okAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default) { action in
@@ -250,6 +268,7 @@ extension MainMoviesViewController: UITableViewDataSource {
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier("categoryCell") as! CategoryRowTableViewCell
             cell.currentVC = self
+            cell.currentRow = indexPath.row
             cell.categoryTitle.text = "        \(categories[indexPath.row])"
             
             // Green triangle on genre header
@@ -267,7 +286,9 @@ extension MainMoviesViewController: UITableViewDataSource {
             } else {
                 cell.movies = []
             }
-             cell.collectionView.reloadData()
+            cell.collectionView.reloadData()
+            let pointXY = CGPoint(x: categoriesScrolledPositions[indexPath.row], y: 0.0)
+            cell.collectionView.setContentOffset(pointXY, animated: false)
             return cell
         }
     }
@@ -288,12 +309,38 @@ extension MainMoviesViewController: UITableViewDelegate {
         }
     }
     
+//    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+//        if indexPath.row == 0{
+//            print("cell size: \(cell.frame.size.height)")
+//        } else if indexPath.row == 3 {
+//            print("cell size: \(cell.frame.size.height)")
+//        }
+//    }
+    
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if categories[indexPath.row] == "empty_ShowMoviePreview" {
-            return 250
+            if isIphone4s {
+                return 245
+            } else {
+                return (view.bounds.size.height * 0.44)
+            }
+            
         } else {
-            return 200
+            if isIphone4s {
+                return 195
+            } else {
+                return (view.bounds.size.height * 0.35)
+            }
         }
+    }
+}
+
+extension MainMoviesViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+//        print(scrollView.contentOffset)
+//        let row = scrollView as! UITableView
+//        let indexpath = row.indexPathForRowAtPoint(scrollView.contentOffset)
+//        print(indexpath?.row)
     }
 }
 
@@ -314,11 +361,6 @@ extension MainMoviesViewController: UICollectionViewDataSource {
         cell.title.text = cell.movie.title
         cell.year.text = cell.movie.year.description
         cell.director.text = cell.movie.director
-        print("height of infocontainer: \(cell.infoContainer.frame.size.height)")
-        
-//        print("cell height \(cell.filmImage.frame.size.height)")
-//        print("cell width \(cell.filmImage.frame.size.width)")
-//        print("indexpath item: \(indexPath.item)")
         
         // Feature image download
         cell.filmImage.image = nil
@@ -351,7 +393,7 @@ extension MainMoviesViewController: UICollectionViewDelegate {
 
 extension MainMoviesViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSize(width: collectionView.bounds.width, height: 181)
+        return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height)
     }
 }
 

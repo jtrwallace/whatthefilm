@@ -11,37 +11,6 @@
         </mutableArray>
     </customFonts>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="wzA-Ky-qqN">
-            <objects>
-                <viewController id="hQN-B0-V0d" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="2vf-FJ-w1l"/>
-                        <viewControllerLayoutGuide type="bottom" id="ZEs-vu-ixJ"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="CKo-Tn-tPJ">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo2.png" translatesAutoresizingMaskIntoConstraints="NO" id="ye0-MN-xtg">
-                                <rect key="frame" x="235" y="235" width="130" height="130"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="130" id="F1G-gP-pGL"/>
-                                    <constraint firstAttribute="height" constant="130" id="gec-9r-Er2"/>
-                                </constraints>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="ye0-MN-xtg" firstAttribute="centerX" secondItem="CKo-Tn-tPJ" secondAttribute="centerX" id="GDE-FZ-pxf"/>
-                            <constraint firstItem="ye0-MN-xtg" firstAttribute="centerY" secondItem="CKo-Tn-tPJ" secondAttribute="centerY" id="Ig9-qw-cTZ"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="sv0-rq-sbG" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="54" y="-329"/>
-        </scene>
         <!--Main Movies View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
@@ -192,17 +161,17 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="eWV-MR-lzG" userLabel="titlesCollectionView">
-                                                    <rect key="frame" x="0.0" y="20" width="600" height="180"/>
+                                                    <rect key="frame" x="0.0" y="20" width="600" height="190"/>
                                                     <color key="backgroundColor" red="0.098039215690000001" green="0.098039215690000001" blue="0.098039215690000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="5" minimumInteritemSpacing="5" id="Lgl-qT-GqX">
                                                         <size key="itemSize" width="115" height="165"/>
                                                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                                        <inset key="sectionInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
+                                                        <inset key="sectionInset" minX="10" minY="5" maxX="10" maxY="5"/>
                                                     </collectionViewFlowLayout>
                                                     <cells>
                                                         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="movieTitleCollectionViewCell" id="eg6-wZ-7xp" customClass="MovieTitlesCollectionViewCell" customModule="WhatTheFilm" customModuleProvider="target">
-                                                            <rect key="frame" x="10" y="8" width="115" height="165"/>
+                                                            <rect key="frame" x="10" y="13" width="115" height="165"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                                 <rect key="frame" x="0.0" y="0.0" width="115" height="165"/>
@@ -241,14 +210,14 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D3E-rs-Z8F" userLabel="LeftTriangle" customClass="TriangleLeftView" customModule="WhatTheFilm" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="20" width="25" height="25"/>
+                                                    <rect key="frame" x="0.0" y="19" width="25" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="25" id="g68-73-Ef9"/>
                                                         <constraint firstAttribute="width" constant="25" id="mWU-5x-IB5"/>
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QlA-6c-40k" userLabel="RightTriangle" customClass="TriangleRightView" customModule="WhatTheFilm" customModuleProvider="target">
-                                                    <rect key="frame" x="575" y="20" width="25" height="25"/>
+                                                    <rect key="frame" x="575" y="19" width="25" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="25" id="u7j-NK-VUQ"/>
                                                         <constraint firstAttribute="height" constant="25" id="yxi-nj-5Ts"/>
@@ -258,11 +227,11 @@
                                             <color key="backgroundColor" red="0.098039215690000001" green="0.098039215690000001" blue="0.098039215690000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="eWV-MR-lzG" secondAttribute="trailing" id="1Tm-Ql-VDO"/>
-                                                <constraint firstItem="eWV-MR-lzG" firstAttribute="top" secondItem="QlA-6c-40k" secondAttribute="top" id="CnL-VS-TuY"/>
-                                                <constraint firstItem="eWV-MR-lzG" firstAttribute="top" secondItem="D3E-rs-Z8F" secondAttribute="top" id="LTO-El-XXe"/>
+                                                <constraint firstItem="eWV-MR-lzG" firstAttribute="top" secondItem="QlA-6c-40k" secondAttribute="top" constant="1" id="CnL-VS-TuY"/>
+                                                <constraint firstItem="eWV-MR-lzG" firstAttribute="top" secondItem="D3E-rs-Z8F" secondAttribute="top" constant="1" id="LTO-El-XXe"/>
                                                 <constraint firstItem="eWV-MR-lzG" firstAttribute="leading" secondItem="a7I-Bc-LRC" secondAttribute="leading" id="N1I-O3-GB7"/>
                                                 <constraint firstItem="RRV-kc-auB" firstAttribute="leading" secondItem="a7I-Bc-LRC" secondAttribute="leading" id="Sls-2G-rL5"/>
-                                                <constraint firstAttribute="bottom" secondItem="eWV-MR-lzG" secondAttribute="bottom" constant="10" id="cXB-0Z-CA2"/>
+                                                <constraint firstAttribute="bottom" secondItem="eWV-MR-lzG" secondAttribute="bottom" id="cXB-0Z-CA2"/>
                                                 <constraint firstItem="eWV-MR-lzG" firstAttribute="top" secondItem="RRV-kc-auB" secondAttribute="bottom" id="fus-eF-74S"/>
                                                 <constraint firstItem="RRV-kc-auB" firstAttribute="top" secondItem="a7I-Bc-LRC" secondAttribute="top" id="inT-gp-Y3z"/>
                                                 <constraint firstAttribute="trailing" secondItem="RRV-kc-auB" secondAttribute="trailing" id="vyH-Im-4EG"/>
@@ -377,7 +346,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="78" y="616"/>
+            <point key="canvasLocation" x="-268" y="559"/>
         </scene>
         <!--Search View Controller-->
         <scene sceneID="Cop-wQ-Eex">
@@ -422,7 +391,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="96" height="142"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo2.png" translatesAutoresizingMaskIntoConstraints="NO" id="Chg-Re-q9h">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Chg-Re-q9h">
                                                     <rect key="frame" x="0.0" y="0.0" width="96" height="142"/>
                                                 </imageView>
                                             </subviews>
@@ -470,7 +439,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Lf-PG-YR7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="953" y="616"/>
+            <point key="canvasLocation" x="581" y="559"/>
         </scene>
         <!--Movie Details View Controller-->
         <scene sceneID="Ppa-i3-aJG">
@@ -699,11 +668,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="McR-Yj-nZX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="581" y="1472"/>
+            <point key="canvasLocation" x="159" y="1466"/>
         </scene>
     </scenes>
     <resources>
-        <image name="Logo2.png" width="165" height="162"/>
         <image name="Search.png" width="22" height="22"/>
         <image name="closeButton.png" width="171" height="171"/>
         <image name="horiz.png" width="285" height="32"/>

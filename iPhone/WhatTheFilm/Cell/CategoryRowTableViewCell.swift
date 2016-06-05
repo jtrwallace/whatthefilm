@@ -20,6 +20,9 @@ class CategoryRowTableViewCell: UITableViewCell {
     var movies: [Movie] = []
     var selectedMovie: Movie!
     
+    let notifCenter = NSNotificationCenter.defaultCenter()
+    var currentRow: Int!
+    
     weak var currentVC: UIViewController!
 
     override func awakeFromNib() {
@@ -50,7 +53,6 @@ extension CategoryRowTableViewCell: UICollectionViewDataSource {
     
 }
 
-
 extension CategoryRowTableViewCell: UICollectionViewDelegateFlowLayout {
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let itemsPerRow:CGFloat = 2.75
@@ -67,6 +69,12 @@ extension CategoryRowTableViewCell: UICollectionViewDelegate {
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         selectedMovie = movies[indexPath.row]
         currentVC.performSegueWithIdentifier("MovieDetails", sender: self)
+    }
+}
+
+extension CategoryRowTableViewCell: UIScrollViewDelegate {
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        notifCenter.postNotificationName("ScrollingCategoryCell", object: nil, userInfo: ["row":currentRow, "pointX":scrollView.contentOffset.x])
     }
 }
 
