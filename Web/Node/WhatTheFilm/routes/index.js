@@ -45,6 +45,16 @@ module.exports = (function() {
     });
   });
   
+  router.get('/films/:id', function(req, res) {
+      connection.acquire(function(err, con) {
+          con.query('select * from films where id = ?', req.params.id, function(err, result) {
+              con.release();
+              var single = result[0];
+              res.render('film', { film: single});
+          })
+      });
+  });
+  
   router.get('/data/', function(req, res) {
     connection.acquire(function(err, con) {
       con.query('select * from films', function(err, filmsResult) {
