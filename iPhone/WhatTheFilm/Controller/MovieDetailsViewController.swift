@@ -15,6 +15,9 @@ import SwiftyJSON
 class MovieDetailsViewController: UIViewController {
 
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var contentView: UIView!
+    
+    
     var dismissVCHeight: CGFloat!
     
     @IBOutlet weak var movieImage: UIImageView!
@@ -64,9 +67,11 @@ class MovieDetailsViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         // To allow a scrollable VC even is there is not enough content to scroll
         // The strecherLine is fixed to bottom of contentView and has a top constraint to
-        // director-UILabel which is increased to 1pt past the height of the scrollview.
-        let directorLabelBottomYPostition = director.frame.origin.y + director.frame.size.height
-        strecherLineTopConstraint.constant = scrollView.frame.size.height - directorLabelBottomYPostition
+        // director-UILabel which is increased to 1pt past the height of the scrollview if there is not enough content
+        if contentView.frame.size.height < scrollView.frame.size.height {
+            let directorLabelBottomYPostition = director.frame.origin.y + director.frame.size.height
+            strecherLineTopConstraint.constant = scrollView.frame.size.height - directorLabelBottomYPostition
+        }
     }
     
     override func viewWillDisappear(animated: Bool) {

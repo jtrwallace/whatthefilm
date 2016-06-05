@@ -488,7 +488,7 @@
                                 <rect key="frame" x="0.0" y="20" width="600" height="730"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nrk-s0-54A" userLabel="ContentView">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="649"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="624"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DbZ-gZ-Z9K" userLabel="placeholder">
                                                 <rect key="frame" x="0.0" y="0.0" width="600" height="314"/>
@@ -593,8 +593,8 @@
                                                 <color key="textColor" red="0.43921568630000002" green="0.43921568630000002" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lwf-kr-ccR" userLabel="StrecherLine">
-                                                <rect key="frame" x="0.0" y="648" width="600" height="1"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lwf-kr-ccR" userLabel="StrecherLine">
+                                                <rect key="frame" x="0.0" y="623" width="600" height="1"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="BJ1-7J-geU"/>
                                                 </constraints>
@@ -627,7 +627,7 @@
                                             <constraint firstAttribute="trailing" secondItem="8Dm-pi-RsS" secondAttribute="trailing" constant="8" id="gQB-hd-A20"/>
                                             <constraint firstItem="UtV-5K-V8Y" firstAttribute="top" secondItem="WpO-u0-jrz" secondAttribute="bottom" constant="-20" id="gZr-Fm-X45"/>
                                             <constraint firstItem="Axn-P5-WdI" firstAttribute="centerX" secondItem="DbZ-gZ-Z9K" secondAttribute="centerX" id="jcH-EX-v7P"/>
-                                            <constraint firstItem="lwf-kr-ccR" firstAttribute="top" secondItem="eQM-or-mnp" secondAttribute="bottom" constant="50" id="lEt-aY-PzI"/>
+                                            <constraint firstItem="lwf-kr-ccR" firstAttribute="top" secondItem="eQM-or-mnp" secondAttribute="bottom" constant="25" id="lEt-aY-PzI"/>
                                             <constraint firstItem="8Dm-pi-RsS" firstAttribute="leading" secondItem="nrk-s0-54A" secondAttribute="leading" constant="8" id="laS-T1-Fbd"/>
                                             <constraint firstItem="8NA-DO-MuW" firstAttribute="top" secondItem="bIx-PW-aRL" secondAttribute="bottom" constant="8" id="n96-NS-0vt"/>
                                             <constraint firstAttribute="trailing" secondItem="WpO-u0-jrz" secondAttribute="trailing" id="pGw-GB-dxp"/>
@@ -644,6 +644,7 @@
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="nrk-s0-54A" secondAttribute="trailing" id="AJ4-pi-huO"/>
                                     <constraint firstItem="nrk-s0-54A" firstAttribute="leading" secondItem="sxO-mt-1K8" secondAttribute="leading" id="BMA-wJ-RPD"/>
+                                    <constraint firstItem="WpO-u0-jrz" firstAttribute="width" secondItem="sxO-mt-1K8" secondAttribute="width" id="D0P-kM-KFR"/>
                                     <constraint firstItem="DbZ-gZ-Z9K" firstAttribute="height" secondItem="sxO-mt-1K8" secondAttribute="height" multiplier="0.43" id="GL8-T1-V1x"/>
                                     <constraint firstItem="UtV-5K-V8Y" firstAttribute="width" secondItem="sxO-mt-1K8" secondAttribute="width" multiplier="0.8" id="I1n-TN-FLr"/>
                                     <constraint firstAttribute="bottom" secondItem="nrk-s0-54A" secondAttribute="bottom" id="MuB-uN-JOt"/>
@@ -672,7 +673,6 @@
                         <constraints>
                             <constraint firstItem="sxO-mt-1K8" firstAttribute="top" secondItem="9Xd-En-Lso" secondAttribute="bottom" id="5C7-C1-hmC"/>
                             <constraint firstAttribute="trailing" secondItem="sxO-mt-1K8" secondAttribute="trailing" id="5xa-TW-1bM"/>
-                            <constraint firstItem="nrk-s0-54A" firstAttribute="width" secondItem="H4q-FW-xWg" secondAttribute="width" id="Al9-aG-vte"/>
                             <constraint firstItem="lLH-uZ-2UE" firstAttribute="top" secondItem="9Xd-En-Lso" secondAttribute="bottom" constant="8" id="FH0-Cw-jOe"/>
                             <constraint firstItem="tUm-vc-9Wl" firstAttribute="top" secondItem="sxO-mt-1K8" secondAttribute="bottom" id="dY9-vC-fMc"/>
                             <constraint firstItem="sxO-mt-1K8" firstAttribute="leading" secondItem="H4q-FW-xWg" secondAttribute="leading" id="jYE-4y-KhT"/>
@@ -683,6 +683,7 @@
                     <size key="freeformSize" width="600" height="750"/>
                     <connections>
                         <outlet property="cast" destination="bIx-PW-aRL" id="J7J-M6-6C7"/>
+                        <outlet property="contentView" destination="nrk-s0-54A" id="al3-y7-1Hu"/>
                         <outlet property="director" destination="eQM-or-mnp" id="CHV-y4-fkj"/>
                         <outlet property="duration" destination="2Uo-Ml-AYf" id="Dj7-Zr-xva"/>
                         <outlet property="genre" destination="8NA-DO-MuW" id="UG2-QX-0WG"/>
