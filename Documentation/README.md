@@ -27,3 +27,7 @@ https://docs.google.com/a/ucsc.edu/document/d/1QA94hWvlXaDcgiBM7ZIVbiZ2j3wWHBDik
 
 - Working Prototype/Known Problems:
 https://docs.google.com/a/ucsc.edu/document/d/1EOOVTGcUxR9Ojd-TBS8TKFNU30LpqLuXprWTBmdCdiE/edit?usp=sharing
+
+- Final Presentation:
+https://docs.google.com/a/ucsc.edu/presentation/d/1Fl9XZilToH1mH2lICzVGlUx_Su67oAmkS1ZVnwAFcx4/edit?usp=sharing
+
