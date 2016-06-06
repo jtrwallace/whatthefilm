@@ -27,7 +27,6 @@ class MoviePreviewTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
         activityIndicator.hidesWhenStopped = true
     }
     
@@ -35,6 +34,7 @@ class MoviePreviewTableViewCell: UITableViewCell {
         let url = NSURL(string: feature.videoLink)!
         playerItem = AVPlayerItem(URL: url)
         player=AVPlayer(playerItem: playerItem!)
+        
         playerView.playerLayer.player = player
         playerView.playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
         player?.play()

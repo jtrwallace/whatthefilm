@@ -12,22 +12,24 @@ class CategoryRowTableViewCell: UITableViewCell {
     
     @IBOutlet weak var categoryTitle: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
+    
+    @IBOutlet weak var genreTitle: UILabel!
+    @IBOutlet weak var leftTriangle: UIView!
+    @IBOutlet weak var rightTriangle: UIView!
 
     var movies: [Movie] = []
     var selectedMovie: Movie!
+    
+    let notifCenter = NSNotificationCenter.defaultCenter()
+    var currentRow: Int!
     
     weak var currentVC: UIViewController!
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        genreTitle.backgroundColor = StyleConstants.greenForGenres
     }
-
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        // Configure the view for the selected state
-    }
-
 }
 
 
@@ -51,7 +53,6 @@ extension CategoryRowTableViewCell: UICollectionViewDataSource {
     
 }
 
-
 extension CategoryRowTableViewCell: UICollectionViewDelegateFlowLayout {
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let itemsPerRow:CGFloat = 2.75
@@ -68,6 +69,12 @@ extension CategoryRowTableViewCell: UICollectionViewDelegate {
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         selectedMovie = movies[indexPath.row]
         currentVC.performSegueWithIdentifier("MovieDetails", sender: self)
+    }
+}
+
+extension CategoryRowTableViewCell: UIScrollViewDelegate {
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        notifCenter.postNotificationName("ScrollingCategoryCell", object: nil, userInfo: ["row":currentRow, "pointX":scrollView.contentOffset.x])
     }
 }
 

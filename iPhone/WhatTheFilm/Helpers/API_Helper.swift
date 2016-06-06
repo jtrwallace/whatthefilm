@@ -27,15 +27,20 @@ class API_Helper {
     // "http://whatthefilm.us-west-1.elasticbeanstalk.com/api/genres/[genre]"
     // So /api/genres/drama returns the Discretion JSON object among others
     
-    // Returs list of featured films
+    // Returns list of featured films
     static let requestFeatured = "http://whatthefilm.us-west-1.elasticbeanstalk.com/api/featured/"
     
+    // Returns results for string searched
+    static let requestSearch = "http://whatthefilm.us-west-1.elasticbeanstalk.com/api/search/"
+    // Results are of the form;
+    // {"title":[],"genre":[],"category":[],"description":[],"summary":[]}
+    
 
-    // Queries DB to get the array of categories
+    // Queries DB to get the array of Genres
     // A new array is returned in callback which contains 'empty' on every
     // 3rd value.
-    class func fetchCategories(completionBlock: (Int,[String])->Void) {
-        Alamofire.request(.GET, API_Helper.requestCategories).responseJSON { (response) in
+    class func fetchGenres(completionBlock: (Int,[String])->Void) {
+        Alamofire.request(.GET, API_Helper.requestGenres).responseJSON { (response) in
             switch response.result {
             case .Success:
                 if let value = response.result.value {
@@ -46,7 +51,7 @@ class API_Helper {
                     // Sorts array of categories ignoring upper/lower case
                     // self.categories.sortInPlace { $0.localizedCompare($1) == NSComparisonResult.OrderedAscending }
                     
-                    completionBlock(1,self.categoriesWithEmptyValues(fromArr: catsOnServer))
+                    completionBlock(1,self.genresWithEmptyValues(fromArr: catsOnServer))
                 }
             case .Failure(let error):
                 completionBlock(0, [error.localizedDescription])
@@ -60,12 +65,12 @@ class API_Helper {
     class func fetchMovies(fromCategory category: String, completionBlock: ([String: [Movie]])->Void) {
         // To allow categories with spaces
         let urlTextEscaped = category.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
-        let url = "\(requestCategories)\(urlTextEscaped)"
+        let url = "\(requestGenres)\(urlTextEscaped)"
         Alamofire.request(.GET, url).responseJSON { (response) in
             switch response.result {
             case .Success:
                 if let value = response.result.value {
-                    print("json: \(JSON(value)) with category: \(category)")
+                    // print("json: \(JSON(value)) with category: \(category)")
                     let moviesJSON = JSON(value).array
                     var moviesArr = [Movie]()
                     for movie in moviesJSON! {
@@ -105,30 +110,98 @@ class API_Helper {
         }
     }
     
-    
-    // Returns categories string array with "empty" on '3rd' values 
-    // (to show movie preview on every 3rd row)
-    // i.e. ["empty",cat1,cat2,"empty",cat3,cat4,"empty"...]
-    // @param : array of categories as fetched from the server
-    class func categoriesWithEmptyValues(fromArr arr: [String]) -> [String] {
-        var categories = [String]()
-        for (i, cat) in arr.enumerate() {
-            if i % 2 == 0 {
-                categories.append("empty")
-                categories.append(cat)
+    class func searchWithString(string: String, completionBlock: [Movie] -> Void) -> Alamofire.Request {
+        // To allow searches with spaces
+        let urlTextEscaped = string.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
+        let url = requestSearch + urlTextEscaped
+        
+        var request: Alamofire.Request!
+        request = Alamofire.request(.GET, url).responseJSON(completionHandler: { (response) in
+            switch response.result {
+            case .Success:
+                if let value = response.result.value {
+                    let foundByTitle = JSON(value)["title"].array!
+                    let foundByGenre = JSON(value)["genre"].array!
+                    let foundByCategory = JSON(value)["category"].array!
+                    let foundByDescription = JSON(value)["description"].array!
+                    let foundBySummary = JSON(value)["summary"].array!
+                    let allFound = [foundByTitle,foundByGenre,foundByCategory,foundByDescription,foundBySummary]
+                    
+                    // For the purposes of this project will return all movies in one array
+                    // without referencing where the movie was found.
+                    
+                    var movies = [Movie]()
+                    var addedID = [Int]()
+                    for found in allFound {
+                        if !found.isEmpty {
+                            for movie in found {
+                                let toAdd = (Movie(json: movie))
+                                if !addedID.contains(toAdd.id) {
+                                    movies.append(Movie(json: movie))
+                                }
+                                addedID.append(toAdd.id)
+                            }
+                        }
+                    }
+                    completionBlock(movies)
+                }
                 
+            case .Failure(let error):
+                print("API_Helper searchWithString error: \(error)")
+            }
+        })
+        return request
+    }
+    
+    
+    // Returns Genres string array with "empty" on '4th' values
+    // (to show movie preview on every 4th row)
+    // i.e. [cat1,cat2,cat3,"empty",cat3,cat4,cat5,"empty"...]
+    // @param : array of categories as fetched from the server
+    class func genresWithEmptyValues(fromArr arr: [String]) -> [String] {
+        var categories = [String]()
+        var counter = 0
+        for cat in arr {
+            if counter == 3 {
+                categories.append("empty_ShowMoviePreview")
+                categories.append(cat)
+                counter = 1
             } else {
                 categories.append(cat)
+                counter += 1
             }
         }
-        // Base case for when fetched arr has 2 elements
-        // for-loop above adds the first empty, and this next condition adds the 3rd
-        // thus [cat1, cat2] becomes [empty,cat1,cat2,empty]
-        if categories.count % 3 == 0 {
-            categories.append("empty")
+        // Base case
+        if categories.count == 3 {
+            categories.append("empty_ShowMoviePreview")
         }
         return categories
     }
+    
+    // NOT USED ANYMORE - Older way of showing 'empty'
+//    // Returns categories string array with "empty" on '3rd' values
+//    // (to show movie preview on every 3rd row)
+//    // i.e. ["empty",cat1,cat2,"empty",cat3,cat4,"empty"...]
+//    // @param : array of categories as fetched from the server
+//    class func categoriesWithEmptyValues(fromArr arr: [String]) -> [String] {
+//        var categories = [String]()
+//        for (i, cat) in arr.enumerate() {
+//            if i % 2 == 0 {
+//                categories.append("empty")
+//                categories.append(cat)
+//                
+//            } else {
+//                categories.append(cat)
+//            }
+//        }
+//        // Base case for when fetched arr has 2 elements
+//        // for-loop above adds the first empty, and this next condition adds the 3rd
+//        // thus [cat1, cat2] becomes [empty,cat1,cat2,empty]
+//        if categories.count % 3 == 0 {
+//            categories.append("empty")
+//        }
+//        return categories
+//    }
     
 }
 
