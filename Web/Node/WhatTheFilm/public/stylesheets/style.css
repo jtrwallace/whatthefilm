@@ -288,3 +288,14 @@ ul {
     width: 100%;
     height: 20px;
 }
+
+a {
+    color: #F4B94B;
+    text-decoration: none;
+    font-size: 15pt;
+}
+
+a:hover {
+    color: #C06455;
+    text-decoration: none;
+}
